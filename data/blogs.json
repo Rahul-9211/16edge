@@ -1,0 +1,22 @@
+{
+  "blogs": [
+    {
+      "id": "1",
+      "title": "Building Scalable Applications with Next.js",
+      "description": "Learn how to build and scale applications using Next.js framework",
+      "content": "Next.js has become the go-to framework for building modern web applications...",
+      "date": "2024-03-20",
+      "readTime": "5 min",
+      "tags": ["Next.js", "React", "Web Development"]
+    },
+    {
+      "id": "2",
+      "title": "Modern State Management in React",
+      "description": "Exploring different state management solutions in React applications",
+      "content": "State management is a crucial aspect of building React applications...",
+      "date": "2024-03-18",
+      "readTime": "4 min",
+      "tags": ["React", "State Management", "JavaScript"]
+    }
+  ]
+}
