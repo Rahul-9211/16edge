@@ -1,10 +1,13 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
-import { getBlogPosts } from "@/lib/blog/data";
+import { Blog } from "@/lib/blog/types";
 
-export async function FeaturedPosts() {
-  const posts = await getBlogPosts();
+interface FeaturedPostsProps {
+  posts: Blog[];
+}
+
+export async function FeaturedPosts({ posts }: FeaturedPostsProps) {
   const featuredPosts = posts.slice(0, 3);
 
   return (
@@ -17,20 +20,21 @@ export async function FeaturedPosts() {
       </div>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {featuredPosts.map((post) => (
-          <Link key={post.id} href={`/blog/${post.id}`}>
+          <Link key={post._id} href={`/blog/${post.slug}`}>
             <Card className="h-full transition-all hover:shadow-lg">
               <CardHeader>
                 <CardTitle className="line-clamp-2">{post.title}</CardTitle>
                 <div className="flex items-center gap-2 mt-2 text-sm text-muted-foreground">
-                  <span>{post.date}</span>
-                  <span>•</span>
-                  <span>{post.readTime}</span>
+                  <time dateTime={new Date(post.publishDate).toISOString()}>
+                    {new Date(post.publishDate).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    })}
+                  </time>
                 </div>
               </CardHeader>
               <CardContent>
-                <p className="mb-4 text-muted-foreground line-clamp-3">
-                  {post.description}
-                </p>
                 <div className="flex flex-wrap gap-2">
                   {post.tags.slice(0, 3).map((tag) => (
                     <Badge key={tag} variant="secondary">
