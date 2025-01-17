@@ -1,39 +1,32 @@
+import { error } from 'console';
 import clientPromise from '../mongodb';
 import { Blog } from './types';
 
-export async function getBlogs(): Promise<Blog[]> {
+export async function getBlogs(page: number = 1, limit: number = 10): Promise<Blog[]> {
   try {
     const client = await clientPromise;
-    console.log('Attempting to fetch blogs...');
     const db = client.db(process.env.MONGODB_DB);
-    let uniqueBlogs = new Map();
-    let blogs = await db
+
+    const skip = (page - 1) * limit;
+    const blogs = await db
       .collection('blogs')
       .find({})
       .project({ 
         title: 1, 
         slug: 1, 
+        content: 1,
         tags: 1, 
         publishDate: 1, 
         featuredImage: 1 
       })
       .sort({ publishDate: -1 })
+      .skip(skip)
+      .limit(limit)
       .toArray();
 
-    // console.log(`Successfully fetched ${blogs[0].title} blogs`);
-    // console.log("🚀 ~ getBlogs ~ uniqueBlogs:", uniqueBlogs)
-    blogs.forEach((blog)=>{
-      if(!uniqueBlogs.has(blog.slug)){
-        // console.log("🚀 ~ blogs.forEach ~ blog:", blog)
-        uniqueBlogs.set(blog.slug, blog)
-      }
-    })
-     blogs = Array.from(uniqueBlogs.values());
-    
     return JSON.parse(JSON.stringify(blogs));
   } catch (error) {
-    const err = error as Error;
-    console.error('Failed to fetch blogs:', err.message, err.stack);
+    console.error('Failed to fetch blogs:', error);
     return [];
   }
 }
@@ -70,5 +63,47 @@ export async function createBlog(blog: Omit<Blog, '_id'>): Promise<Blog | null> 
   } catch (error) {
     console.error('Failed to create blog:', error);
     return null;
+  }
+}
+
+// import { Blog } from "./types";
+
+export async function fetchBlogs(page: number = 1, limit: number = 10) {
+  // console.log("🚀 ~ fetchBlogs ~ limit:", limit)
+  // console.log("🚀 ~ fetchBlogs ~ page:", page)
+  try {
+    const client = await clientPromise;
+    const db = client.db("test");
+    const collection = db.collection<Blog>("blogs");
+
+    // Calculate skip value for pagination
+    const skip = (page - 1) * limit;
+
+    // Get total count of documents
+    const totalDocs = await collection.countDocuments();
+    const totalPages = Math.ceil(totalDocs / limit);
+
+    // Fetch blogs with pagination
+    const blogs = await collection
+      .find()
+      .sort({ publishDate: -1 }) // Sort by publish date descending
+      .skip(skip)
+      .limit(limit)
+      .toArray();
+
+    return {
+      data: blogs,
+      currentPage: page,
+      totalPages,
+      totalDocs,
+    };
+  } catch (error) {
+    console.error('Error fetching blogs:', error);
+    return {
+      data: [],
+      currentPage: page,
+      totalPages: 0,
+      totalDocs: 0,
+    };
   }
 }

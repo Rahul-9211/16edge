@@ -1,30 +1,30 @@
-import { getBlogs } from '@/lib/blog/data';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { fetchBlogs } from "@/lib/blog/data";
 import Link from "next/link";
-import { Metadata } from 'next';
+import React from "react";
+import { Button } from "@/components/ui/button";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
-export const metadata: Metadata = {
-  title: 'Blog | Your Name',
-  description: 'Read my latest thoughts on software development, web technologies, and more.',
-  openGraph: {
-    title: 'Blog | Your Name',
-    description: 'Read my latest thoughts on software development, web technologies, and more.',
-    type: 'website',
-    url: 'https://yourwebsite.com/blog',
-  },
-};
+interface BlogsPageProps {
+  searchParams: {
+    page?: string;
+  };
+}
 
-export default async function BlogPage() {
-  const blogs = await getBlogs();
+const ITEMS_PER_PAGE = 9; // Number of blogs per page
+
+const BlogsPage = async ({ searchParams }: BlogsPageProps) => {
+  const currentPage = Number(searchParams.page) || 1;
+  const { data: blogs, totalPages } = await fetchBlogs(currentPage, ITEMS_PER_PAGE);
 
   return (
     <div className="container px-4 py-16 mx-auto">
       <h1 className="mb-12 text-4xl font-bold text-center">Latest Posts</h1>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {blogs.map((blog) => (
-          <Link 
-            key={blog._id} 
+          <Link
+            key={blog._id}
             href={`/blog/${blog.slug}`}
             className="transition-transform hover:scale-[1.02]"
           >
@@ -63,6 +63,43 @@ export default async function BlogPage() {
           </Link>
         ))}
       </div>
+
+      {/* Pagination */}
+      <div className="flex justify-center gap-2 mt-8">
+        <Button
+          variant="outline"
+          disabled={currentPage <= 1}
+          asChild
+        >
+          <Link href={`/blog?page=${currentPage - 1}`}>
+            <ChevronLeft className="w-4 h-4 mr-2" />
+            Previous
+          </Link>
+        </Button>
+        <div className="flex items-center gap-2 px-4">
+          <span className="text-sm text-muted-foreground">
+            Page {currentPage} of {totalPages}
+          </span>
+        </div>
+        <Button
+          variant="outline"
+          disabled={currentPage >= totalPages}
+          asChild
+        >
+          <Link href={`/blog?page=${currentPage + 1}`}>
+            Next
+            <ChevronRight className="w-4 h-4 ml-2" />
+          </Link>
+        </Button>
+      </div>
     </div>
   );
-}
+};
+
+export default BlogsPage;
+
+
+
+
+
+

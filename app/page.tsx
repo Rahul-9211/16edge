@@ -8,7 +8,7 @@ import { getBlogs } from "@/lib/blog/data";
 export default async function Home() {
   const projects = await getAllProjects();
   const posts = await getBlogs();
-  console.log("🚀 ~ Home ~ posts:", posts)
+  // console.log("🚀 ~ Home ~ posts:", posts)
   return (
     <>
      <div className="min-h-screen ">

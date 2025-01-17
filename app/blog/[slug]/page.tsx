@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { Badge } from '@/components/ui/badge';
 import ReactMarkdown from 'react-markdown';
+import { fetchBlogs } from "@/lib/blog/data";
 
 interface BlogPostPageProps {
   params: {
@@ -12,14 +13,10 @@ interface BlogPostPageProps {
 
 // Generate static params for all blog posts
 export async function generateStaticParams() {
-  const blogs = await getBlogs();
-  const slugs = blogs.map((blog) => ({
+  const { data: blogs } = await fetchBlogs(1, 100); // Fetch all blogs or a reasonable limit
+  return blogs.map((blog) => ({
     slug: blog.slug,
   }));
-  
-  console.log("Generated slugs for static params:", slugs);
-  
-  return slugs;
 }
 
 // Generate metadata for each blog post
@@ -54,8 +51,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const blog = await getBlogBySlug(params.slug);
-  // console.log("🚀 ~ BlogPostPage ~ blog:", blog?.content)
-
+  
   if (!blog) {
     notFound();
   }

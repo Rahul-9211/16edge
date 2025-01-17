@@ -8,6 +8,13 @@ export interface Blog {
   featuredImage: string;
 }
 
+export interface BlogsResponse {
+  data: Blog[];
+  currentPage: number;
+  totalPages: number;
+  totalDocs: number;
+}
+
 export interface BlogConnection {
   url: string;
 }
