@@ -1,9 +1,20 @@
-export interface BlogPost {
-  id: string;
+export interface Blog {
+  _id: string;
   title: string;
-  description: string;
+  slug: string;
   content: string;
-  date: string;
-  readTime: string;
   tags: string[];
+  publishDate: Date;
+  featuredImage: string;
+}
+
+export interface BlogsResponse {
+  data: Blog[];
+  currentPage: number;
+  totalPages: number;
+  totalDocs: number;
+}
+
+export interface BlogConnection {
+  url: string;
 }
