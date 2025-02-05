@@ -22,6 +22,15 @@ export async function FeaturedPosts({ posts }: FeaturedPostsProps) {
         {featuredPosts.map((post) => (
           <Link key={post._id} href={`/blog/${post.slug}`}>
             <Card className="h-full transition-all hover:shadow-lg">
+            {post.featuredImage && (
+                <div className="relative w-full h-48 overflow-hidden">
+                  <img
+                    src={post.featuredImage}
+                    alt={post.title}
+                    className="object-cover w-full h-full"
+                  />
+                </div>
+              )}
               <CardHeader>
                 <CardTitle className="line-clamp-2">{post.title}</CardTitle>
                 <div className="flex items-center gap-2 mt-2 text-sm text-muted-foreground">

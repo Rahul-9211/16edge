@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .border-border {
+    border-color: hsl(var(--border));
+  }
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -84,11 +90,14 @@
 
 
 .medium-markdown {
-  /* font-family: 'Georgia', serif; */
   line-height: 1.6;
   color: #333;
   background-color: transparent;
   padding: 20px;
+}
+
+.dark .medium-markdown {
+  color: #e1e1e1;
 }
 
 .medium-markdown h1, 
@@ -97,10 +106,18 @@
 .medium-markdown h4, 
 .medium-markdown h5, 
 .medium-markdown h6 {
-  /* font-family: 'Merriweather', serif; */
   color: #222;
   margin-top: 1.5em;
   margin-bottom: 0.5em;
+}
+
+.dark .medium-markdown h1,
+.dark .medium-markdown h2,
+.dark .medium-markdown h3,
+.dark .medium-markdown h4,
+.dark .medium-markdown h5,
+.dark .medium-markdown h6 {
+  color: #ffffff;
 }
 
 .medium-markdown h1 {
@@ -136,6 +153,10 @@
   text-decoration: none;
 }
 
+.dark .medium-markdown a {
+  color: #88a4ff;
+}
+
 .medium-markdown a:hover {
   text-decoration: underline;
 }
@@ -157,11 +178,21 @@
   border-radius: 4px;
 }
 
+.dark .medium-markdown code {
+  background-color: #2d2d2d;
+  color: #e1e1e1;
+}
+
 .medium-markdown pre {
   background-color: #f4f4f4;
   padding: 10px;
   border-radius: 4px;
   overflow-x: auto;
+}
+
+.dark .medium-markdown pre {
+  background-color: #2d2d2d;
+  color: #e1e1e1;
 }
 
 .medium-markdown blockquote {
@@ -170,6 +201,11 @@
   color: #666;
   margin: 1.5em 0;
   font-style: italic;
+}
+
+.dark .medium-markdown blockquote {
+  border-left-color: #4a4a4a;
+  color: #b0b0b0;
 }
 
 .medium-markdown img {
