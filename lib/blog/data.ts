@@ -1,6 +1,6 @@
 import { error } from 'console';
 import clientPromise from '../mongodb';
-import { Blog } from './types';
+import { Blog, BlogsResponse } from './types';
 
 export async function getBlogs(page: number = 1, limit: number = 10): Promise<Blog[]> {
   try {
@@ -66,44 +66,54 @@ export async function createBlog(blog: Omit<Blog, '_id'>): Promise<Blog | null> 
   }
 }
 
-// import { Blog } from "./types";
+interface FetchOptions {
+  cache?: 'no-store' | 'force-cache';
+}
 
-export async function fetchBlogs(page: number = 1, limit: number = 10) {
-  // console.log("🚀 ~ fetchBlogs ~ limit:", limit)
-  // console.log("🚀 ~ fetchBlogs ~ page:", page)
+export async function fetchBlogs(
+  page: number = 1, 
+  limit: number = 10,
+  options: FetchOptions = {}
+): Promise<BlogsResponse> {
   try {
     const client = await clientPromise;
-    const db = client.db("test");
-    const collection = db.collection<Blog>("blogs");
+    const db = client.db(process.env.MONGODB_DB);
 
-    // Calculate skip value for pagination
     const skip = (page - 1) * limit;
-
-    // Get total count of documents
-    const totalDocs = await collection.countDocuments();
-    const totalPages = Math.ceil(totalDocs / limit);
-
-    // Fetch blogs with pagination
-    const blogs = await collection
-      .find()
-      .sort({ publishDate: -1 }) // Sort by publish date descending
+    
+    // Use the no-cache option when fetching
+    const blogs = await db
+      .collection('blogs')
+      .find({})
+      .project({ 
+        title: 1, 
+        slug: 1, 
+        content: 1,
+        tags: 1, 
+        publishDate: 1, 
+        featuredImage: 1 
+      })
+      .sort({ publishDate: -1 })
       .skip(skip)
       .limit(limit)
       .toArray();
 
+    const totalDocs = await db.collection('blogs').countDocuments();
+    const totalPages = Math.ceil(totalDocs / limit);
+
     return {
-      data: blogs,
+      data: JSON.parse(JSON.stringify(blogs)),
       currentPage: page,
       totalPages,
-      totalDocs,
+      totalDocs
     };
   } catch (error) {
-    console.error('Error fetching blogs:', error);
+    console.error('Failed to fetch blogs:', error);
     return {
       data: [],
       currentPage: page,
       totalPages: 0,
-      totalDocs: 0,
+      totalDocs: 0
     };
   }
 }

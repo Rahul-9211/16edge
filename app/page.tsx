@@ -4,6 +4,8 @@ import { HeroSection } from "@/components/sections/hero";
 import { SkillsSection } from "@/components/sections/skills";
 import { FeaturedPosts } from "@/components/sections/featured-posts";
 import { getBlogs } from "@/lib/blog/data";
+import { Suspense } from "react";
+import { Loader } from "@/components/ui/loader";
 
 export default async function Home() {
   const projects = await getAllProjects();
@@ -12,10 +14,16 @@ export default async function Home() {
   return (
     <>
      <div className="min-h-screen ">
-      <HeroSection />
+      <Suspense fallback={<Loader size="large" />}>
+        <HeroSection />
+      </Suspense>
       <SkillsSection />
-      <FeaturedProjects projects={projects} />
-      <FeaturedPosts posts={posts} />
+      <Suspense fallback={<Loader />}>
+        <FeaturedProjects projects={projects} />
+      </Suspense>
+      <Suspense fallback={<Loader />}>
+        <FeaturedPosts posts={posts} />
+      </Suspense>
     </div>
       {/* Other sections */}
     </>
