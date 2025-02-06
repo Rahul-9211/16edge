@@ -52,7 +52,7 @@ export function MainNav() {
         <div className="flex items-center justify-end flex-1 gap-2">
           <ModeToggle />
           <Button asChild>
-            <Link href="mailto:contact@hackrest.com">
+            <Link href="mailto:rahul.rawat.fec@gmail.com">
               Contact
             </Link>
           </Button>

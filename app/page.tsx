@@ -1,31 +1,71 @@
 import { getAllProjects } from "@/lib/projects/data";
-import { FeaturedProjects } from "@/components/sections/featured-projects";
-import { HeroSection } from "@/components/sections/hero";
-import { SkillsSection } from "@/components/sections/skills";
-import { FeaturedPosts } from "@/components/sections/featured-posts";
-import { getBlogs } from "@/lib/blog/data";
 import { Suspense } from "react";
 import { Loader } from "@/components/ui/loader";
+import { HeroSection } from "@/components/sections/hero";
+import { PartnersSection } from "@/components/sections/partners";
+import { ServicesSection } from "@/components/sections/services";
+import { WorkProcessSection } from "@/components/sections/work-process";
+import { StatsSection } from "@/components/sections/stats";
+import { TechStackSection } from "@/components/sections/tech-stack";
+import { FeaturedProjects } from "@/components/sections/featured-projects";
+import { TestimonialsSection } from "@/components/sections/testimonials";
+import { FAQSection } from "@/components/sections/faq";
+import { CTASection } from "@/components/sections/cta";
 
 export default async function Home() {
   const projects = await getAllProjects();
-  const posts = await getBlogs();
-  // console.log("🚀 ~ Home ~ posts:", posts)
+
   return (
-    <>
-     <div className="min-h-screen ">
+    <main className="flex flex-col min-h-screen">
+      {/* Hero Section */}
       <Suspense fallback={<Loader size="large" />}>
         <HeroSection />
       </Suspense>
-      <SkillsSection />
+
+      {/* Partners/Clients */}
+      {/* <Suspense fallback={<Loader />}>
+        <PartnersSection />
+      </Suspense> */}
+
+      {/* Services */}
+      <Suspense fallback={<Loader />}>
+        <ServicesSection />
+      </Suspense>
+
+      {/* Work Process */}
+      <Suspense fallback={<Loader />}>
+        <WorkProcessSection />
+      </Suspense>
+
+      {/* Stats */}
+      <Suspense fallback={<Loader />}>
+        <StatsSection />
+      </Suspense>
+
+      {/* Tech Stack */}
+      <Suspense fallback={<Loader />}>
+        <TechStackSection />
+      </Suspense>
+
+      {/* Featured Projects */}
       <Suspense fallback={<Loader />}>
         <FeaturedProjects projects={projects} />
       </Suspense>
+
+      {/* Testimonials */}
       <Suspense fallback={<Loader />}>
-        <FeaturedPosts posts={posts} />
+        <TestimonialsSection />
       </Suspense>
-    </div>
-      {/* Other sections */}
-    </>
+
+      {/* FAQ */}
+      <Suspense fallback={<Loader />}>
+        <FAQSection />
+      </Suspense>
+
+      {/* CTA */}
+      <Suspense fallback={<Loader />}>
+        <CTASection />
+      </Suspense>
+    </main>
   );
 }

@@ -24,9 +24,9 @@ export function MainNav() {
   return (
     <div className="border-b sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <header className="w-full max-w-[1440px] mx-auto">
-        <div className="container flex items-center h-20">
+        <div className="container flex items-center h-20 m-auto pl-2  sm:pl-0">
           {/* Logo Section */}
-          <div className="w-[180px]">
+          <div className="w-[180px] ">
             <Logo />
           </div>
 
