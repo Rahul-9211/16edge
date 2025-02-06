@@ -13,6 +13,8 @@ const config: Config = {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'grid-black': 'url("/grid.svg")',
+        'grid-white': 'url("/grid-white.svg")',
       },
       borderRadius: {
         lg: 'var(--radius)',
