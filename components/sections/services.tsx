@@ -8,7 +8,9 @@ import {
   Cloud, 
   Shield,
   ArrowRight,
-  Sparkles
+  Sparkles,
+  Layout,
+  ShoppingBag
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
@@ -21,6 +23,7 @@ const services = [
     link: "#web-dev",
     features: ["Custom Development", "Responsive Design", "Performance Optimization"],
     color: "from-blue-500 to-cyan-500",
+    label: "Most Popular",
   },
   {
     title: "Mobile Development",
@@ -29,13 +32,14 @@ const services = [
     link: "#mobile-dev",
     features: ["Native Apps", "Cross-Platform", "App Store Support"],
     color: "from-purple-500 to-pink-500",
+    label: "Fast Delivery",
   },
   {
-    title: "UI/UX Design",
-    description: "Crafting beautiful and intuitive user interfaces that engage and convert",
-    icon: Palette,
-    link: "#design",
-    features: ["User Research", "Wireframing", "Prototyping"],
+    title: "CMS Development",
+    description: "Custom WordPress and Shopify solutions for your business needs",
+    icon: Layout,
+    link: "#cms-dev",
+    features: ["WordPress", "Shopify", "Custom Themes", "PHP Development"],
     color: "from-orange-500 to-yellow-500",
   },
   {
@@ -47,19 +51,20 @@ const services = [
     color: "from-green-500 to-emerald-500",
   },
   {
-    title: "Cloud Solutions",
-    description: "Scalable cloud infrastructure and deployment services for modern applications",
-    icon: Cloud,
-    link: "#cloud",
-    features: ["Cloud Migration", "DevOps", "Scalability"],
+    title: "E-commerce Solutions",
+    description: "Building and optimizing online stores with modern e-commerce platforms",
+    icon: ShoppingBag,
+    link: "#ecommerce",
+    features: ["Shopify Apps", "WooCommerce", "Payment Integration", "Store Optimization"],
     color: "from-indigo-500 to-blue-500",
+    label: "Best Value",
   },
   {
     title: "SEO Solutions",
-    description: "Implementing robust SEO to enhabce you digital existance",
+    description: "Implementing robust SEO to enhance your digital existence",
     icon: Shield,
-    link: "#dseo",
-    features: ["SEO", "Optimization", "keyword research"],
+    link: "#seo",
+    features: ["SEO", "Optimization", "Keyword Research"],
     color: "from-rose-500 to-red-500",
   },
 ];
@@ -104,7 +109,25 @@ export function ServicesSection() {
               transition={{ delay: index * 0.1 }}
             >
               <Link href={service.link}>
-                <Card className="h-full transition-all duration-300 hover:shadow-xl hover:scale-[1.02] group">
+                <Card className="h-full transition-all duration-300 hover:shadow-xl hover:scale-[1.02] group relative">
+                  {service.label && (
+                    <div className="absolute -top-3 right-4 z-10">
+                      <div className="relative">
+                        {/* Background blur effect */}
+                        <div className="absolute inset-0 bg-background/80 backdrop-blur-sm rounded-full" />
+                        
+                        {/* Label content */}
+                        <div className={`relative px-4 py-1.5 rounded-full text-xs font-medium border border-primary/20 
+                          bg-primary/5 flex items-center gap-1.5 whitespace-nowrap`}
+                        >
+                          <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                          <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+                            {service.label}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                   <CardContent className="p-6">
                     <div className={`p-4 mb-6 w-fit rounded-xl bg-gradient-to-br ${service.color} group-hover:scale-110 transition-transform`}>
                       <service.icon className="w-8 h-8 text-white" />

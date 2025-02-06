@@ -15,7 +15,7 @@ export function MeHeroSection() {
         className="absolute inset-0 bg-grid-black/[0.02] dark:bg-grid-white/[0.02]"
       />
       
-      <div className="container relative px-4 mx-auto">
+      <div className="container relative px-4 sm:px-10 mx-auto">
         <div className="flex flex-col-reverse md:flex-row items-center gap-12">
           {/* Left Content */}
           <motion.div 
@@ -95,7 +95,7 @@ export function MeHeroSection() {
             </motion.div>
           </motion.div>
 
-          {/* Right Image */}
+          {/* Right Avatar */}
           <motion.div 
             className="flex-1 relative"
             initial={{ opacity: 0, x: 20 }}
@@ -103,13 +103,23 @@ export function MeHeroSection() {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <div className="relative w-[280px] h-[280px] md:w-[400px] md:h-[400px] mx-auto">
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-purple-500/20 rounded-full blur-3xl animate-pulse" />
               <Image
-                src="/your-photo.jpg" // Add your photo here
-                alt="Your Name"
+              src="https://api.dicebear.com/7.x/pixel-art/svg?seed=rahul&backgroundColor=transparent"   alt="Developer Avatar"
                 fill
-                className="object-cover rounded-3xl"
+                className="object-contain z-10"
                 priority
+                unoptimized
               />
+              {/* Decorative Elements */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] -z-10">
+                <div className="absolute top-0 left-0 w-full h-full animate-[spin_8s_linear_infinite]">
+                  <div className="absolute top-0 left-1/2 w-2 h-2 rounded-full bg-primary/30" />
+                  <div className="absolute top-1/4 right-0 w-3 h-3 rounded-full bg-purple-500/30" />
+                  <div className="absolute bottom-0 left-1/2 w-2 h-2 rounded-full bg-pink-500/30" />
+                  <div className="absolute top-1/4 left-0 w-3 h-3 rounded-full bg-blue-500/30" />
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>
