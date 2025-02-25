@@ -90,126 +90,149 @@
 
 
 .medium-markdown {
-  line-height: 1.6;
-  color: #333;
-  background-color: transparent;
-  padding: 20px;
+  @apply text-base leading-relaxed;
 }
 
-.dark .medium-markdown {
-  color: #e1e1e1;
+/* Tables */
+.medium-markdown table {
+  @apply w-full my-8 border-collapse;
+  border: 1px solid hsl(var(--border));
+  border-radius: theme('borderRadius.lg');
 }
 
-.medium-markdown h1, 
-.medium-markdown h2, 
-.medium-markdown h3, 
-.medium-markdown h4, 
-.medium-markdown h5, 
-.medium-markdown h6 {
-  color: #222;
-  margin-top: 1.5em;
-  margin-bottom: 0.5em;
+.medium-markdown thead {
+  @apply bg-muted;
 }
 
-.dark .medium-markdown h1,
-.dark .medium-markdown h2,
-.dark .medium-markdown h3,
-.dark .medium-markdown h4,
-.dark .medium-markdown h5,
-.dark .medium-markdown h6 {
-  color: #ffffff;
+.medium-markdown th {
+  @apply px-6 py-4 text-left font-semibold;
+  border: 1px solid hsl(var(--border));
+}
+
+.medium-markdown td {
+  @apply px-6 py-4;
+  border: 1px solid hsl(var(--border));
+}
+
+.medium-markdown tr {
+  @apply transition-colors;
+}
+
+.medium-markdown tbody tr:hover {
+  @apply bg-muted/50;
+}
+
+/* Typography */
+.medium-markdown h1,
+.medium-markdown h2,
+.medium-markdown h3,
+.medium-markdown h4 {
+  @apply font-bold text-foreground;
 }
 
 .medium-markdown h1 {
-  font-size: 2.5em;
+  @apply text-3xl mt-8 mb-4;
 }
 
 .medium-markdown h2 {
-  font-size: 2em;
+  @apply text-2xl mt-8 mb-4;
 }
 
 .medium-markdown h3 {
-  font-size: 1.75em;
+  @apply text-xl mt-6 mb-3;
 }
 
 .medium-markdown h4 {
-  font-size: 1.5em;
-}
-
-.medium-markdown h5 {
-  font-size: 1.25em;
-}
-
-.medium-markdown h6 {
-  font-size: 1em;
+  @apply text-lg mt-4 mb-2;
 }
 
 .medium-markdown p {
-  margin-bottom: 1em;
+  @apply mb-4 leading-relaxed;
 }
 
-.medium-markdown a {
-  color: #1a0dab;
-  text-decoration: none;
-}
-
-.dark .medium-markdown a {
-  color: #88a4ff;
-}
-
-.medium-markdown a:hover {
-  text-decoration: underline;
-}
-
-.medium-markdown ul, 
+/* Lists */
+.medium-markdown ul,
 .medium-markdown ol {
-  margin: 1em 0;
-  padding-left: 40px;
+  @apply my-4 ml-6;
+}
+
+.medium-markdown ul {
+  @apply list-disc;
+}
+
+.medium-markdown ol {
+  @apply list-decimal;
 }
 
 .medium-markdown li {
-  margin-bottom: 0.5em;
+  @apply mb-1;
 }
 
+/* Code */
 .medium-markdown code {
-  font-family: 'Courier New', monospace;
-  background-color: #f4f4f4;
-  padding: 2px 4px;
-  border-radius: 4px;
-}
-
-.dark .medium-markdown code {
-  background-color: #2d2d2d;
-  color: #e1e1e1;
+  @apply px-1.5 py-0.5 rounded bg-muted font-mono text-sm;
 }
 
 .medium-markdown pre {
-  background-color: #f4f4f4;
-  padding: 10px;
-  border-radius: 4px;
-  overflow-x: auto;
+  @apply p-4 my-4 rounded-lg bg-muted overflow-x-auto;
 }
 
-.dark .medium-markdown pre {
-  background-color: #2d2d2d;
-  color: #e1e1e1;
+.medium-markdown pre code {
+  @apply p-0 bg-transparent;
 }
 
+/* Blockquotes */
 .medium-markdown blockquote {
-  border-left: 4px solid #ccc;
-  padding-left: 16px;
-  color: #666;
-  margin: 1.5em 0;
-  font-style: italic;
+  @apply pl-4 my-4 border-l-4 border-primary/30 italic;
 }
 
-.dark .medium-markdown blockquote {
-  border-left-color: #4a4a4a;
-  color: #b0b0b0;
+/* Links */
+.medium-markdown a {
+  @apply text-primary hover:underline;
 }
 
-.medium-markdown img {
-  max-width: 100%;
-  height: auto;
-  margin: 1em 0;
+/* Dark mode adjustments */
+.dark .medium-markdown table {
+  @apply border-border;
+}
+
+.dark .medium-markdown th,
+.dark .medium-markdown td {
+  border-color: hsl(var(--border));
+}
+
+.dark .medium-markdown thead {
+  @apply bg-muted/50;
+}
+
+.dark .medium-markdown tbody tr:hover {
+  @apply bg-muted/20;
+}
+
+/* Mobile adjustments */
+@media (max-width: 640px) {
+  .medium-markdown table {
+    @apply block w-full overflow-x-auto whitespace-nowrap;
+  }
+
+  .medium-markdown th,
+  .medium-markdown td {
+    @apply px-4 py-3;
+  }
+  
+  .medium-markdown h1 {
+    @apply text-2xl;
+  }
+  
+  .medium-markdown h2 {
+    @apply text-xl;
+  }
+  
+  .medium-markdown h3 {
+    @apply text-lg;
+  }
+  
+  .medium-markdown h4 {
+    @apply text-base;
+  }
 }

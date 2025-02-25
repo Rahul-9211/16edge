@@ -49,8 +49,8 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
           >
-            We craft cutting-edge solutions that drive innovation and growth. 
-            From stunning websites to powerful applications, we bring your vision to life.
+            Crafting cutting-edge digital solutions that drive innovation, growth, and success. 
+            From stunning websites to powerful applications, we bring your vision to life with expertise and precision.
           </motion.p>
           
           <motion.div 
@@ -60,7 +60,7 @@ export function HeroSection() {
             transition={{ delay: 0.5 }}
           >
             <Button size="lg" className="h-12 px-8 text-lg" asChild>
-              <Link href="#contact">
+              <Link href="/contact">
                 Start Your Project
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Link>

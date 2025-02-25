@@ -3,7 +3,9 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { Badge } from '@/components/ui/badge';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { fetchBlogs } from "@/lib/blog/data";
+import { Calendar, Clock, Hash } from "lucide-react";
 
 interface BlogPostPageProps {
   params: {
@@ -30,13 +32,13 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   }
 
   return {
-    title: `${blog.title} | Your Name`,
+    title: `${blog.title} | Hackrest`,
     description: blog.content.slice(0, 160),
     openGraph: {
       title: blog.title,
       description: blog.content.slice(0, 160),
       type: 'article',
-      url: `https://yourwebsite.com/blog/${blog.slug}`,
+      url: `https://hackrest.com/blog/${blog.slug}`,
       images: [
         {
           url: blog.featuredImage,
@@ -49,6 +51,30 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   };
 }
 
+interface TOCHeading {
+  level: number;
+  title: string;
+  id: string;
+}
+
+function getTableOfContents(content: string): TOCHeading[] {
+  return content
+    .split('\n')
+    .filter(line => line.startsWith('#'))
+    .map(heading => {
+      const match = heading.match(/^(#+)\s(.+)$/);
+      if (!match) return null;
+      
+      const [, hashes, title] = match;
+      return {
+        level: hashes.length,
+        title: title.trim(),
+        id: title.toLowerCase().replace(/[^\w]+/g, '-')
+      };
+    })
+    .filter((heading): heading is TOCHeading => heading !== null);
+}
+
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const blog = await getBlogBySlug(params.slug);
   
@@ -56,44 +82,92 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
-  return (
-    <article className="container max-w-4xl px-4 py-16 mx-auto">
-      {blog.featuredImage && (
-        <div className="relative w-full h-[400px] mb-8 overflow-hidden rounded-lg">
-          <img
-            src={blog.featuredImage}
-            alt={blog.title}
-            className="object-cover w-full h-full"
-          />
-        </div>
-      )}
-      
-      <header className="mb-8">
-        <h1 className="mb-4 text-4xl font-bold">{blog.title}</h1>
-        <div className="flex items-center justify-between">
-          <time 
-            dateTime={new Date(blog.publishDate).toISOString()}
-            className="text-muted-foreground"
-          >
-            {new Date(blog.publishDate).toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric'
-            })}
-          </time>
-          <div className="flex gap-2">
-            {blog.tags.map((tag) => (
-              <Badge key={tag} variant="secondary">
-                {tag}
-              </Badge>
-            ))}
-          </div>
-        </div>
-      </header>
+  const toc = getTableOfContents(blog.content);
+  const readingTime = Math.ceil(blog.content.length / 1000);
 
-      <div className="medium-markdown">
-        <ReactMarkdown>{blog.content}</ReactMarkdown>
+  return (
+    <div className="container px-4 py-16 mx-auto">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-12 max-w-7xl mx-auto">
+        <article className="max-w-4xl">
+          {blog.featuredImage && (
+            <div className="relative w-full aspect-video mb-8 overflow-hidden rounded-xl shadow-lg">
+              <img
+                src={blog.featuredImage}
+                alt={blog.title}
+                className="object-cover w-full h-full transition-transform duration-500 hover:scale-105"
+              />
+            </div>
+          )}
+          
+          <header className="mb-12">
+            <div className="flex flex-wrap gap-2 mb-6">
+              {blog.tags.map((tag) => (
+                <Badge 
+                  key={tag} 
+                  variant="secondary"
+                  className="px-3 py-1 text-sm bg-primary/10 text-primary hover:bg-primary/20"
+                >
+                  {tag}
+                </Badge>
+              ))}
+            </div>
+            <h1 className="mb-6 text-4xl font-bold md:text-5xl lg:text-6xl bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70">
+              {blog.title}
+            </h1>
+            <div className="flex flex-wrap items-center gap-6 text-muted-foreground">
+              <div className="flex items-center gap-2">
+                <Calendar className="w-4 h-4" />
+                <time dateTime={new Date(blog.publishDate).toISOString()}>
+                  {new Date(blog.publishDate).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                  })}
+                </time>
+              </div>
+              <div className="flex items-center gap-2">
+                <Clock className="w-4 h-4" />
+                <span>{readingTime} min read</span>
+              </div>
+            </div>
+          </header>
+
+          <div className="prose prose-lg dark:prose-invert max-w-none medium-markdown">
+            <ReactMarkdown 
+              remarkPlugins={[remarkGfm]}
+            >
+              {blog.content}
+            </ReactMarkdown>
+          </div>
+        </article>
+
+        {/* Table of Contents Sidebar */}
+        <aside className="hidden lg:block">
+          <div className="sticky top-24">
+            <div className="rounded-xl border bg-card/50 backdrop-blur supports-[backdrop-filter]:bg-card/50">
+              <div className="flex items-center gap-2 border-b p-4">
+                <Hash className="w-5 h-5 text-primary" />
+                <h3 className="font-semibold">Table of Contents</h3>
+              </div>
+              <nav className="p-4">
+                {toc.map((heading, index) => (
+                  <a
+                    key={index}
+                    href={`#${heading.id}`}
+                    className={`
+                      block py-1.5 text-muted-foreground hover:text-primary transition-colors
+                      ${heading.level > 2 ? `pl-${(heading.level - 2) * 4}` : ''}
+                      ${heading.level === 2 ? 'font-medium' : 'text-sm'}
+                    `}
+                  >
+                    {heading.title}
+                  </a>
+                ))}
+              </nav>
+            </div>
+          </div>
+        </aside>
       </div>
-    </article>
+    </div>
   );
 } 

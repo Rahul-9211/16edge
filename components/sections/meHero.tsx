@@ -63,7 +63,7 @@ export function MeHeroSection() {
               transition={{ delay: 0.5 }}
             >
               <Button size="lg" className="h-12 px-8 text-lg" asChild>
-                <Link href="#contact">
+                <Link href="/contact">
                   Get in Touch
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Link>

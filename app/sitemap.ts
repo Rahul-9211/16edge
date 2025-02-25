@@ -1,25 +1,35 @@
-import { fetchBlogs } from "@/lib/blog/data";
-import { MetadataRoute } from "next";
-import { Blog } from "@/lib/blog/types";
+import { MetadataRoute } from 'next';
+import clientPromise from '@/lib/mongodb';
 
 // Set revalidate time to 1 day (in seconds)
 export const revalidate = 86400;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  // Define baseUrl outside try-catch
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://hackrest.com';
-
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://your-domain.com';
+  
   try {
-    // Fetch all blog posts with no caching
-    const { data: blogs } = await fetchBlogs(1, 1000, { cache: 'no-store' }); // Increased limit and disabled cache
-    
+    // Connect to MongoDB
+    const client = await clientPromise;
+    const db = client.db("your_db_name");
+
+    // Get total count of blogs first
+    const totalBlogs = await db.collection('blogs').countDocuments();
+    const ITEMS_PER_PAGE = 9;
+    const totalPages = Math.ceil(totalBlogs / ITEMS_PER_PAGE);
+
     // Static routes
-    const staticRoutes = [
+    const routes = [
       {
         url: baseUrl,
         lastModified: new Date(),
-        changeFrequency: 'daily' as const,
+        changeFrequency: 'daily',
         priority: 1,
+      },
+      {
+        url: `${baseUrl}/about`,
+        lastModified: new Date(),
+        changeFrequency: 'monthly',
+        priority: 0.8,
       },
       {
         url: `${baseUrl}/projects`,
@@ -35,25 +45,40 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       },
     ];
 
-    // Dynamic blog routes
-    const blogRoutes = blogs.map((blog: Blog) => ({
+    // Blog pagination routes - only for pages that have content
+    const blogPaginationRoutes = Array.from({ length: totalPages }, (_, i) => ({
+      url: `${baseUrl}/blog${i === 0 ? '' : `?page=${i + 1}`}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    }));
+
+    // Get all blog posts for individual blog routes
+    const blogs = await db.collection('blogs')
+      .find({})
+      .project({ slug: 1, updatedAt: 1 })
+      .toArray();
+
+    const blogRoutes = blogs.map((blog) => ({
       url: `${baseUrl}/blog/${blog.slug}`,
-      lastModified: new Date(blog.publishDate),
-      changeFrequency: 'weekly' as const,
+      lastModified: blog.updatedAt || new Date(),
+      changeFrequency: 'monthly',
       priority: 0.6,
     }));
 
-    return [...staticRoutes, ...blogRoutes];
+    return [...routes, ...blogPaginationRoutes, ...blogRoutes] as MetadataRoute.Sitemap;
+
   } catch (error) {
     console.error('Error generating sitemap:', error);
-    // Return static routes if there's an error
+    
+    // Return basic sitemap if there's an error
     return [
       {
         url: baseUrl,
         lastModified: new Date(),
-        changeFrequency: 'daily' as const,
+        changeFrequency: 'daily',
         priority: 1,
-      }
+      },
     ];
   }
 } 

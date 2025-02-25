@@ -18,52 +18,52 @@ import Link from "next/link";
 const services = [
   {
     title: "Web Development",
-    description: "Building scalable web applications with modern technologies and best practices",
+    description: "Building scalable, high-performance web applications using modern technologies and industry best practices.",
     icon: Laptop,
-    link: "#web-dev",
+    link: "/services/web-dev",
     features: ["Custom Development", "Responsive Design", "Performance Optimization"],
     color: "from-blue-500 to-cyan-500",
     label: "Most Popular",
   },
   {
     title: "Mobile Development",
-    description: "Creating native and cross-platform mobile apps for iOS and Android",
+    description: "Creating native and cross-platform mobile apps for iOS and Android that deliver seamless user experiences.",
     icon: Smartphone,
-    link: "#mobile-dev",
+    link: "/services/mobile-dev",
     features: ["Native Apps", "Cross-Platform", "App Store Support"],
     color: "from-purple-500 to-pink-500",
     label: "Fast Delivery",
   },
   {
     title: "CMS Development",
-    description: "Custom WordPress and Shopify solutions for your business needs",
+    description: "Custom WordPress and Shopify solutions to empower your business with flexible, user-friendly content management.",
     icon: Layout,
-    link: "#cms-dev",
+    link: "/services/cms-dev",
     features: ["WordPress", "Shopify", "Custom Themes", "PHP Development"],
     color: "from-orange-500 to-yellow-500",
   },
   {
     title: "Analytics & Dashboard",
-    description: "Data visualization and analytics solutions for informed decision making",
+    description: "Data visualization and analytics solutions to help you make informed, data-driven decisions.",
     icon: BarChart3,
-    link: "#analytics",
+    link: "/services/analytics",
     features: ["Real-time Analytics", "Custom Dashboards", "Data Visualization"],
     color: "from-green-500 to-emerald-500",
   },
   {
     title: "E-commerce Solutions",
-    description: "Building and optimizing online stores with modern e-commerce platforms",
+    description: "Building and optimizing online stores with modern e-commerce platforms to boost sales and customer engagement.",
     icon: ShoppingBag,
-    link: "#ecommerce",
+    link: "/services/ecommerce",
     features: ["Shopify Apps", "WooCommerce", "Payment Integration", "Store Optimization"],
     color: "from-indigo-500 to-blue-500",
     label: "Best Value",
   },
   {
     title: "SEO Solutions",
-    description: "Implementing robust SEO to enhance your digital existence",
+    description: "Implementing robust SEO strategies to enhance your digital presence and drive organic traffic.",
     icon: Shield,
-    link: "#seo",
+    link: "/services/seo",
     features: ["SEO", "Optimization", "Keyword Research"],
     color: "from-rose-500 to-red-500",
   },
@@ -92,10 +92,10 @@ export function ServicesSection() {
           </motion.div>
           
           <h2 className="text-3xl font-bold sm:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60">
-            Our Expertise
+            Our Expertise 
           </h2>
           <p className="mt-4 text-xl text-muted-foreground">
-            Comprehensive digital solutions tailored to your needs
+          Comprehensive digital solutions tailored to your unique business needs.
           </p>
         </motion.div>
 

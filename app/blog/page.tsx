@@ -4,7 +4,8 @@ import { fetchBlogs } from "@/lib/blog/data";
 import Link from "next/link";
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Calendar, Clock } from "lucide-react";
+import Image from "next/image";
 
 interface BlogsPageProps {
   searchParams: {
@@ -19,79 +20,118 @@ const BlogsPage = async ({ searchParams }: BlogsPageProps) => {
   const { data: blogs, totalPages } = await fetchBlogs(currentPage, ITEMS_PER_PAGE);
 
   return (
-    <div className="container px-4 py-16 mx-auto">
-      <h1 className="mb-12 text-4xl font-bold text-center">Latest Posts</h1>
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {blogs.map((blog) => (
-          <Link
-            key={blog._id}
-            href={`/blog/${blog.slug}`}
-            className="transition-transform hover:scale-[1.02]"
-          >
-            <Card className="h-full overflow-hidden border hover:shadow-lg">
-              {blog.featuredImage && (
-                <div className="relative w-full h-48 overflow-hidden">
-                  <img
-                    src={blog.featuredImage}
-                    alt={blog.title}
-                    className="object-cover w-full h-full"
-                  />
-                </div>
-              )}
-              <CardHeader>
-                <CardTitle className="line-clamp-2">{blog.title}</CardTitle>
-                <div className="flex items-center gap-2 mt-2 text-sm text-muted-foreground">
-                  <time dateTime={new Date(blog.publishDate).toISOString()}>
-                    {new Date(blog.publishDate).toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric'
-                    })}
-                  </time>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2 mt-4">
-                  {blog.tags.map((tag) => (
-                    <Badge key={tag} variant="secondary">
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </Link>
-        ))}
-      </div>
-
-      {/* Pagination */}
-      <div className="flex justify-center gap-2 mt-8">
-        <Button
-          variant="outline"
-          disabled={currentPage <= 1}
-          asChild
-        >
-          <Link href={`/blog?page=${currentPage - 1}`}>
-            <ChevronLeft className="w-4 h-4 mr-2" />
-            Previous
-          </Link>
-        </Button>
-        <div className="flex items-center gap-2 px-4">
-          <span className="text-sm text-muted-foreground">
-            Page {currentPage} of {totalPages}
-          </span>
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <section className="relative py-20 overflow-hidden bg-gradient-to-br from-primary/5 via-transparent to-primary/5">
+        <div className="absolute inset-0 bg-grid-black/[0.02] dark:bg-grid-white/[0.02]" />
+        <div className="container relative px-4 mx-auto">
+          <div className="max-w-3xl mx-auto text-center">
+            <h1 className="mb-6 text-4xl font-bold md:text-5xl lg:text-6xl">
+              Our Latest
+              <span className="block text-primary">Insights</span>
+            </h1>
+            <p className="text-xl text-muted-foreground">
+              Explore our thoughts, insights, and expertise in technology and development
+            </p>
+          </div>
         </div>
-        <Button
-          variant="outline"
-          disabled={currentPage >= totalPages}
-          asChild
-        >
-          <Link href={`/blog?page=${currentPage + 1}`}>
-            Next
-            <ChevronRight className="w-4 h-4 ml-2" />
-          </Link>
-        </Button>
-      </div>
+      </section>
+
+      {/* Blog Grid */}
+      <section className="py-16">
+        <div className="container px-4 mx-auto">
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {blogs.map((blog) => (
+              <Link
+                key={blog._id}
+                href={`/blog/${blog.slug}`}
+                className="group"
+              >
+                <Card className="h-full overflow-hidden border transition-all duration-300 hover:shadow-lg hover:border-primary/50">
+                  {blog.featuredImage && (
+                    <div className="relative aspect-[16/9] overflow-hidden">
+                      <Image
+                        src={blog.featuredImage}
+                        alt={blog.title}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                    </div>
+                  )}
+                  <CardContent className="p-6">
+                    {/* Tags */}
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {blog.tags.map((tag) => (
+                        <Badge 
+                          key={tag} 
+                          variant="secondary"
+                          className="px-2 py-0.5 text-xs font-normal bg-primary/10 text-primary hover:bg-primary/20"
+                        >
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="mb-3 text-xl font-semibold line-clamp-2 group-hover:text-primary transition-colors">
+                      {blog.title}
+                    </h3>
+
+                    {/* Metadata */}
+                    <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                      <div className="flex items-center gap-1">
+                        <Calendar className="w-4 h-4" />
+                        <time dateTime={new Date(blog.publishDate).toISOString()}>
+                          {new Date(blog.publishDate).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                          })}
+                        </time>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Clock className="w-4 h-4" />
+                        {Math.ceil(blog.content.length / 1000)} min read
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
+
+          {/* Pagination */}
+          <div className="flex justify-center gap-4 mt-12">
+            <Button
+              variant="outline"
+              disabled={currentPage <= 1}
+              asChild
+              className="transition-colors hover:border-primary/50"
+            >
+              <Link href={`/blog?page=${currentPage - 1}`}>
+                <ChevronLeft className="w-4 h-4 mr-2" />
+                Previous
+              </Link>
+            </Button>
+            <div className="flex items-center gap-2 px-4 text-sm">
+              <span className="font-medium">{currentPage}</span>
+              <span className="text-muted-foreground">of</span>
+              <span className="font-medium">{totalPages}</span>
+            </div>
+            <Button
+              variant="outline"
+              disabled={currentPage >= totalPages}
+              asChild
+              className="transition-colors hover:border-primary/50"
+            >
+              <Link href={`/blog?page=${currentPage + 1}`}>
+                Next
+                <ChevronRight className="w-4 h-4 ml-2" />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
