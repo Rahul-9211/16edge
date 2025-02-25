@@ -11,7 +11,7 @@ const contactMethods = [
     title: "Email Us",
     description: "Drop us a line anytime",
     action: "Send Email",
-    link: "mailto:rahul.rawat.fec@gmail.com",
+    link: "mailto:info@hackrest.com",
     color: "from-blue-500 to-cyan-500",
   },
   {

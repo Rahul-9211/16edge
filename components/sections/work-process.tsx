@@ -6,25 +6,25 @@ import { Card, CardContent } from "@/components/ui/card";
 const steps = [
   {
     title: "Discovery",
-    description: "We analyze your requirements and plan the perfect solution",
+    description: "We analyze your requirements and plan the perfect solution tailored to your goals.",
     icon: Lightbulb,
     color: "from-blue-500 to-cyan-500",
   },
   {
     title: "Design & Planning",
-    description: "Creating detailed designs and technical specifications",
+    description: "Creating detailed designs and technical specifications to ensure a seamless development process.",
     icon: Settings,
     color: "from-purple-500 to-pink-500",
   },
   {
     title: "Development",
-    description: "Building your solution with cutting-edge technologies",
+    description: "Building your solution with cutting-edge technologies and best practices.",
     icon: Code2,
     color: "from-orange-500 to-yellow-500",
   },
   {
     title: "Deployment",
-    description: "Launching your project with ongoing support and maintenance",
+    description: "Launching your project with ongoing support and maintenance for long-term success.",
     icon: Rocket,
     color: "from-green-500 to-emerald-500",
   },
@@ -46,7 +46,7 @@ export function WorkProcessSection() {
             Our Process
           </h2>
           <p className="mt-4 text-xl text-muted-foreground">
-            A proven approach to deliver exceptional results
+          A proven, step-by-step approach to deliver exceptional results.
           </p>
         </motion.div>
 

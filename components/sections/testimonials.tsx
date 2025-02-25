@@ -44,7 +44,7 @@ export function TestimonialsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl font-bold sm:text-4xl bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60">
+          <h2 className="text-5xl font-bold sm:text-4xl bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60">
             Client Success Stories
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
