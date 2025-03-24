@@ -21,6 +21,7 @@ export function MainNav() {
     { href: "/", label: "Home" },
     { href: "/projects", label: "Projects" },
     { href: "/blog", label: "Blog" },
+    { href: "/pricing", label: "Pricing" },
   ];
 
   return (
