@@ -29,6 +29,7 @@ export interface Project {
   isGithubProject?: boolean;
   category: ProjectCategory;
   rating?: ProjectRating; // Add rating field
+  developer?: string; // Add developer name field
 }
 
 export interface GithubRepo {
