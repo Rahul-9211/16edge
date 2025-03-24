@@ -95,6 +95,13 @@ export function ProjectCard({ project }: ProjectCardProps) {
           </div>
         )}
 
+        {/* Developer Name */}
+        {project.developer && (
+          <div className="mb-4 text-sm text-muted-foreground">
+            <span className="font-medium">Developer:</span> {project.developer}
+          </div>
+        )}
+
         <div className="mb-4 flex flex-wrap gap-2">
           {project.technologies.map((tech) => (
             <span

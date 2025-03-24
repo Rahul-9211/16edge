@@ -108,6 +108,11 @@ const faqItems = [
 export default function PricingPage() {
   const [isYearly, setIsYearly] = useState(false);
 
+  // Helper function to format price with commas
+  const formatPrice = (price: number) => {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -166,7 +171,7 @@ export default function PricingPage() {
                 Yearly
               </span>
               <span className="px-2 py-1 text-xs font-medium text-primary bg-primary/10 rounded-full">
-                Save 20%
+                Save 16%
               </span>
             </div>
           </div>
@@ -197,12 +202,30 @@ export default function PricingPage() {
                   
                   <CardContent className="p-6">
                     <div className="flex items-baseline mb-6">
-                      <span className="text-4xl font-bold">₹{isYearly ? plan.yearlyPrice/100 : plan.monthlyPrice}</span>
+                      <span className="text-4xl font-bold">₹{isYearly 
+                        ? formatPrice(Math.round(plan.yearlyPrice / 12)) 
+                        : formatPrice(plan.monthlyPrice)}</span>
                       <span className="ml-2 text-sm text-muted-foreground">
-                        /{isYearly ? 'year' : 'month'}
+                        /{isYearly ? 'month' : 'month'}
                       </span>
+                      
+                      {isYearly && (
+                        <span className="ml-2 text-xs text-primary-foreground px-2 py-1 bg-primary rounded-full">
+                          Billed annually
+                        </span>
+                      )}
                     </div>
 
+                    {isYearly && (
+                      <div className="mb-6 text-sm text-muted-foreground">
+                        <span className="line-through">₹{formatPrice(plan.monthlyPrice * 12)}</span>
+                        <span className="ml-2">₹{formatPrice(plan.yearlyPrice)} billed yearly</span>
+                        <span className="ml-2 text-green-500 font-medium">
+                          (Save ₹{formatPrice((plan.monthlyPrice * 12) - plan.yearlyPrice)})
+                        </span>
+                      </div>
+                    )}
+                    
                     <div className="space-y-4">
                       {plan.features.map((feature, i) => (
                         <div key={i} className="flex items-start">
