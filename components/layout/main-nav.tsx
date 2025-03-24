@@ -20,6 +20,7 @@ export function MainNav() {
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/projects", label: "Projects" },
+    { href: "/about", label: "About Us" },
     { href: "/blog", label: "Blog" },
     { href: "/pricing", label: "Pricing" },
   ];
