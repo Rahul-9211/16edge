@@ -15,30 +15,57 @@ export function Footer() {
           <div>
             <h3 className="mb-4 text-lg font-semibold">Quick Links</h3>
             <nav className="flex flex-col gap-2">
-              <Link href="/" className="text-muted-foreground hover:text-foreground">
+              <Link
+                href="/"
+                className="text-muted-foreground hover:text-foreground"
+              >
                 Home
               </Link>
-              <Link href="/projects" className="text-muted-foreground hover:text-foreground">
+              <Link
+                href="/projects"
+                className="text-muted-foreground hover:text-foreground"
+              >
                 Projects
               </Link>
-              <Link href="/blog" className="text-muted-foreground hover:text-foreground">
+              <Link
+                href="/blog"
+                className="text-muted-foreground hover:text-foreground"
+              >
                 Blog
               </Link>
+              {/* <Link
+                href="/compiler"
+                className="text-muted-foreground hover:text-foreground"
+              >
+                Compiler
+              </Link> */}
             </nav>
           </div>
           <div>
             <h3 className="mb-4 text-lg font-semibold">Connect</h3>
             <div className="flex gap-4">
-              <Link href="https://github.com/Rahul-9211" className="text-muted-foreground hover:text-foreground">
+              <Link
+                href="https://github.com/Rahul-9211"
+                className="text-muted-foreground hover:text-foreground"
+              >
                 <Github className="w-5 h-5" />
               </Link>
-              <Link href="https://linkedin.com" className="text-muted-foreground hover:text-foreground">
+              <Link
+                href="https://linkedin.com"
+                className="text-muted-foreground hover:text-foreground"
+              >
                 <Linkedin className="w-5 h-5" />
               </Link>
-              <Link href="https://twitter.com" className="text-muted-foreground hover:text-foreground">
+              <Link
+                href="https://twitter.com"
+                className="text-muted-foreground hover:text-foreground"
+              >
                 <Twitter className="w-5 h-5" />
               </Link>
-              <Link href="mailto:contact@hackrest.com" className="text-muted-foreground hover:text-foreground">
+              <Link
+                href="mailto:contact@hackrest.com"
+                className="text-muted-foreground hover:text-foreground"
+              >
                 <Mail className="w-5 h-5" />
               </Link>
             </div>
