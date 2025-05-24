@@ -23,6 +23,7 @@ export function MainNav() {
     { href: "/about", label: "About Us" },
     { href: "/blog", label: "Blog" },
     { href: "/pricing", label: "Pricing" },
+    { href: "/Compiler", label: "Compiler" },
   ];
 
   return (
@@ -76,7 +77,9 @@ export function MainNav() {
               >
                 <div className="w-6 flex flex-col items-center justify-center">
                   <motion.span
-                    animate={isOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
+                    animate={
+                      isOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }
+                    }
                     transition={{ duration: 0.2 }}
                     className="w-full h-[2px] bg-foreground block mb-[6px] origin-center"
                   />
@@ -86,7 +89,9 @@ export function MainNav() {
                     className="w-full h-[2px] bg-foreground block mb-[6px]"
                   />
                   <motion.span
-                    animate={isOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
+                    animate={
+                      isOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }
+                    }
                     transition={{ duration: 0.2 }}
                     className="w-full h-[2px] bg-foreground block origin-center"
                   />
@@ -99,7 +104,7 @@ export function MainNav() {
         {/* Mobile Navigation */}
         <AnimatePresence>
           {isOpen && (
-            <motion.div 
+            <motion.div
               className="md:hidden border-t bg-background"
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
@@ -119,7 +124,8 @@ export function MainNav() {
                         href={link.href}
                         className={cn(
                           "transition-colors px-6 py-3 rounded-lg hover:bg-accent block",
-                          pathname === link.href || pathname?.startsWith(link.href)
+                          pathname === link.href ||
+                            pathname?.startsWith(link.href)
                             ? "text-foreground font-medium bg-accent"
                             : "text-foreground/60"
                         )}
@@ -145,10 +151,7 @@ export function MainNav() {
                   className="px-2"
                 >
                   <Button asChild className="w-full py-6">
-                    <Link 
-                      href="/contact"
-                      onClick={() => setIsOpen(false)}
-                    >
+                    <Link href="/contact" onClick={() => setIsOpen(false)}>
                       Contact
                     </Link>
                   </Button>
