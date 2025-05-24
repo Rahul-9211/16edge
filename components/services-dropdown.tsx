@@ -103,12 +103,6 @@ export function ServicesDropdown({ isMobile = false }: { isMobile?: boolean }) {
       >
         <span className="relative">
           Services
-          {isActive && (
-            <motion.div
-              layoutId="services-underline"
-              className="absolute left-0 right-0 h-0.5 -bottom-1 bg-primary"
-            />
-          )}
         </span>
         <ChevronDown className={cn(
           "w-4 h-4 transition-transform duration-200",

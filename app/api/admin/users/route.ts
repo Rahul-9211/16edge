@@ -30,10 +30,9 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: 'Unauthorized - Invalid token' }, { status: 401 });
     }
     
-    // Check if user is admin or super_admin
-    if (decoded.role !== 'admin' && decoded.role !== 'super_admin') {
-      console.log("User role:", decoded.role);
-      return NextResponse.json({ error: 'Forbidden - Admin or Super Admin access required' }, { status: 403 });
+    // Only allow super_admin
+    if (decoded.role !== 'super_admin') {
+      return NextResponse.json({ error: 'Forbidden - Super Admin access required' }, { status: 403 });
     }
 
     // Connect to MongoDB
@@ -84,10 +83,9 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Unauthorized - Invalid token' }, { status: 401 });
     }
     
-    // Check if user is admin
-    if (decoded.role !== 'admin' && decoded.role !== 'super_admin') {
-      console.log("User role:", decoded.role);
-      return NextResponse.json({ error: 'Forbidden - Admin or Super Admin access required' }, { status: 403 });
+    // Only allow super_admin
+    if (decoded.role !== 'super_admin') {
+      return NextResponse.json({ error: 'Forbidden - Super Admin access required' }, { status: 403 });
     }
 
     // Get request body
@@ -164,10 +162,9 @@ export async function DELETE(request: Request) {
       return NextResponse.json({ error: 'Unauthorized - Invalid token' }, { status: 401 });
     }
     
-    // Check if user is admin or super_admin
-    if (decoded.role !== 'admin' && decoded.role !== 'super_admin') {
-      console.log("User role:", decoded.role);
-      return NextResponse.json({ error: 'Forbidden - Admin or Super Admin access required' }, { status: 403 });
+    // Only allow super_admin
+    if (decoded.role !== 'super_admin') {
+      return NextResponse.json({ error: 'Forbidden - Super Admin access required' }, { status: 403 });
     }
 
     // Get user ID from URL

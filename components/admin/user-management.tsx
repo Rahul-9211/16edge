@@ -35,6 +35,7 @@ export function UserManagement() {
   const [isLoading, setIsLoading] = useState(false);
   const [deletingUserId, setDeletingUserId] = useState<string | null>(null);
   const [userToDelete, setUserToDelete] = useState<User | null>(null);
+  const [currentUserRole, setCurrentUserRole] = useState<string | null>(null);
 
   const stats: UserStats = {
     total: users.length,
@@ -42,8 +43,14 @@ export function UserManagement() {
     superAdmins: users.filter(user => user.role === 'super_admin').length,
   };
 
-  // Fetch users on component mount
   useEffect(() => {
+    const userStr = typeof window !== 'undefined' ? localStorage.getItem('adminUser') : null;
+    if (userStr) {
+      try {
+        const user = JSON.parse(userStr);
+        setCurrentUserRole(user.role);
+      } catch {}
+    }
     fetchUsers();
   }, []);
 
@@ -157,126 +164,134 @@ export function UserManagement() {
   return (
     <div className="space-y-6">
       {/* Quick Stats */}
-      <div className="grid gap-4 md:grid-cols-3">
-        <div className="bg-card p-6 rounded-lg border border-border">
-          <div className="flex items-center gap-4">
-            <div className="p-2 bg-primary/10 rounded-lg">
-              <Users className="h-6 w-6 text-primary" />
-            </div>
-            <div>
-              <p className="text-sm text-muted-foreground">Total Users</p>
-              <p className="text-2xl font-semibold">{stats.total}</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-card p-6 rounded-lg border border-border">
-          <div className="flex items-center gap-4">
-            <div className="p-2 bg-primary/10 rounded-lg">
-              <Shield className="h-6 w-6 text-primary" />
-            </div>
-            <div>
-              <p className="text-sm text-muted-foreground">Admin Users</p>
-              <p className="text-2xl font-semibold">{stats.admins}</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-card p-6 rounded-lg border border-border">
-          <div className="flex items-center gap-4">
-            <div className="p-2 bg-primary/10 rounded-lg">
-              <UserCog className="h-6 w-6 text-primary" />
-            </div>
-            <div>
-              <p className="text-sm text-muted-foreground">Super Admins</p>
-              <p className="text-2xl font-semibold">{stats.superAdmins}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="bg-muted p-6 rounded-lg border border-border">
-        <h2 className="text-lg font-semibold text-foreground mb-4">Add New Admin User</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <Input
-              type="email"
-              placeholder="Email"
-              value={newUser.email}
-              onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
-              required
-            />
-          </div>
-          <div>
-            <Input
-              type="password"
-              placeholder="Password"
-              value={newUser.password}
-              onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
-              required
-            />
-          </div>
-          <Button type="submit" disabled={isLoading}>
-            {isLoading ? 'Creating...' : 'Create User'}
-          </Button>
-        </form>
-      </div>
-
-      <div className="bg-muted p-6 rounded-lg border border-border">
-        <h2 className="text-lg font-semibold text-foreground mb-4">Admin Users</h2>
-        <div className="space-y-4">
-          {users.map((user) => (
-            <div
-              key={user._id}
-              className="bg-card p-4 rounded-lg border border-border"
-            >
-              <div className="flex justify-between items-center">
-                <div>
-                  <p className="font-medium text-foreground">{user.email}</p>
-                  <p className="text-sm text-muted-foreground">
-                    Created: {new Date(user.createdAt).toLocaleDateString()}
-                  </p>
-                </div>
-                <div className="flex items-center gap-4">
-                  <span className="text-sm text-muted-foreground">{user.role}</span>
-                  <Button
-                    variant="destructive"
-                    size="icon"
-                    onClick={() => handleDelete(user._id)}
-                    disabled={deletingUserId === user._id}
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                </div>
+      {currentUserRole === 'super_admin' && (
+        <div className="grid gap-4 md:grid-cols-3">
+          <div className="bg-card p-6 rounded-lg border border-border">
+            <div className="flex items-center gap-4">
+              <div className="p-2 bg-primary/10 rounded-lg">
+                <Users className="h-6 w-6 text-primary" />
+              </div>
+              <div>
+                <p className="text-sm text-muted-foreground">Total Users</p>
+                <p className="text-2xl font-semibold">{stats.total}</p>
               </div>
             </div>
-          ))}
-          {users.length === 0 && (
-            <p className="text-muted-foreground text-center py-4">No users found</p>
-          )}
+          </div>
+          <div className="bg-card p-6 rounded-lg border border-border">
+            <div className="flex items-center gap-4">
+              <div className="p-2 bg-primary/10 rounded-lg">
+                <Shield className="h-6 w-6 text-primary" />
+              </div>
+              <div>
+                <p className="text-sm text-muted-foreground">Admin Users</p>
+                <p className="text-2xl font-semibold">{stats.admins}</p>
+              </div>
+            </div>
+          </div>
+          <div className="bg-card p-6 rounded-lg border border-border">
+            <div className="flex items-center gap-4">
+              <div className="p-2 bg-primary/10 rounded-lg">
+                <UserCog className="h-6 w-6 text-primary" />
+              </div>
+              <div>
+                <p className="text-sm text-muted-foreground">Super Admins</p>
+                <p className="text-2xl font-semibold">{stats.superAdmins}</p>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-
-      <AlertDialog open={!!userToDelete} onOpenChange={() => setUserToDelete(null)}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This will permanently delete the user account for {userToDelete?.email}.
-              This action cannot be undone.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction
-              onClick={confirmDelete}
-              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-            >
-              Delete
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      )}
+      {/* Add User Form */}
+      {currentUserRole === 'super_admin' && (
+        <div>
+          <h2 className="text-lg font-semibold text-foreground mb-4">Add New Admin User</h2>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <Input
+                type="email"
+                placeholder="Email"
+                value={newUser.email}
+                onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
+                required
+              />
+            </div>
+            <div>
+              <Input
+                type="password"
+                placeholder="Password"
+                value={newUser.password}
+                onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
+                required
+              />
+            </div>
+            <Button type="submit" disabled={isLoading}>
+              {isLoading ? 'Creating...' : 'Create User'}
+            </Button>
+          </form>
+        </div>
+      )}
+      {/* User List */}
+      {currentUserRole === 'super_admin' && (
+        <div>
+          <h2 className="text-lg font-semibold text-foreground mb-4">Admin Users</h2>
+          <div className="space-y-4">
+            {users.map((user) => (
+              <div
+                key={user._id}
+                className="bg-card p-4 rounded-lg border border-border"
+              >
+                <div className="flex justify-between items-center">
+                  <div>
+                    <p className="font-medium text-foreground">{user.email}</p>
+                    <p className="text-sm text-muted-foreground">
+                      Created: {new Date(user.createdAt).toLocaleDateString()}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <span className="text-sm text-muted-foreground">{user.role}</span>
+                    {currentUserRole === 'super_admin' && (
+                      <Button
+                        variant="destructive"
+                        size="icon"
+                        onClick={() => handleDelete(user._id)}
+                        disabled={deletingUserId === user._id}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+            {users.length === 0 && (
+              <p className="text-muted-foreground text-center py-4">No users found</p>
+            )}
+          </div>
+        </div>
+      )}
+      {/* Delete Dialog */}
+      {currentUserRole === 'super_admin' && (
+        <AlertDialog open={!!userToDelete} onOpenChange={() => setUserToDelete(null)}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This will permanently delete the user account for {userToDelete?.email}.
+                This action cannot be undone.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction
+                onClick={confirmDelete}
+                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              >
+                Delete
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      )}
     </div>
   );
 } 
