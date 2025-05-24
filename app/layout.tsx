@@ -5,11 +5,19 @@ import { Metadata } from "next";
 import Script from 'next/script';
 import { cn } from "@/lib/utils";
 import { Inter } from "next/font/google";
+import { useEffect } from "react";
+import { GTMClient } from "@/components/GTMClient";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
 });
+
+declare global {
+  interface Window {
+    gtmDidInit?: boolean;
+  }
+}
 
 export const metadata: Metadata = {
   title: "HackRest - Code Execution Platform",
@@ -41,25 +49,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* Google Analytics */}
-        <Script
-          strategy="afterInteractive"
-          src={`https://www.googletagmanager.com/gtag/js?id=G-50440B50JK`}
-        />
-        <Script
-          id="google-analytics"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-50440B50JK');
-            `,
-          }}
-        />
+        {/* GTM will be injected after user interaction by GTMClient */}
       </head>
       <body className={cn("min-h-screen bg-background font-sans antialiased", inter.className)}>
+        <GTMClient />
         <Providers>
           {children}
           <Toaster />

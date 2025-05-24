@@ -30,7 +30,7 @@ const faqs = [
   },
 ];
 
-export function FAQSection() {
+export default function FAQSection() {
   return (
     <section className="relative py-32 overflow-hidden">
       <div className="absolute inset-0 bg-grid-black/[0.02] dark:bg-grid-white/[0.02]" />

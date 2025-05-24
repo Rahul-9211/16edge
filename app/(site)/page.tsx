@@ -2,67 +2,52 @@ import { getAllProjects } from "@/lib/projects/data";
 import { Suspense } from "react";
 import { Loader } from "@/components/ui/loader";
 import { HeroSection } from "@/components/sections/hero";
-import { PartnersSection } from "@/components/sections/partners";
 import { ServicesSection } from "@/components/sections/services";
-import { WorkProcessSection } from "@/components/sections/work-process";
-import { StatsSection } from "@/components/sections/stats";
-import { TechStackSection } from "@/components/sections/tech-stack";
-import { FeaturedProjects } from "@/components/sections/featured-projects";
-import { TestimonialsSection } from "@/components/sections/testimonials";
-import { FAQSection } from "@/components/sections/faq";
-import { CTASection } from "@/components/sections/cta";
+// Dynamically import non-critical sections
+import dynamic from "next/dynamic";
+
+const WorkProcessSection = dynamic(() => import("@/components/sections/work-process"), { ssr: false, loading: () => <Loader /> });
+const StatsSection = dynamic(() => import("@/components/sections/stats"), { ssr: false, loading: () => <Loader /> });
+const TechStackSection = dynamic(() => import("@/components/sections/tech-stack"), { ssr: false, loading: () => <Loader /> });
+const FeaturedProjects = dynamic(() => import("@/components/sections/featured-projects"), { ssr: false, loading: () => <Loader /> });
+const TestimonialsSection = dynamic(() => import("@/components/sections/testimonials"), { ssr: false, loading: () => <Loader /> });
+const FAQSection = dynamic(() => import("@/components/sections/faq"), { ssr: false, loading: () => <Loader /> });
+const CTASection = dynamic(() => import("@/components/sections/cta"), { ssr: false, loading: () => <Loader /> });
 
 export default async function Home() {
   const projects = await getAllProjects();
 
   return (
     <main className="flex flex-col min-h-screen">
-      {/* Hero Section */}
+      {/* Hero Section (critical for LCP) */}
       <Suspense fallback={<Loader size="large" />}>
         <HeroSection />
       </Suspense>
 
-      {/* Partners/Clients */}
-      {/* <Suspense fallback={<Loader />}>
-        <PartnersSection />
-      </Suspense> */}
-
-      {/* Services */}
+      {/* Services Section (critical for LCP) */}
       <Suspense fallback={<Loader />}>
         <ServicesSection />
       </Suspense>
 
-      {/* Work Process */}
+      {/* Dynamically loaded sections below */}
       <Suspense fallback={<Loader />}>
         <WorkProcessSection />
       </Suspense>
-
-      {/* Stats */}
       <Suspense fallback={<Loader />}>
         <StatsSection />
       </Suspense>
-
-      {/* Tech Stack */}
       <Suspense fallback={<Loader />}>
         <TechStackSection />
       </Suspense>
-
-      {/* Featured Projects */}
       <Suspense fallback={<Loader />}>
         <FeaturedProjects projects={projects} />
       </Suspense>
-
-      {/* Testimonials */}
       <Suspense fallback={<Loader />}>
         <TestimonialsSection />
       </Suspense>
-
-      {/* FAQ */}
       <Suspense fallback={<Loader />}>
         <FAQSection />
       </Suspense>
-
-      {/* CTA */}
       <Suspense fallback={<Loader />}>
         <CTASection />
       </Suspense>
