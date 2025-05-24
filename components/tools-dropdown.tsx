@@ -1,16 +1,17 @@
 "use client";
+
 import { services } from "@/config/services";
-import { ChevronDown, ChevronRight, Sparkles } from "lucide-react";
+import { ChevronDown, ChevronRight, Sparkles, Code2 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 
-export function ServicesDropdown({ isMobile = false }: { isMobile?: boolean }) {
+export function ToolsDropdown({ isMobile = false }: { isMobile?: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
-  const isActive = pathname?.startsWith("/services");
+  const isActive = pathname?.startsWith("/tools");
   const dropdownRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout>();
 
@@ -33,6 +34,17 @@ export function ServicesDropdown({ isMobile = false }: { isMobile?: boolean }) {
     };
   }, []);
 
+  const tools = [
+    {
+      title: "Compiler",
+      link: "/compiler",
+      description: "Online code compiler and editor",
+      icon: Code2,
+      color: "from-blue-500 to-blue-600",
+    },
+    // Add more tools here as needed
+  ];
+
   // Mobile version
   if (isMobile) {
     return (
@@ -44,7 +56,7 @@ export function ServicesDropdown({ isMobile = false }: { isMobile?: boolean }) {
             isActive ? "text-foreground font-medium bg-accent" : "text-foreground/60"
           )}
         >
-          <span>Services</span>
+          <span>Tools</span>
           <ChevronDown className={cn(
             "w-4 h-4 transition-transform duration-200",
             isOpen && "transform rotate-180"
@@ -61,22 +73,22 @@ export function ServicesDropdown({ isMobile = false }: { isMobile?: boolean }) {
             >
               <div className="pl-3 py-2 space-y-1">
                 <Link
-                  href="/services"
+                  href="/tools"
                   className="flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-accent/50 transition-colors"
                   onClick={() => setIsOpen(false)}
                 >
                   <Sparkles className="w-4 h-4" />
-                  <span>All Services</span>
+                  <span>All Tools</span>
                 </Link>
-                {services.map((service) => (
+                {tools.map((tool) => (
                   <Link
-                    key={service.title}
-                    href={service.link}
+                    key={tool.title}
+                    href={tool.link}
                     className="flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-accent/50 transition-colors"
                     onClick={() => setIsOpen(false)}
                   >
-                    <service.icon className="w-4 h-4" />
-                    <span>{service.title}</span>
+                    <tool.icon className="w-4 h-4" />
+                    <span>{tool.title}</span>
                   </Link>
                 ))}
               </div>
@@ -102,7 +114,13 @@ export function ServicesDropdown({ isMobile = false }: { isMobile?: boolean }) {
         )}
       >
         <span className="relative">
-          Services
+          Tools
+          {isActive && (
+            <motion.div
+              layoutId="tools-underline"
+              className="absolute left-0 right-0 h-0.5 -bottom-1 bg-primary"
+            />
+          )}
         </span>
         <ChevronDown className={cn(
           "w-4 h-4 transition-transform duration-200",
@@ -121,44 +139,44 @@ export function ServicesDropdown({ isMobile = false }: { isMobile?: boolean }) {
           >
             <div className="p-4">
               <Link
-                href="/services"
+                href="/tools"
                 className="flex items-center gap-3 p-3 rounded-lg hover:bg-muted transition-colors group mb-3"
               >
                 <div className="p-2 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
                   <Sparkles className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="font-semibold text-base">All Services</div>
+                  <div className="font-semibold text-base">All Tools</div>
                   <div className="text-sm text-muted-foreground">
-                    Explore our complete range of services
+                    Explore our complete range of tools
                   </div>
                 </div>
               </Link>
 
               <div className="grid grid-cols-2 gap-3">
-                {services.map((service, index) => (
+                {tools.map((tool, index) => (
                   <motion.div
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.05 }}
-                    key={service.title}
+                    key={tool.title}
                   >
                     <Link
-                      href={service.link}
+                      href={tool.link}
                       className="flex items-center gap-3 p-3 rounded-lg hover:bg-muted transition-colors group"
                     >
                       <div className={cn(
                         "p-2 rounded-lg",
-                        `bg-gradient-to-br ${service.color} group-hover:scale-110 transition-transform`
+                        `bg-gradient-to-br ${tool.color} group-hover:scale-110 transition-transform`
                       )}>
-                        <service.icon className="w-5 h-5 text-white" />
+                        <tool.icon className="w-5 h-5 text-white" />
                       </div>
                       <div>
                         <div className="font-medium group-hover:text-primary transition-colors">
-                          {service.title}
+                          {tool.title}
                         </div>
                         <div className="text-sm text-muted-foreground line-clamp-1">
-                          {service.description}
+                          {tool.description}
                         </div>
                       </div>
                     </Link>
