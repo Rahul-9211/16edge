@@ -32,7 +32,7 @@ const contactMethods = [
   },
 ];
 
-export function CTASection() {
+export default function CTASection() {
   return (
     <section className="relative py-32 overflow-hidden" id="contact">
       <div className="absolute inset-0 bg-grid-black/[0.02] dark:bg-grid-white/[0.02]" />

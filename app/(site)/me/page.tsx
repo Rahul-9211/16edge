@@ -1,5 +1,5 @@
 import { getAllProjects } from "@/lib/projects/data";
-import { FeaturedProjects } from "@/components/sections/featured-projects";
+import  FeaturedProjects  from "@/components/sections/featured-projects";
 import { SkillsSection } from "@/components/sections/skills";
 import { FeaturedPosts } from "@/components/sections/featured-posts";
 import { getBlogs } from "@/lib/blog/data";

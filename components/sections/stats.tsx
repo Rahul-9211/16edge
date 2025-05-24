@@ -33,7 +33,7 @@ const stats = [
   },
 ];
 
-export function StatsSection() {
+export default function StatsSection() {
   return (
     <section className="py-32">
       <div className="container px-4 mx-auto">

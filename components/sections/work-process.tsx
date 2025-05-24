@@ -30,7 +30,7 @@ const steps = [
   },
 ];
 
-export function WorkProcessSection() {
+export default function WorkProcessSection() {
   return (
     <section className="relative py-32 overflow-hidden">
       <div className="absolute inset-0 bg-grid-black/[0.02] dark:bg-grid-white/[0.02]" />

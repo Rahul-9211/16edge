@@ -31,7 +31,7 @@ const testimonials = [
   },
 ];
 
-export function TestimonialsSection() {
+export default function TestimonialsSection() {
   return (
     <section className="relative py-20 overflow-hidden">
       {/* Background decoration */}

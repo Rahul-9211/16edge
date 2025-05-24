@@ -10,7 +10,7 @@ interface FeaturedProjectsProps {
   projects: Project[];
 }
 
-export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
+export default function FeaturedProjects({ projects }: FeaturedProjectsProps) {
   return (
     <section className="py-20">
       <div className="container px-4 mx-auto">
