@@ -5,26 +5,46 @@ import { Card, CardContent } from "@/components/ui/card";
 
 const experiences = [
   {
-    company: "Lal10 - Bhagwandas Retail Pvt. Ltd",
-    role: "Software Developer Engineer - I",
-    duration: "July 2023 - Present",
-    location: "Noida, India",
-    description: "Working on full-stack development of enterprise applications, focusing on brand dashboards, design management systems, and mobile applications.",
+    company: "Amenify",
+    role: "Software Developer Engineer - II",
+    duration: "March 2025 - Present",
+    location: "Gurugram, India",
+    description: "Leading development of e-commerce features in the Amenify resident app, focusing on seamless user experience and robust backend systems.",
     responsibilities: [
-      "Building and maintaining brand dashboards for order tracking and management",
-      "Developing in-house design management systems",
-      "Managing website development for Lal10 and Lal10 Japan",
-      "Implementing finance modules in mobile applications",
-      "Managing deployments and CI/CD pipelines on Azure",
+      "Created e-commerce feature in Amenify resident app with Django, PostgreSQL, and Shopify Storefront API",
+      "Implemented real-time product search functionality",
+      "Integrated credit wallet system and Stripe payments",
+      "Automated appointment creation and order tracking via internal dashboard"
     ],
     achievements: [
-      "Increased design team productivity by 40% through Design Central implementation",
-      "Reduced website load times by 30%",
-      "Decreased finance request processing time by 50%",
-      "Improved accuracy in financial processes by 25%",
+      "Successfully integrated multiple payment systems",
+      "Implemented real-time product search enhancing user experience",
+      "Automated critical business processes reducing manual work"
     ],
-    technologies: ["Next.js", "Node.js", "React Native", "Nest.js", "MySQL", "Strapi", "TailwindCSS", "Azure", "GitHub Actions"],
+    technologies: ["Python", "Django", "PostgreSQL", "ReactJs", "Shopify Storefront API", "Stripe"],
     color: "from-blue-500 via-purple-500 to-pink-500",
+  },
+  {
+    company: "Lal10 – Bhagwandas Retail Pvt. Ltd.",
+    role: "Software Development Engineer - I",
+    duration: "July 2023 – March 2025",
+    location: "Noida, India",
+    description: "Full-stack development focusing on brand dashboards, design management, and mobile applications.",
+    responsibilities: [
+      "Developed Brands Dashboard for end-to-end order tracking (TNA) with real-time updates",
+      "Created Design Central for internal product designs and catalog management",
+      "Built and optimized Lal10 and Lal10 Japan websites",
+      "Implemented finance and production modules in mobile app",
+      "Managed Nest.js app deployment on AWS/Azure with GitHub Actions"
+    ],
+    achievements: [
+      "Boosted design team productivity by 40% through Design Central implementation",
+      "Reduced website load time by 30% through optimization",
+      "Decreased processing time by 50% in finance modules",
+      "Successfully migrated deployment from AWS to Azure"
+    ],
+    technologies: ["Next.js", "Node.js", "React Native", "Nest.js", "MySQL", "Strapi", "TailwindCSS", "AWS", "Azure", "GitHub Actions"],
+    color: "from-green-500 via-teal-500 to-blue-500",
   },
   {
     company: "Xiarch Solutions Pvt. Ltd",
@@ -33,20 +53,20 @@ const experiences = [
     location: "Noida, India",
     description: "Led development of enterprise applications focusing on audit management and cybersecurity monitoring.",
     responsibilities: [
-      "Developing AuditSense - an Audit Report System",
-      "Building GuardLogix - a cybersecurity monitoring tool",
-      "Implementing role-based access control systems",
-      "Managing service monitoring features",
-      "Optimizing algorithms for better performance",
+      "Developed AuditSense - an Audit Report System",
+      "Built GuardLogix - a cybersecurity monitoring tool",
+      "Implemented role-based access control systems",
+      "Managed service monitoring features",
+      "Optimized algorithms for better performance"
     ],
     achievements: [
       "Increased productivity by 170% through AuditSense implementation",
       "Successfully developed and deployed GuardLogix monitoring tool",
       "Implemented efficient scheduling and monitoring systems",
-      "Optimized service monitoring algorithms",
+      "Optimized service monitoring algorithms"
     ],
     technologies: ["React.js", "Node.js", "MongoDB", "Express.js", "MERN Stack", "Algorithm Optimization"],
-    color: "from-green-500 via-teal-500 to-blue-500",
+    color: "from-purple-500 via-pink-500 to-red-500",
   },
 ];
 
