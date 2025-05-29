@@ -14,6 +14,7 @@ import {
   Code2,
   FileCode,
   History,
+  FileText,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -69,6 +70,11 @@ export function DashboardSidebar() {
       name: 'Users',
       href: '/admin/dashboard/users',
       icon: Users,
+    },
+    {
+      name: 'Blogs',
+      href: '/admin/dashboard/blogs',
+      icon: FileText,
     },
     // {
     //   name: 'Settings',
