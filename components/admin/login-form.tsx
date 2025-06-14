@@ -27,7 +27,7 @@ export function AdminLoginForm({ onLoginSuccess }: AdminLoginFormProps) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email, password }),
-        credentials: 'include', // Important for cookies
+        credentials: 'include',
       });
 
       const data = await res.json();
@@ -43,12 +43,9 @@ export function AdminLoginForm({ onLoginSuccess }: AdminLoginFormProps) {
         localStorage.setItem('adminUser', JSON.stringify(data.user));
         
         toast.success('Login successful');
-        console.log('Login successful, token stored');
         
-        // Notify parent component
-        // onLoginSuccess?.();
-         window.location.href = data.redirect || '/admin/dashboard';
-
+        // Use router.push instead of window.location
+        router.push('/admin/dashboard');
       } else {
         throw new Error('Login failed');
       }

@@ -29,6 +29,7 @@ export default function DashboardLayout({
           headers: {
             Authorization: `Bearer ${token}`,
           },
+          credentials: 'include',
         });
 
         if (!response.ok) {
@@ -42,6 +43,8 @@ export default function DashboardLayout({
         setIsLoading(false);
       } catch (error) {
         console.error('Auth check failed:', error);
+        localStorage.removeItem('adminToken');
+        localStorage.removeItem('adminUser');
         router.push('/admin');
       }
     };
