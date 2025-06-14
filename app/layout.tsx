@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { Inter } from "next/font/google";
 import { useEffect } from "react";
 import { GTMClient } from "@/components/GTMClient";
+import { ThemeProvider } from '@/components/theme-provider';
 
 const inter = Inter({
   subsets: ["latin"],
@@ -20,8 +21,22 @@ declare global {
 }
 
 export const metadata: Metadata = {
-  title: "HackRest - Code Execution Platform",
-  description: "Execute code in multiple languages with real-time output",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'),
+  title: {
+    default: 'Your Company Name',
+    template: '%s | Your Company Name',
+  },
+  description: 'Your company description here',
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
+    siteName: 'Your Company Name',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@yourcompany',
+  },
   icons: {
     icon: [
       {
@@ -53,10 +68,17 @@ export default function RootLayout({
       </head>
       <body className={cn("min-h-screen bg-background font-sans antialiased", inter.className)}>
         <GTMClient />
-        <Providers>
-          {children}
-          <Toaster />
-        </Providers>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Providers>
+            {children}
+            <Toaster />
+          </Providers>
+        </ThemeProvider>
       </body>
     </html>
   );

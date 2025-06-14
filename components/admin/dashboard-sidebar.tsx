@@ -14,6 +14,7 @@ import {
   Code2,
   FileCode,
   History,
+  FileText,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -46,6 +47,11 @@ export function DashboardSidebar() {
       name: 'Dashboard',
       href: '/admin/dashboard',
       icon: LayoutDashboard,
+    },
+    {
+      name: 'Blog',
+      href: '/admin/dashboard/blog',
+      icon: FileText,
     },
     // {
     //   name: 'Code Editor',

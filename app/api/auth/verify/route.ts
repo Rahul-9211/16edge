@@ -1,34 +1,26 @@
 import { NextResponse } from 'next/server';
-import { verify } from 'jsonwebtoken';
+import { headers } from 'next/headers';
+import jwt from 'jsonwebtoken';
 
-export async function GET(request: Request) {
+export const dynamic = 'force-dynamic';
+
+export async function GET() {
   try {
-    // Get the token from the Authorization header
-    const authHeader = request.headers.get('Authorization');
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    const headersList = headers();
+    const token = headersList.get('authorization')?.split(' ')[1];
+
+    if (!token) {
       return NextResponse.json(
-        { message: 'No token provided' },
+        { error: 'No token provided' },
         { status: 401 }
       );
     }
 
-    const token = authHeader.split(' ')[1];
-
-    // Verify the token
-    const decoded = verify(token, process.env.JWT_SECRET || 'your-secret-key');
-
-    // Return the decoded user information
-    return NextResponse.json({
-      success: true,
-      user: {
-        userId: (decoded as any).userId,
-        role: (decoded as any).role
-      }
-    });
+    const decoded = jwt.verify(token, process.env.JWT_SECRET!);
+    return NextResponse.json({ user: decoded });
   } catch (error) {
-    console.error('Token verification error:', error);
     return NextResponse.json(
-      { message: 'Invalid token' },
+      { error: 'Invalid token' },
       { status: 401 }
     );
   }

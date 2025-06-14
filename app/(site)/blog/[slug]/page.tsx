@@ -6,34 +6,9 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { fetchBlogs } from "@/lib/blog/data";
 import { Calendar, Clock, Hash } from "lucide-react";
-
-// Helper function to safely format date
-const formatDate = (dateString: string | Date | undefined) => {
-  try {
-    if (!dateString) return 'No date';
-    const date = new Date(dateString);
-    if (isNaN(date.getTime())) return 'Invalid date';
-    return date.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
-  } catch (error) {
-    return 'Invalid date';
-  }
-};
-
-// Helper function to get ISO string safely
-const getISODate = (dateString: string | Date | undefined) => {
-  try {
-    if (!dateString) return new Date().toISOString();
-    const date = new Date(dateString);
-    if (isNaN(date.getTime())) return new Date().toISOString();
-    return date.toISOString();
-  } catch (error) {
-    return new Date().toISOString();
-  }
-};
+import clientPromise from '@/lib/mongodb';
+import { Blog } from '@/lib/blog/types';
+import { formatDate, toISODate } from '@/lib/utils/date';
 
 interface BlogPostPageProps {
   params: {
@@ -51,31 +26,38 @@ export async function generateStaticParams() {
 
 // Generate metadata for SEO
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
-  const blog = await getBlogBySlug(params.slug);
+  const client = await clientPromise;
+  const db = client.db(process.env.MONGODB_DB);
+  const blog = await db.collection('blogs').findOne({ slug: params.slug });
   
   if (!blog) {
     return {
-      title: 'Blog Post Not Found',
+      title: 'Blog Not Found',
       description: 'The requested blog post could not be found.',
     };
   }
 
+  // Use current date as fallback for invalid dates
+  const currentDate = new Date().toISOString();
+  const publishDate = toISODate(blog.publishDate) || currentDate;
+  const modifiedTime = toISODate(blog.updatedAt) || currentDate;
+
   return {
     title: blog.title,
-    description: blog.content.substring(0, 160),
+    description: blog.excerpt,
     openGraph: {
       title: blog.title,
-      description: blog.content.substring(0, 160),
+      description: blog.excerpt,
       type: 'article',
-      publishedTime: getISODate(blog.publishDate),
-      modifiedTime: getISODate(blog.publishDate),
-      authors: ['Your Company Name'],
+      publishedTime: publishDate,
+      modifiedTime: modifiedTime,
+      authors: [blog.author],
       tags: blog.tags,
     },
     twitter: {
       card: 'summary_large_image',
       title: blog.title,
-      description: blog.content.substring(0, 160),
+      description: blog.excerpt,
     },
   };
 }
@@ -91,7 +73,9 @@ const getTableOfContents = (content: string) => {
 };
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
-  const blog = await getBlogBySlug(params.slug);
+  const client = await clientPromise;
+  const db = client.db(process.env.MONGODB_DB);
+  const blog = await db.collection('blogs').findOne({ slug: params.slug });
   
   if (!blog) {
     notFound();
@@ -100,18 +84,23 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const toc = getTableOfContents(blog.content);
   const readingTime = Math.ceil(blog.content.length / 1000);
 
+  // Use current date as fallback for invalid dates
+  const currentDate = new Date().toISOString();
+  const publishDate = toISODate(blog.publishDate) || currentDate;
+  const modifiedTime = toISODate(blog.updatedAt) || currentDate;
+
   // Generate structured data for the blog post
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
     headline: blog.title,
-    datePublished: getISODate(blog.publishDate),
-    dateModified: getISODate(blog.publishDate),
+    datePublished: publishDate,
+    dateModified: modifiedTime,
     author: {
       '@type': 'Organization',
       name: 'Your Company Name'
     },
-    description: blog.content.substring(0, 160),
+    description: blog.excerpt,
     image: blog.featuredImage,
     keywords: blog.tags.join(', '),
     wordCount: blog.content.length,
@@ -145,7 +134,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
                 <div className="flex items-center gap-2">
                   <Calendar className="w-4 h-4" aria-hidden="true" />
-                  <time dateTime={getISODate(blog.publishDate)}>
+                  <time dateTime={toISODate(blog.publishDate)}>
                     {formatDate(blog.publishDate)}
                   </time>
                 </div>
@@ -156,7 +145,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               </div>
 
               <div className="flex flex-wrap gap-2 mt-4">
-                {blog.tags.map((tag) => (
+                {blog.tags.map((tag: string) => (
                   <Badge 
                     key={tag} 
                     variant="secondary"
