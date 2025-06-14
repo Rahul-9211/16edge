@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
@@ -15,6 +15,7 @@ export function AdminLoginForm({ onLoginSuccess }: AdminLoginFormProps) {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,8 +45,9 @@ export function AdminLoginForm({ onLoginSuccess }: AdminLoginFormProps) {
         
         toast.success('Login successful');
         
-        // Use router.push instead of window.location
-        router.push('/admin/dashboard');
+        // Redirect to the original destination or dashboard
+        const from = searchParams.get('from') || '/admin/dashboard';
+        router.push(from);
       } else {
         throw new Error('Login failed');
       }

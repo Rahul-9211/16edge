@@ -8,14 +8,17 @@ export async function middleware(request: NextRequest) {
 
   // If trying to access admin routes without token
   if (pathname.startsWith('/admin/dashboard') && !token) {
-    return NextResponse.redirect(new URL('/admin', request.url));
+    const url = new URL('/admin', request.url);
+    url.searchParams.set('from', pathname);
+    return NextResponse.redirect(url);
   }
 
   // If trying to access admin login with valid token
   if (pathname === '/admin' && token) {
     try {
       verify(token, process.env.JWT_SECRET || 'your-secret-key');
-      return NextResponse.redirect(new URL('/admin/dashboard', request.url));
+      const from = request.nextUrl.searchParams.get('from') || '/admin/dashboard';
+      return NextResponse.redirect(new URL(from, request.url));
     } catch (error) {
       // Invalid token, clear it and allow access to login
       const response = NextResponse.next();

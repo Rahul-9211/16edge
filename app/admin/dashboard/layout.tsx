@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { DashboardSidebar } from '@/components/admin/dashboard-sidebar';
 
 export default function DashboardLayout({
@@ -11,6 +11,7 @@ export default function DashboardLayout({
 }) {
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -20,7 +21,9 @@ export default function DashboardLayout({
         const user = localStorage.getItem('adminUser');
 
         if (!token || !user) {
-          router.push('/admin');
+          const url = new URL('/admin', window.location.origin);
+          url.searchParams.set('from', pathname);
+          router.push(url.toString());
           return;
         }
 
@@ -36,7 +39,9 @@ export default function DashboardLayout({
           // Clear invalid data
           localStorage.removeItem('adminToken');
           localStorage.removeItem('adminUser');
-          router.push('/admin');
+          const url = new URL('/admin', window.location.origin);
+          url.searchParams.set('from', pathname);
+          router.push(url.toString());
           return;
         }
 
@@ -45,12 +50,14 @@ export default function DashboardLayout({
         console.error('Auth check failed:', error);
         localStorage.removeItem('adminToken');
         localStorage.removeItem('adminUser');
-        router.push('/admin');
+        const url = new URL('/admin', window.location.origin);
+        url.searchParams.set('from', pathname);
+        router.push(url.toString());
       }
     };
 
     checkAuth();
-  }, [router]);
+  }, [router, pathname]);
 
   if (isLoading) {
     return (
