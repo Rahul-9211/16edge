@@ -79,7 +79,9 @@ export async function fetchBlogs(
     const client = await clientPromise;
     const db = client.db(process.env.MONGODB_DB);
 
-    const skip = (page - 1) * limit;
+    // Ensure page is at least 1
+    const validPage = Math.max(1, page);
+    const skip = (validPage - 1) * limit;
     
     // Use the no-cache option when fetching
     const blogs = await db
@@ -99,11 +101,14 @@ export async function fetchBlogs(
       .toArray();
 
     const totalDocs = await db.collection('blogs').countDocuments();
-    const totalPages = Math.ceil(totalDocs / limit);
+    const totalPages = Math.max(1, Math.ceil(totalDocs / limit));
+
+    // If the requested page is greater than total pages, return the last page
+    const currentPage = validPage > totalPages ? totalPages : validPage;
 
     return {
       data: JSON.parse(JSON.stringify(blogs)),
-      currentPage: page,
+      currentPage,
       totalPages,
       totalDocs
     };
@@ -111,8 +116,8 @@ export async function fetchBlogs(
     console.error('Failed to fetch blogs:', error);
     return {
       data: [],
-      currentPage: page,
-      totalPages: 0,
+      currentPage: 1,
+      totalPages: 1,
       totalDocs: 0
     };
   }

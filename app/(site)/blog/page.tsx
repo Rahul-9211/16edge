@@ -6,6 +6,7 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, Calendar, Clock } from "lucide-react";
 import Image from "next/image";
+import { PaginationButton } from "@/components/blog/pagination-button";
 
 interface BlogsPageProps {
   searchParams: {
@@ -101,35 +102,29 @@ const BlogsPage = async ({ searchParams = {} }: BlogsPageProps) => {
           </div>
 
           {/* Pagination */}
-          <div className="flex justify-center gap-4 mt-12">
-            <Button
-              variant="outline"
-              disabled={currentPage <= 1}
-              asChild
-              className="transition-colors hover:border-primary/50"
-            >
-              <Link href={`/blog?page=${currentPage - 1}`}>
+          {blogs.length > 0 && (
+            <div className="flex items-center justify-center gap-4 mt-8">
+              <PaginationButton
+                href={`/blog?page=${currentPage - 1}`}
+                disabled={currentPage <= 1}
+              >
                 <ChevronLeft className="w-4 h-4 mr-2" />
                 Previous
-              </Link>
-            </Button>
-            <div className="flex items-center gap-2 px-4 text-sm">
-              <span className="font-medium">{currentPage}</span>
-              <span className="text-muted-foreground">of</span>
-              <span className="font-medium">{totalPages}</span>
-            </div>
-            <Button
-              variant="outline"
-              disabled={currentPage >= totalPages}
-              asChild
-              className="transition-colors hover:border-primary/50"
-            >
-              <Link href={`/blog?page=${currentPage + 1}`}>
+              </PaginationButton>
+              <div className="flex items-center gap-2 px-4 text-sm">
+                <span className="font-medium">{currentPage}</span>
+                <span className="text-muted-foreground">of</span>
+                <span className="font-medium">{totalPages}</span>
+              </div>
+              <PaginationButton
+                href={`/blog?page=${currentPage + 1}`}
+                disabled={currentPage >= totalPages || totalPages <= 1 || blogs.length === 0}
+              >
                 Next
                 <ChevronRight className="w-4 h-4 ml-2" />
-              </Link>
-            </Button>
-          </div>
+              </PaginationButton>
+            </div>
+          )}
         </div>
       </section>
     </div>

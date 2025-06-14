@@ -16,20 +16,16 @@ export const PaginationButton = ({
   disabled, 
   children 
 }: PaginationButtonProps) => {
-  const [isNavigating, setIsNavigating] = React.useState(false);
-
   const handleClick = (e: React.MouseEvent) => {
-    if (disabled || isNavigating) {
+    if (disabled) {
       e.preventDefault();
-      return;
     }
-    setIsNavigating(true);
   };
 
   return (
     <Button
       variant="outline"
-      disabled={disabled || isNavigating}
+      disabled={disabled}
       asChild
       className="transition-colors hover:border-primary/50"
       onClick={handleClick}
