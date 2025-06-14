@@ -7,6 +7,34 @@ import remarkGfm from 'remark-gfm';
 import { fetchBlogs } from "@/lib/blog/data";
 import { Calendar, Clock, Hash } from "lucide-react";
 
+// Helper function to safely format date
+const formatDate = (dateString: string | Date | undefined) => {
+  try {
+    if (!dateString) return 'No date';
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) return 'Invalid date';
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  } catch (error) {
+    return 'Invalid date';
+  }
+};
+
+// Helper function to get ISO string safely
+const getISODate = (dateString: string | Date | undefined) => {
+  try {
+    if (!dateString) return new Date().toISOString();
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) return new Date().toISOString();
+    return date.toISOString();
+  } catch (error) {
+    return new Date().toISOString();
+  }
+};
+
 interface BlogPostPageProps {
   params: {
     slug: string;
@@ -21,59 +49,46 @@ export async function generateStaticParams() {
   }));
 }
 
-// Generate metadata for each blog post
+// Generate metadata for SEO
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   const blog = await getBlogBySlug(params.slug);
   
   if (!blog) {
     return {
       title: 'Blog Post Not Found',
+      description: 'The requested blog post could not be found.',
     };
   }
 
   return {
-    title: `${blog.title} | Hackrest`,
-    description: blog.content.slice(0, 160),
+    title: blog.title,
+    description: blog.content.substring(0, 160),
     openGraph: {
       title: blog.title,
-      description: blog.content.slice(0, 160),
+      description: blog.content.substring(0, 160),
       type: 'article',
-      url: `https://hackrest.com/blog/${blog.slug}`,
-      images: [
-        {
-          url: blog.featuredImage,
-          width: 1200,
-          height: 630,
-          alt: blog.title,
-        },
-      ],
+      publishedTime: getISODate(blog.publishDate),
+      modifiedTime: getISODate(blog.publishDate),
+      authors: ['Your Company Name'],
+      tags: blog.tags,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: blog.title,
+      description: blog.content.substring(0, 160),
     },
   };
 }
 
-interface TOCHeading {
-  level: number;
-  title: string;
-  id: string;
-}
-
-function getTableOfContents(content: string): TOCHeading[] {
-  return content
-    .split('\n')
-    .filter(line => line.startsWith('#'))
-    .map(heading => {
-      const match = heading.match(/^(#+)\s(.+)$/);
-      if (!match) return null;
-      
-      const [, hashes, title] = match;
-      return {
-        level: hashes.length,
-        title: title.trim(),
-        id: title.toLowerCase().replace(/[^\w]+/g, '-')
-      };
-    })
-    .filter((heading): heading is TOCHeading => heading !== null);
-}
+// Helper function to generate table of contents
+const getTableOfContents = (content: string) => {
+  const headings = content.match(/^#{2,3}\s.+$/gm) || [];
+  return headings.map(heading => ({
+    text: heading.replace(/^#{2,3}\s/, ''),
+    level: heading.startsWith('###') ? 3 : 2,
+    id: heading.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+  }));
+};
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const blog = await getBlogBySlug(params.slug);
@@ -85,89 +100,106 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const toc = getTableOfContents(blog.content);
   const readingTime = Math.ceil(blog.content.length / 1000);
 
+  // Generate structured data for the blog post
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: blog.title,
+    datePublished: getISODate(blog.publishDate),
+    dateModified: getISODate(blog.publishDate),
+    author: {
+      '@type': 'Organization',
+      name: 'Your Company Name'
+    },
+    description: blog.content.substring(0, 160),
+    image: blog.featuredImage,
+    keywords: blog.tags.join(', '),
+    wordCount: blog.content.length,
+    timeRequired: `PT${readingTime}M`
+  };
+
   return (
-    <div className="container px-4 py-16 mx-auto">
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-12 max-w-7xl mx-auto">
-        <article className="max-w-4xl">
-          {blog.featuredImage && (
-            <div className="relative w-full aspect-video mb-8 overflow-hidden rounded-xl shadow-lg">
-              <img
-                src={blog.featuredImage}
-                alt={blog.title}
-                className="object-cover w-full h-full transition-transform duration-500 hover:scale-105"
-              />
-            </div>
-          )}
-          
-          <header className="mb-12">
-            <div className="flex flex-wrap gap-2 mb-6">
-              {blog.tags.map((tag) => (
-                <Badge 
-                  key={tag} 
-                  variant="secondary"
-                  className="px-3 py-1 text-sm bg-primary/10 text-primary hover:bg-primary/20"
-                >
-                  {tag}
-                </Badge>
-              ))}
-            </div>
-            <h1 className="mb-6 text-4xl font-bold md:text-5xl lg:text-6xl bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70">
-              {blog.title}
-            </h1>
-            <div className="flex flex-wrap items-center gap-6 text-muted-foreground">
-              <div className="flex items-center gap-2">
-                <Calendar className="w-4 h-4" />
-                <time dateTime={new Date(blog.publishDate).toISOString()}>
-                  {new Date(blog.publishDate).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                  })}
-                </time>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <article className="container px-4 py-16 mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-12 max-w-7xl mx-auto">
+          <div className="max-w-4xl">
+            {blog.featuredImage && (
+              <div className="relative w-full aspect-video mb-8 overflow-hidden rounded-xl shadow-lg">
+                <img
+                  src={blog.featuredImage}
+                  alt={blog.title}
+                  className="object-cover w-full h-full transition-transform duration-500 hover:scale-105"
+                />
               </div>
-              <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4" />
-                <span>{readingTime} min read</span>
+            )}
+            
+            <header className="mb-8">
+              <h1 className="mb-4 text-4xl font-bold md:text-5xl">
+                {blog.title}
+              </h1>
+              
+              <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+                <div className="flex items-center gap-2">
+                  <Calendar className="w-4 h-4" aria-hidden="true" />
+                  <time dateTime={getISODate(blog.publishDate)}>
+                    {formatDate(blog.publishDate)}
+                  </time>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Clock className="w-4 h-4" aria-hidden="true" />
+                  <span>{readingTime} min read</span>
+                </div>
               </div>
-            </div>
-          </header>
 
-          <div className="prose prose-lg dark:prose-invert max-w-none medium-markdown">
-            <ReactMarkdown 
-              remarkPlugins={[remarkGfm]}
-            >
-              {blog.content}
-            </ReactMarkdown>
-          </div>
-        </article>
-
-        {/* Table of Contents Sidebar */}
-        <aside className="hidden lg:block">
-          <div className="sticky top-24">
-            <div className="rounded-xl border bg-card/50 backdrop-blur supports-[backdrop-filter]:bg-card/50">
-              <div className="flex items-center gap-2 border-b p-4">
-                <Hash className="w-5 h-5 text-primary" />
-                <h3 className="font-semibold">Table of Contents</h3>
-              </div>
-              <nav className="p-4">
-                {toc.map((heading, index) => (
-                  <a
-                    key={index}
-                    href={`#${heading.id}`}
-                    className={`
-                      block py-1.5 text-muted-foreground hover:text-primary transition-colors
-                      ${heading.level > 2 ? `pl-${(heading.level - 2) * 4}` : ''}
-                      ${heading.level === 2 ? 'font-medium' : 'text-sm'}
-                    `}
+              <div className="flex flex-wrap gap-2 mt-4">
+                {blog.tags.map((tag) => (
+                  <Badge 
+                    key={tag} 
+                    variant="secondary"
+                    className="px-2 py-0.5 text-xs font-normal bg-primary/10 text-primary hover:bg-primary/20"
                   >
-                    {heading.title}
-                  </a>
+                    {tag}
+                  </Badge>
                 ))}
-              </nav>
+              </div>
+            </header>
+
+            <div className="prose prose-lg dark:prose-invert max-w-none">
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {blog.content}
+              </ReactMarkdown>
             </div>
           </div>
-        </aside>
-      </div>
-    </div>
+
+          {/* Table of Contents */}
+          {toc.length > 0 && (
+            <nav className="hidden lg:block" aria-label="Table of contents">
+              <div className="sticky top-8">
+                <h2 className="mb-4 text-lg font-semibold">Table of Contents</h2>
+                <ul className="space-y-2">
+                  {toc.map((item) => (
+                    <li
+                      key={item.id}
+                      style={{ marginLeft: `${(item.level - 2) * 1}rem` }}
+                    >
+                      <a
+                        href={`#${item.id}`}
+                        className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                      >
+                        {item.text}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </nav>
+          )}
+        </div>
+      </article>
+    </>
   );
 } 
