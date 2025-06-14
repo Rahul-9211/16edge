@@ -48,6 +48,11 @@ export function DashboardSidebar() {
       href: '/admin/dashboard',
       icon: LayoutDashboard,
     },
+    {
+      name: 'Blog',
+      href: '/admin/dashboard/blog',
+      icon: FileText,
+    },
     // {
     //   name: 'Code Editor',
     //   href: '/admin/dashboard/editor',

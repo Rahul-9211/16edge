@@ -16,6 +16,7 @@ interface ApiResponse {
 }
 
 const JSCompiler: React.FC = () => {
+  console.log('JSCompiler component rendering');
   const [code, setCode] = useState<string>("console.log('Hello, World!');"); // Default JavaScript code
   const [stdin, setStdin] = useState<string>(""); // User's stdin input
   const [output, setOutput] = useState<string>(""); // Output from the API

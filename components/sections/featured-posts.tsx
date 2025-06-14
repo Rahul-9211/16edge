@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { Blog } from "@/lib/blog/types";
+import { toISODate, formatDate } from "@/lib/utils/date";
 
 interface FeaturedPostsProps {
   posts: Blog[];
@@ -22,7 +23,7 @@ export async function FeaturedPosts({ posts }: FeaturedPostsProps) {
         {featuredPosts.map((post) => (
           <Link key={post._id} href={`/blog/${post.slug}`}>
             <Card className="h-full transition-all hover:shadow-lg">
-            {post.featuredImage && (
+              {post.featuredImage && (
                 <div className="relative w-full h-48 overflow-hidden">
                   <img
                     src={post.featuredImage}
@@ -34,12 +35,8 @@ export async function FeaturedPosts({ posts }: FeaturedPostsProps) {
               <CardHeader>
                 <CardTitle className="line-clamp-2">{post.title}</CardTitle>
                 <div className="flex items-center gap-2 mt-2 text-sm text-muted-foreground">
-                  <time dateTime={new Date(post.publishDate).toISOString()}>
-                    {new Date(post.publishDate).toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric'
-                    })}
+                  <time dateTime={toISODate(post.publishDate)}>
+                    {formatDate(post.publishDate)}
                   </time>
                 </div>
               </CardHeader>
