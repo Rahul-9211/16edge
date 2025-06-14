@@ -76,6 +76,11 @@ export function DashboardSidebar() {
       href: '/admin/dashboard/users',
       icon: Users,
     },
+    {
+      name: 'Blogs',
+      href: '/admin/dashboard/blogs',
+      icon: FileText,
+    },
     // {
     //   name: 'Settings',
     //   href: '/admin/dashboard/settings',
