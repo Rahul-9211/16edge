@@ -1,16 +1,22 @@
 import { Code2 } from "lucide-react";
 import Link from "next/link";
+import { Metadata } from "next";
 
 const tools = [
   {
     title: "Compiler",
-    link: "/Compiler",
+    link: "/compiler",
     description: "Online code compiler and editor",
     icon: Code2,
     color: "from-blue-500 to-blue-600",
   },
   // Add more tools here as needed
 ];
+
+export const metadata: Metadata = {
+  title: 'Development Tools',
+  description: 'Access our suite of powerful development tools and utilities designed to enhance your coding workflow and boost productivity.',
+};
 
 export default function ToolsPage() {
   return (

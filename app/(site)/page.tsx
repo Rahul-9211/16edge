@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { getAllProjects } from "@/lib/projects/data";
 import { Suspense } from "react";
 import { Loader } from "@/components/ui/loader";
@@ -13,6 +14,11 @@ const FeaturedProjects = dynamic(() => import("@/components/sections/featured-pr
 const TestimonialsSection = dynamic(() => import("@/components/sections/testimonials"), { ssr: false, loading: () => <Loader /> });
 const FAQSection = dynamic(() => import("@/components/sections/faq"), { ssr: false, loading: () => <Loader /> });
 const CTASection = dynamic(() => import("@/components/sections/cta"), { ssr: false, loading: () => <Loader /> });
+
+export const metadata: Metadata = {
+  title: "HackRest - Custom Digital Solutions",
+  description: "We build custom websites, mobile apps, and digital solutions to help your business grow.",
+};
 
 export default async function Home() {
   const projects = await getAllProjects();

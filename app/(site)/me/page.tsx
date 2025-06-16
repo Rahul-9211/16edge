@@ -10,6 +10,12 @@ import { JourneySection } from "@/components/sections/journey";
 import { ExperienceSection } from "@/components/sections/experience";
 import { EducationSection } from "@/components/sections/education";
 import { AchievementsSection } from "@/components/sections/achievements";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'My Profile',
+  description: 'Access your personal dashboard, manage your account settings, and track your project progress with our user-friendly profile interface.',
+};
 
 export default async function Home() {
   const projects = await getAllProjects();

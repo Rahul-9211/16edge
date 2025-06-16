@@ -4,14 +4,9 @@ import React, { useState } from "react";
 import Editor from "@monaco-editor/react"; // Monaco Editor for code editing
 
 // Define the structure of the API response
-interface ApiResponse {
-  exception: string;
-  executionTime: number;
-  status: string;
-  stderr: string;
-  stdin: string;
-  stdout: string;
-  memory: string;
+interface CompileResponse {
+  output: string;
+  error: string;
   cpuTime: string;
 }
 
@@ -49,9 +44,9 @@ const JSCompiler: React.FC = () => {
 
     try {
       const response = await fetch(url, options); // Make the API call
-      const result: ApiResponse = await response.json(); // Parse the response as JSON
+      const result: CompileResponse = await response.json(); // Parse the response as JSON
       console.log(result);
-      setOutput(result.stdout || result.exception || "No output"); // Set the output
+      setOutput(result.output || result.error || "No output"); // Set the output
     } catch (error) {
       console.error("Error:", error);
       setOutput("An error occurred while compiling the code.");

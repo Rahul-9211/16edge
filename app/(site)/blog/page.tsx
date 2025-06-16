@@ -1,12 +1,17 @@
+import { Metadata } from "next";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { fetchBlogs } from "@/lib/blog/data";
 import Link from "next/link";
-import React from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, Calendar, Clock } from "lucide-react";
 import Image from "next/image";
 import { PaginationButton } from "@/components/blog/pagination-button";
+
+export const metadata: Metadata = {
+  title: "Blog | HackRest",
+  description: "Explore our latest insights, tips, and best practices for web development, mobile apps, and digital marketing.",
+};
 
 interface BlogsPageProps {
   searchParams: {
@@ -14,9 +19,9 @@ interface BlogsPageProps {
   };
 }
 
-const ITEMS_PER_PAGE = 9; // Number of blogs per page
+const ITEMS_PER_PAGE = 9;
 
-const BlogsPage = async ({ searchParams = {} }: BlogsPageProps) => {
+export default async function BlogsPage({ searchParams = {} }: BlogsPageProps) {
   const currentPage = Number(searchParams.page) || 1;
   const { data: blogs, totalPages } = await fetchBlogs(currentPage, ITEMS_PER_PAGE);
 
@@ -129,9 +134,7 @@ const BlogsPage = async ({ searchParams = {} }: BlogsPageProps) => {
       </section>
     </div>
   );
-};
-
-export default BlogsPage;
+}
 
 
 

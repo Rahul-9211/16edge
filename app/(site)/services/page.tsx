@@ -4,6 +4,12 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { ServicesSection } from "@/components/sections/services";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'Our Services',
+  description: 'Explore our comprehensive range of digital services including web development, mobile apps, UI/UX design, and digital transformation solutions tailored to your business needs.',
+};
 
 export default function ServicesPage() {
   return (

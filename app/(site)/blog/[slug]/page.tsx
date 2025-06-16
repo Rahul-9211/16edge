@@ -98,7 +98,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     dateModified: modifiedTime,
     author: {
       '@type': 'Organization',
-      name: 'Your Company Name'
+      name: 'HackRest'
     },
     description: blog.excerpt,
     image: blog.featuredImage,
