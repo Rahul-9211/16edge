@@ -3,6 +3,12 @@ import { motion } from "framer-motion";
 import { FileText } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { useState, useEffect } from "react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'Terms of Service',
+  description: 'Review our terms of service and conditions for using our digital solutions and services. Understanding your rights and responsibilities when working with us.',
+};
 
 export default function TermsPage() {
   const [formattedDate, setFormattedDate] = useState("");

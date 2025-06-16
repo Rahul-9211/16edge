@@ -1,5 +1,6 @@
 import { Code2 } from "lucide-react";
 import Link from "next/link";
+import { Metadata } from "next";
 
 const tools = [
   {
@@ -11,6 +12,11 @@ const tools = [
   },
   // Add more tools here as needed
 ];
+
+export const metadata: Metadata = {
+  title: 'Development Tools',
+  description: 'Access our suite of powerful development tools and utilities designed to enhance your coding workflow and boost productivity.',
+};
 
 export default function ToolsPage() {
   return (

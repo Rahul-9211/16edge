@@ -19,6 +19,7 @@ import {
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
+import { Metadata } from "next";
 
 const services = [
   {
@@ -124,6 +125,11 @@ const serviceColors = {
   custom: "from-green-500 to-emerald-500",
   ai: "from-orange-500 to-amber-500",
   benefits: "from-rose-500 to-pink-500"
+};
+
+export const metadata: Metadata = {
+  title: 'CMS Development Services',
+  description: 'Get custom content management systems that empower your team to manage content efficiently. We build flexible, user-friendly CMS solutions tailored to your specific needs.',
 };
 
 export default function CMSDevelopmentPage() {

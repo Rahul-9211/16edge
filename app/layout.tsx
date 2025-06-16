@@ -21,21 +21,27 @@ declare global {
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'),
+  metadataBase: new URL('https://hackrest.com'),
   title: {
-    default: 'Your Company Name',
-    template: '%s | Your Company Name',
+    default: 'HackRest',
+    template: '%s | HackRest'
   },
-  description: 'Your company description here',
+  description: 'Transform your ideas into digital excellence with our cutting-edge solutions.',
+  keywords: ['digital solutions', 'web development', 'innovation', 'technology', 'digital transformation'],
+  authors: [{ name: 'HackRest' }],
+  creator: 'HackRest',
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
-    siteName: 'Your Company Name',
+    url: 'https://hackrest.com',
+    title: 'HackRest',
+    description: 'Transform your ideas into digital excellence with our cutting-edge solutions.',
+    siteName: 'HackRest',
   },
   twitter: {
     card: 'summary_large_image',
-    site: '@yourcompany',
+    title: 'HackRest',
+    description: 'Transform your ideas into digital excellence with our cutting-edge solutions.',
   },
   icons: {
     icon: [

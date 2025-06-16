@@ -22,6 +22,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Metadata } from "next";
 
 const services = [
   { value: "web", label: "Web Development" },
@@ -39,6 +40,11 @@ const budgetRanges = [
   { value: "25k-50k", label: "$25,000 - $50,000" },
   { value: "50k+", label: "$50,000+" },
 ];
+
+export const metadata: Metadata = {
+  title: 'Contact Us',
+  description: `Get in touch with our team to discuss your project. We're here to help transform your ideas into reality with our expert digital solutions.`,
+};
 
 export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);

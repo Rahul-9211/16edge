@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { Loader } from "@/components/ui/loader";
 import { HeroSection } from "@/components/sections/hero";
 import { ServicesSection } from "@/components/sections/services";
+import { Metadata } from "next";
 // Dynamically import non-critical sections
 import dynamic from "next/dynamic";
 
@@ -13,6 +14,11 @@ const FeaturedProjects = dynamic(() => import("@/components/sections/featured-pr
 const TestimonialsSection = dynamic(() => import("@/components/sections/testimonials"), { ssr: false, loading: () => <Loader /> });
 const FAQSection = dynamic(() => import("@/components/sections/faq"), { ssr: false, loading: () => <Loader /> });
 const CTASection = dynamic(() => import("@/components/sections/cta"), { ssr: false, loading: () => <Loader /> });
+
+export const metadata: Metadata = {
+  title: 'Home',
+  description: 'Welcome to our digital innovation hub. We transform ideas into exceptional digital solutions, from stunning websites to powerful applications that drive business growth.',
+};
 
 export default async function Home() {
   const projects = await getAllProjects();

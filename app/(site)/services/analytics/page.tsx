@@ -16,6 +16,7 @@ import {
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
+import { Metadata } from "next";
 
 const analyticsSolutions = [
   {
@@ -97,7 +98,12 @@ const serviceColors = {
   benefits: "from-rose-500 to-pink-500"
 };
 
-export default function AnalyticsPage() {
+export const metadata: Metadata = {
+  title: 'Analytics Services',
+  description: 'Transform your data into actionable insights with our advanced analytics services. Track, analyze, and optimize your digital performance with our comprehensive analytics solutions.',
+};
+
+export default function AnalyticsServicesPage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}

@@ -18,6 +18,7 @@ import {
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
+import { Metadata } from "next";
 
 const seoServices = [
   {
@@ -143,6 +144,11 @@ const serviceColors = {
   analytics: "from-indigo-500 to-blue-500",
   ai: "from-orange-500 to-amber-500",
   benefits: "from-rose-500 to-pink-500"
+};
+
+export const metadata: Metadata = {
+  title: 'SEO Services',
+  description: 'Boost your online visibility with our comprehensive SEO services. We implement proven strategies to improve your search rankings and drive organic traffic to your website.',
 };
 
 export default function SEOPage() {

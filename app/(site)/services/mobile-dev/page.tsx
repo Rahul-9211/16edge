@@ -18,6 +18,7 @@ import {
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
+import { Metadata } from "next";
 
 const services = [
   {
@@ -122,6 +123,11 @@ const serviceColors = {
   store: "from-orange-500 to-amber-500",
   ai: "from-green-500 to-emerald-500",
   benefits: "from-rose-500 to-pink-500"
+};
+
+export const metadata: Metadata = {
+  title: 'Mobile App Development Services',
+  description: 'Create powerful mobile applications that engage users and drive business growth. We develop native and cross-platform mobile apps with cutting-edge features and seamless user experiences.',
 };
 
 export default function MobileDevelopmentPage() {

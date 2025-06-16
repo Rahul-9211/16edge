@@ -1,4 +1,10 @@
 import ReactMarkdown from 'react-markdown';
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'Test Blog',
+  description: 'Explore our test blog section featuring experimental content, development updates, and technical insights from our development team.',
+};
 
 const TestBlog = () => {
   return (

@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Metadata } from "next";
 
 // Define developer profiles
 const developers = [
@@ -105,6 +106,11 @@ const companyValues = [
     description: "We are committed to continuous learning and professional development, staying at the forefront of technology trends and best practices."
   }
 ];
+
+export const metadata: Metadata = {
+  title: 'About Us',
+  description: 'Learn about our journey, mission, and the passionate team behind our innovative digital solutions. Discover how we're shaping the future of digital transformation.',
+};
 
 export default function AboutPage() {
   return (

@@ -4,6 +4,12 @@ import { Laptop, ArrowRight, CheckCircle, Code2, Layout, Database, Globe, Sparkl
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'Web Development Services',
+  description: 'Get custom web development solutions tailored to your business needs. From responsive websites to complex web applications, we deliver high-performance digital solutions.',
+};
 
 const services = [
   {

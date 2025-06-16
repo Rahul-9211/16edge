@@ -6,6 +6,12 @@ import { ProjectCard } from "@/components/project-card";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'Our Projects',
+  description: `Browse our portfolio of successful digital projects. See how we've helped businesses transform their ideas into reality through innovative technology solutions.`,
+};
 
 export default function ProjectsPage() {
   const [selectedCategory, setSelectedCategory] = useState<ProjectCategory | "all">("all");

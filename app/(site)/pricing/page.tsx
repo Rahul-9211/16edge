@@ -18,6 +18,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Switch } from "@/components/ui/switch";
+import { Metadata } from "next";
 
 // Define the pricing plans
 const pricingPlans = [
@@ -104,6 +105,11 @@ const faqItems = [
     answer: "Yes, all our plans include hosting for the first year. After that, hosting is available at a competitive monthly rate based on your website's traffic and requirements."
   },
 ];
+
+export const metadata: Metadata = {
+  title: 'Pricing Plans',
+  description: 'Explore our flexible pricing plans and packages designed to meet your business needs. Find the perfect solution for your digital transformation journey.',
+};
 
 export default function PricingPage() {
   const [isYearly, setIsYearly] = useState(false);

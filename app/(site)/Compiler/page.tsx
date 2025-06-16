@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Editor from "@monaco-editor/react"; // Monaco Editor for code editing
+import { Metadata } from "next";
 
 // Define the structure of the API response
 interface ApiResponse {
@@ -14,6 +15,11 @@ interface ApiResponse {
   memory: string;
   cpuTime: string;
 }
+
+export const metadata: Metadata = {
+  title: 'Code Compiler',
+  description: 'Try our online code compiler. Write, compile, and test your code in real-time with our powerful development environment.',
+};
 
 const JSCompiler: React.FC = () => {
   console.log('JSCompiler component rendering');

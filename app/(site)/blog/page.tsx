@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, Calendar, Clock } from "lucide-react";
 import Image from "next/image";
 import { PaginationButton } from "@/components/blog/pagination-button";
+import { Metadata } from "next";
 
 interface BlogsPageProps {
   searchParams: {
@@ -15,6 +16,11 @@ interface BlogsPageProps {
 }
 
 const ITEMS_PER_PAGE = 9; // Number of blogs per page
+
+export const metadata: Metadata = {
+  title: 'Blog',
+  description: 'Stay updated with the latest insights, trends, and best practices in digital technology, web development, and digital transformation through our expert articles.',
+};
 
 const BlogsPage = async ({ searchParams = {} }: BlogsPageProps) => {
   const currentPage = Number(searchParams.page) || 1;
