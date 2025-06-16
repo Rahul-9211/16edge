@@ -1,38 +1,24 @@
-'use client';
+"use client";
 
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
-import React from "react";
+import { ReactNode } from "react";
 
 interface PaginationButtonProps {
   href: string;
-  disabled: boolean;
-  children: React.ReactNode;
+  disabled?: boolean;
+  children: ReactNode;
 }
 
-export const PaginationButton = ({ 
-  href, 
-  disabled, 
-  children 
-}: PaginationButtonProps) => {
-  const handleClick = (e: React.MouseEvent) => {
-    if (disabled) {
-      e.preventDefault();
-    }
-  };
-
+export function PaginationButton({ href, disabled, children }: PaginationButtonProps) {
   return (
     <Button
+      asChild
       variant="outline"
       disabled={disabled}
-      asChild
-      className="transition-colors hover:border-primary/50"
-      onClick={handleClick}
+      className="min-w-[100px]"
     >
-      <Link href={href}>
-        {children}
-      </Link>
+      <Link href={href}>{children}</Link>
     </Button>
   );
-}; 
+} 

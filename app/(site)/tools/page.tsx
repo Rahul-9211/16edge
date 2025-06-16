@@ -5,7 +5,7 @@ import { Metadata } from "next";
 const tools = [
   {
     title: "Compiler",
-    link: "/Compiler",
+    link: "/compiler",
     description: "Online code compiler and editor",
     icon: Code2,
     color: "from-blue-500 to-blue-600",

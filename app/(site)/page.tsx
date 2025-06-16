@@ -1,9 +1,9 @@
+import { Metadata } from "next";
 import { getAllProjects } from "@/lib/projects/data";
 import { Suspense } from "react";
 import { Loader } from "@/components/ui/loader";
 import { HeroSection } from "@/components/sections/hero";
 import { ServicesSection } from "@/components/sections/services";
-import { Metadata } from "next";
 // Dynamically import non-critical sections
 import dynamic from "next/dynamic";
 
@@ -16,8 +16,8 @@ const FAQSection = dynamic(() => import("@/components/sections/faq"), { ssr: fal
 const CTASection = dynamic(() => import("@/components/sections/cta"), { ssr: false, loading: () => <Loader /> });
 
 export const metadata: Metadata = {
-  title: 'Home',
-  description: 'Welcome to our digital innovation hub. We transform ideas into exceptional digital solutions, from stunning websites to powerful applications that drive business growth.',
+  title: "HackRest - Custom Digital Solutions",
+  description: "We build custom websites, mobile apps, and digital solutions to help your business grow.",
 };
 
 export default async function Home() {

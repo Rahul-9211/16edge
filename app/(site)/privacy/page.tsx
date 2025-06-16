@@ -3,12 +3,6 @@ import { motion } from "framer-motion";
 import { Shield } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { useState, useEffect } from "react";
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: 'Privacy Policy',
-  description: 'Learn about how we collect, use, and protect your personal information. Our commitment to transparency and data protection in accordance with privacy regulations.',
-};
 
 export default function PrivacyPage() {
   const [formattedDate, setFormattedDate] = useState("");
