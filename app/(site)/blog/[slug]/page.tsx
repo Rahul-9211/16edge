@@ -157,11 +157,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               </div>
             </header>
 
-            <div className="prose prose-lg dark:prose-invert max-w-none">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                {blog.content}
-              </ReactMarkdown>
-            </div>
+            <div className="prose prose-lg dark:prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: blog.content }} />
           </div>
 
           {/* Table of Contents */}

@@ -1,7 +1,9 @@
 "use client"; // Required for client-side components in Next.js App Router
 
 import React, { useState } from "react";
-import Editor from "@monaco-editor/react"; // Monaco Editor for code editing
+import AceEditor from "react-ace";
+import "ace-builds/src-noconflict/mode-javascript";
+import "ace-builds/src-noconflict/theme-monokai";
 
 // Define the structure of the API response
 interface CompileResponse {
@@ -76,12 +78,21 @@ const JSCompiler: React.FC = () => {
         }}
       >
         <h2 style={{ color: "#ffffff", marginBottom: "10px" }}>Code Editor</h2>
-        <Editor
-          height="calc(100% - 50px)" // Adjust height to fit the container
-          defaultLanguage="javascript"
-          defaultValue={code}
-          theme="vs-dark" // Dark theme for Monaco Editor
-          onChange={(value) => setCode(value || "")} // Update code state on change
+        <AceEditor
+          mode="javascript"
+          theme="monokai"
+          value={code}
+          onChange={setCode}
+          name="ace-editor"
+          editorProps={{ $blockScrolling: true }}
+          width="100%"
+          height="calc(100% - 50px)"
+          fontSize={16}
+          setOptions={{
+            showLineNumbers: true,
+            tabSize: 2,
+            useWorker: false,
+          }}
         />
       </div>
 
