@@ -318,7 +318,7 @@ export default function PricingContent() {
                     Analytics & Reporting
                   </h3>
                   <p className="text-sm text-muted-foreground">
-                    Comprehensive insights into your website's performance.
+                    Comprehensive insights into your website&apos;s performance.
                   </p>
                 </div>
               </div>
@@ -356,7 +356,7 @@ export default function PricingContent() {
 
             <div className="mt-12 text-center">
               <p className="text-muted-foreground mb-6">
-                Still have questions? We're here to help.
+                Still have questions? We&apos;re here to help.
               </p>
               <Button variant="outline" size="lg" asChild>
                 <Link href="/contact">
