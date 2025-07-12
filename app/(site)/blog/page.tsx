@@ -8,6 +8,8 @@ import { ChevronLeft, ChevronRight, Calendar, Clock } from "lucide-react";
 import Image from "next/image";
 import { PaginationButton } from "@/components/blog/pagination-button";
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: "Blog | HackRest",
   description: "Explore our latest insights, tips, and best practices for web development, mobile apps, and digital marketing.",

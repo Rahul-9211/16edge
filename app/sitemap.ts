@@ -1,6 +1,8 @@
 import { MetadataRoute } from 'next';
 import clientPromise from '@/lib/mongodb';
 
+export const dynamic = 'force-dynamic';
+
 // Set revalidate time to 1 day (in seconds)
 export const revalidate = 86400;
 

@@ -10,18 +10,12 @@ import clientPromise from '@/lib/mongodb';
 import { Blog } from '@/lib/blog/types';
 import { formatDate, toISODate } from '@/lib/utils/date';
 
+export const dynamic = 'force-dynamic';
+
 interface BlogPostPageProps {
   params: {
     slug: string;
   };
-}
-
-// Generate static params for all blog posts
-export async function generateStaticParams() {
-  const { data: blogs } = await fetchBlogs(1, 100); // Fetch all blogs or a reasonable limit
-  return blogs.map((blog) => ({
-    slug: blog.slug,
-  }));
 }
 
 // Generate metadata for SEO
