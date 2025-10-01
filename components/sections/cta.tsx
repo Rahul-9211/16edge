@@ -11,8 +11,8 @@ const contactMethods = [
     title: "Email Us",
     description: "Drop us a line anytime",
     action: "Send Email",
-    link: "mailto:info@hackrest.com",
-    color: "from-blue-500 to-cyan-500",
+    link: "mailto:info@16edge.com",
+    color: "from-maroon-600 to-maroon-800",
   },
   {
     icon: Phone,
@@ -20,7 +20,7 @@ const contactMethods = [
     description: "Mon-Fri from 9am to 6pm",
     action: "Call Now",
     link: "tel:+918512821898",
-    color: "from-purple-500 to-pink-500",
+    color: "from-maroon-500 to-maroon-900",
   },
   {
     icon: MessageSquare,
@@ -28,7 +28,7 @@ const contactMethods = [
     description: "Live chat support available",
     action: "Start Chat",
     link: "https://wa.me/+918512821898",
-    color: "from-orange-500 to-yellow-500",
+    color: "from-burgundy-600 to-maroon-700",
   },
 ];
 
@@ -54,7 +54,7 @@ export default function CTASection() {
             <span className="text-primary">Get in Touch</span>
           </motion.div>
 
-          <h2 className="text-3xl font-bold sm:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60">
+          <h2 className="text-3xl font-bold sm:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-maroon-600 via-maroon-800 to-burgundy-700">
             Let's Build Something Amazing Together
           </h2>
           <p className="mt-4 text-xl text-muted-foreground">

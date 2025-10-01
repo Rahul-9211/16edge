@@ -13,27 +13,27 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://hackrest.com'),
+  metadataBase: new URL('https://16edge.com'),
   title: {
-    default: 'HackRest - Digital Solutions & Innovation Hub',
-    template: '%s | HackRest'
+    default: '16edge - Data-Driven Marketing That Delivers Results',
+    template: '%s | 16edge'
   },
-  description: 'Transform your ideas into digital excellence with our cutting-edge solutions. We craft innovative digital experiences that drive growth and success.',
-  keywords: ['digital solutions', 'web development', 'innovation', 'technology', 'digital transformation'],
-  authors: [{ name: 'HackRest' }],
-  creator: 'HackRest',
+  description: 'Unlock your brand\'s full potential with high-performance marketing strategies that drive real business growth and measurable impact.',
+  keywords: ['performance marketing', 'SEO', 'social media marketing', 'data-driven marketing', 'digital marketing', 'brand growth', 'ROI optimization'],
+  authors: [{ name: '16edge' }],
+  creator: '16edge',
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://hackrest.com',
-    title: 'HackRest - Digital Solutions & Innovation Hub',
-    description: 'Transform your ideas into digital excellence with our cutting-edge solutions.',
-    siteName: 'HackRest',
+    url: 'https://16edge.com',
+    title: '16edge - Data-Driven Marketing That Delivers Results',
+    description: 'Unlock your brand\'s full potential with high-performance marketing strategies that drive real business growth and measurable impact.',
+    siteName: '16edge',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'HackRest - Digital Solutions & Innovation Hub',
-    description: 'Transform your ideas into digital excellence with our cutting-edge solutions.',
+    title: '16edge - Data-Driven Marketing That Delivers Results',
+    description: 'Unlock your brand\'s full potential with high-performance marketing strategies that drive real business growth and measurable impact.',
   },
 };
 

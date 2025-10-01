@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import ContactContent from "./contact-content";
 
 export const metadata: Metadata = {
-  title: "Contact Us | HackRest",
+  title: "Contact Us | 16edge",
   description: "Get in touch with our team to discuss your project requirements and how we can help you achieve your digital goals.",
 };
 

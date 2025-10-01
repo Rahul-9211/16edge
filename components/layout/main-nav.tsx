@@ -9,7 +9,6 @@ import { ModeToggle } from "@/components/mode-toggle";
 import { Logo } from "@/components/logo";
 import { Menu } from "lucide-react";
 import { ServicesDropdown } from "@/components/services-dropdown";
-import { ToolsDropdown } from "@/components/tools-dropdown";
 import { motion, AnimatePresence } from "framer-motion";
 
 export function MainNav() {
@@ -19,11 +18,9 @@ export function MainNav() {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   const navLinks = [
-    // { href: "/", label: "Home" },
-    { href: "/projects", label: "Projects" },
-    // { href: "/about", label: "About Us" },
-    { href: "/blog", label: "Blog" },
-    { href: "/pricing", label: "Pricing" },
+    { href: "/about", label: "About Us" },
+    { href: "/portfolio", label: "Our Work" },
+    { href: "/privacy", label: "Privacy Policy" },
   ];
 
   return (
@@ -53,7 +50,6 @@ export function MainNav() {
                 </Link>
               ))}
               <ServicesDropdown />
-              <ToolsDropdown />
             </nav>
           </div>
 
@@ -61,7 +57,7 @@ export function MainNav() {
           <div className="w-[180px] flex items-center justify-end gap-2">
             {/* Desktop Actions */}
             <div className="hidden md:flex items-center gap-2">
-              <ModeToggle />
+           
               <Button asChild>
                 <Link href="/contact">Contact</Link>
               </Button>
@@ -69,7 +65,7 @@ export function MainNav() {
 
             {/* Mobile Menu Button */}
             <div className="flex md:hidden items-center">
-              <ModeToggle />
+           
               <Button
                 variant="ghost"
                 size="icon"
@@ -143,14 +139,6 @@ export function MainNav() {
                     className="px-2"
                   >
                     <ServicesDropdown isMobile />
-                  </motion.div>
-                  <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.2 }}
-                    className="px-2"
-                  >
-                    <ToolsDropdown isMobile />
                   </motion.div>
                 </div>
                 <motion.div

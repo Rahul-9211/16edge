@@ -2,70 +2,68 @@
 import { motion } from "framer-motion";
 import { 
   Laptop, 
-  Smartphone, 
   BarChart3, 
-  Palette, 
-  Cloud, 
-  Shield,
+  Search,
+  Users,
+  Palette,
+  Target,
   ArrowRight,
-  Sparkles,
-  Layout,
-  ShoppingBag
+  Sparkles
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
 
 const services = [
   {
-    title: "Web Development",
-    description: "Building scalable, high-performance web applications using modern technologies and industry best practices.",
-    icon: Laptop,
-    link: "/services/web-dev",
-    features: ["Custom Development", "Responsive Design", "Performance Optimization"],
-    color: "from-blue-500 to-cyan-500",
+    title: "Performance Marketing",
+    description: "Maximize ROI with laser-focused, data-driven campaigns that ensure every ad dollar delivers results.",
+    icon: BarChart3,
+    link: "/services/performance-marketing",
+    features: ["Data-Driven Campaigns", "ROI Optimization", "Precision Targeting"],
+    color: "from-maroon-600 to-maroon-800",
     label: "Most Popular",
   },
   {
-    title: "Mobile Development",
-    description: "Creating native and cross-platform mobile apps for iOS and Android that deliver seamless user experiences.",
-    icon: Smartphone,
-    link: "/services/mobile-dev",
-    features: ["Native Apps", "Cross-Platform", "App Store Support"],
-    color: "from-purple-500 to-pink-500",
-    label: "Fast Delivery",
-  },
-  {
-    title: "CMS Development",
-    description: "Custom WordPress and Shopify solutions to empower your business with flexible, user-friendly content management.",
-    icon: Layout,
-    link: "/services/cms-dev",
-    features: ["WordPress", "Shopify", "Custom Themes", "PHP Development"],
-    color: "from-orange-500 to-yellow-500",
-  },
-  {
-    title: "Analytics & Dashboard",
-    description: "Data visualization and analytics solutions to help you make informed, data-driven decisions.",
-    icon: BarChart3,
-    link: "/services/analytics",
-    features: ["Real-time Analytics", "Custom Dashboards", "Data Visualization"],
-    color: "from-green-500 to-emerald-500",
-  },
-  {
-    title: "E-commerce Solutions",
-    description: "Building and optimizing online stores with modern e-commerce platforms to boost sales and customer engagement.",
-    icon: ShoppingBag,
-    link: "/services/ecommerce",
-    features: ["Shopify Apps", "WooCommerce", "Payment Integration", "Store Optimization"],
-    color: "from-indigo-500 to-blue-500",
-    label: "Best Value",
-  },
-  {
-    title: "SEO Solutions",
-    description: "Implementing robust SEO strategies to enhance your digital presence and drive organic traffic.",
-    icon: Shield,
+    title: "SEO",
+    description: "Dominate search rankings and drive sustained organic growth with expert-led SEO strategies.",
+    icon: Search,
     link: "/services/seo",
-    features: ["SEO", "Optimization", "Keyword Research"],
-    color: "from-rose-500 to-red-500",
+    features: ["Search Rankings", "Organic Growth", "Expert Strategies"],
+    color: "from-maroon-500 to-maroon-900",
+    label: "High Impact",
+  },
+  {
+    title: "Social Media Marketing",
+    description: "Transform engagement into brand loyalty and conversions with high-impact content and data-driven social strategies.",
+    icon: Users,
+    link: "/services/social-media",
+    features: ["High-Impact Content", "Brand Loyalty", "Data-Driven Strategies"],
+    color: "from-burgundy-600 to-maroon-700",
+  },
+  {
+    title: "Website Development",
+    description: "Build stunning, high-performance websites designed to convert visitors into customers.",
+    icon: Laptop,
+    link: "/services/web-dev",
+    features: ["High-Performance", "Conversion-Focused", "Stunning Design"],
+    color: "from-maroon-700 to-burgundy-800",
+  },
+  {
+    title: "Branding",
+    description: "Create a powerful brand identity that stands out and leaves a lasting impression.",
+    icon: Palette,
+    link: "/services/cms-dev",
+    features: ["Brand Identity", "Visual Design", "Memorable Impact"],
+    color: "from-maroon-800 to-burgundy-700",
+    label: "Creative",
+  },
+  {
+    title: "Strategy & Consulting",
+    description: "Develop customized growth strategies that align with your business objectives.",
+    icon: Target,
+    link: "/services/consulting",
+    features: ["Customized Strategies", "Business Alignment", "Growth Planning"],
+    color: "from-burgundy-500 to-maroon-600",
   },
 ];
 
@@ -91,11 +89,11 @@ export function ServicesSection() {
             <span className="text-primary">What We Offer</span>
           </motion.div>
           
-          <h2 className="text-3xl font-bold sm:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60">
-            Our Expertise 
+          <h2 className="text-3xl font-bold sm:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-maroon-600 via-maroon-800 to-burgundy-700">
+            What We Do
           </h2>
           <p className="mt-4 text-xl text-muted-foreground">
-          Comprehensive digital solutions tailored to your unique business needs.
+          High-performance marketing strategies that drive real business results.
           </p>
         </motion.div>
 

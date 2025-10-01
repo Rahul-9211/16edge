@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import { getAllProjects } from "@/lib/projects/data";
 import { Suspense } from "react";
 import { Loader } from "@/components/ui/loader";
 import { HeroSection } from "@/components/sections/hero";
@@ -7,22 +6,15 @@ import { ServicesSection } from "@/components/sections/services";
 // Dynamically import non-critical sections
 import dynamic from "next/dynamic";
 
-const WorkProcessSection = dynamic(() => import("@/components/sections/work-process"), { ssr: false, loading: () => <Loader /> });
-const StatsSection = dynamic(() => import("@/components/sections/stats"), { ssr: false, loading: () => <Loader /> });
-const TechStackSection = dynamic(() => import("@/components/sections/tech-stack"), { ssr: false, loading: () => <Loader /> });
-const FeaturedProjects = dynamic(() => import("@/components/sections/featured-projects"), { ssr: false, loading: () => <Loader /> });
-const TestimonialsSection = dynamic(() => import("@/components/sections/testimonials"), { ssr: false, loading: () => <Loader /> });
-const FAQSection = dynamic(() => import("@/components/sections/faq"), { ssr: false, loading: () => <Loader /> });
+const WhyChooseUsSection = dynamic(() => import("@/components/sections/why-choose-us"), { ssr: false, loading: () => <Loader /> });
 const CTASection = dynamic(() => import("@/components/sections/cta"), { ssr: false, loading: () => <Loader /> });
 
 export const metadata: Metadata = {
-  title: "HackRest - Custom Digital Solutions",
-  description: "We build custom websites, mobile apps, and digital solutions to help your business grow.",
+  title: "16edge - Data-Driven Marketing That Delivers Results",
+  description: "Unlock your brand's full potential with high-performance marketing strategies that drive real business growth and measurable impact.",
 };
 
-export default async function Home() {
-  const projects = await getAllProjects();
-
+export default function Home() {
   return (
     <main className="flex flex-col min-h-screen">
       {/* Hero Section (critical for LCP) */}
@@ -35,25 +27,12 @@ export default async function Home() {
         <ServicesSection />
       </Suspense>
 
-      {/* Dynamically loaded sections below */}
+      {/* Why Choose Us Section */}
       <Suspense fallback={<Loader />}>
-        <WorkProcessSection />
+        <WhyChooseUsSection />
       </Suspense>
-      <Suspense fallback={<Loader />}>
-        <StatsSection />
-      </Suspense>
-      <Suspense fallback={<Loader />}>
-        <TechStackSection />
-      </Suspense>
-      <Suspense fallback={<Loader />}>
-        <FeaturedProjects projects={projects} />
-      </Suspense>
-      <Suspense fallback={<Loader />}>
-        <TestimonialsSection />
-      </Suspense>
-      <Suspense fallback={<Loader />}>
-        <FAQSection />
-      </Suspense>
+
+      {/* CTA Section */}
       <Suspense fallback={<Loader />}>
         <CTASection />
       </Suspense>

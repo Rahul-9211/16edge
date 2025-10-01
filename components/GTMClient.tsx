@@ -13,7 +13,7 @@ export function GTMClient() {
       if (window.gtmDidInit) return;
       window.gtmDidInit = true;
       const script = document.createElement("script");
-      script.src = "https://www.googletagmanager.com/gtag/js?id=G-50440B50JK";
+      script.src = "https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXX";
       script.async = true;
       document.head.appendChild(script);
       const inlineScript = document.createElement("script");
@@ -21,7 +21,7 @@ export function GTMClient() {
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', 'G-50440B50JK');
+        gtag('config', 'G-XXXXXXXX');
       `;
       document.head.appendChild(inlineScript);
     };

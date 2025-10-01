@@ -1,115 +1,75 @@
 "use client";
 import { motion } from "framer-motion";
-import { FileText, ArrowRight, CheckCircle, Code2, Layout, Database, Globe, Sparkles, BarChart3, CheckCircle2, LineChart, Search } from "lucide-react";
+import { Palette, Type, Image, ArrowRight, CheckCircle, Globe, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 
 const services = [
   {
-    icon: FileText,
-    title: "Custom CMS Development",
-    description: "We create tailored content management systems that perfectly fit your needs",
+    icon: Palette,
+    title: "Visual Identity",
+    description: "Create a distinctive visual system that stands out and scales",
     benefits: [
-      "Custom workflows and approval processes",
-      "Role-based access control",
-      "Content versioning and history",
-      "Media library management",
-      "AI-powered content suggestions",
+      "Logo and mark systems",
+      "Color, typography, and design language",
+      "Brand components and patterns",
+      "Accessibility and usage guidance",
+      "Digital-first brand kits",
     ]
   },
   {
-    icon: Code2,
-    title: "CMS Integration",
-    description: "Seamlessly integrate your CMS with existing systems and workflows",
+    icon: Type,
+    title: "Brand Messaging",
+    description: "Clarify your story with consistent, compelling messaging",
     benefits: [
-      "API development for third-party integrations",
-      "Database synchronization",
-      "Single sign-on implementation",
-      "Automated content distribution",
-      "AI-driven content optimization",
+      "Positioning and value proposition",
+      "Voice and tone framework",
+      "Taglines and narratives",
+      "Copywriting for key pages",
+      "Content guidelines",
     ]
   },
   {
-    icon: Database,
-    title: "CMS Migration",
-    description: "Smooth transition from legacy systems to modern CMS platforms",
+    icon: Image,
+    title: "Brand Activation",
+    description: "Bring the brand to life across channels and touchpoints",
     benefits: [
-      "Content audit and mapping",
-      "Data migration strategy",
-      "SEO preservation",
-      "URL structure maintenance",
-      "AI-powered content analysis",
+      "Web and social templates",
+      "Sales and pitch materials",
+      "Launch campaigns",
+      "Asset library setup",
+      "Governance and rollout support",
     ]
   }
 ];
 
 const aiFeatures = [
   {
-    icon: Code2,
-    title: "Smart Content Management",
-    description: "AI tools help organize and optimize content automatically"
-  },
-  {
-    icon: BarChart3,
-    title: "Content Analytics",
-    description: "AI-powered insights into content performance and user engagement"
-  },
-  {
-    icon: CheckCircle2,
-    title: "Automated Workflows",
-    description: "AI streamlines content approval and publishing processes"
-  },
-  {
-    icon: LineChart,
-    title: "Performance Tracking",
-    description: "Real-time monitoring of CMS performance and user behavior"
-  },
-  {
-    icon: Search,
-    title: "SEO Optimization",
-    description: "AI helps optimize content for better search engine rankings"
-  }
-];
-
-const techStack = {
-  frontend: ["React.js", "Next.js", "TypeScript"],
-  backend: ["Node.js", "Express.js"],
-  databases: ["MongoDB", "PostgreSQL"],
-  cms: ["Strapi", "Contentful", "Sanity"],
-  ai: ["AI-powered CMS", "AI content analysis", "AI workflow automation"]
-};
-
-const benefits = [
-  {
-    icon: Globe,
-    title: "Local Expertise",
-    description: "We understand the content management needs of US and Canadian businesses"
-  },
-  {
-    icon: Layout,
-    title: "Scalable Solutions",
-    description: "Our CMS platforms grow with your content needs"
+    icon: Sparkles,
+    title: "AI-Assisted Exploration",
+    description: "Faster concept generation and moodboard assembly"
   },
   {
     icon: Sparkles,
-    title: "Modern Technology",
-    description: "We use the latest CMS technologies and best practices"
+    title: "Consistency Checks",
+    description: "Ensure assets and messaging align to brand rules"
   },
   {
-    icon: CheckCircle,
-    title: "Dedicated Support",
-    description: "From setup to ongoing maintenance, we're here to help"
+    icon: Sparkles,
+    title: "Asset Variations",
+    description: "Scale visuals and copy for channels quickly"
   }
 ];
 
+const techStack = undefined as unknown as void;
+
+const benefits = undefined as unknown as void;
+
 const serviceColors = {
-  custom: "from-blue-500 to-cyan-500",
-  integration: "from-purple-500 to-pink-500",
-  migration: "from-green-500 to-emerald-500",
-  ai: "from-orange-500 to-amber-500",
-  analytics: "from-indigo-500 to-blue-500",
-  benefits: "from-rose-500 to-pink-500"
+  visual: "from-orange-500 to-amber-500",
+  messaging: "from-purple-500 to-pink-500",
+  activation: "from-green-500 to-emerald-500"
 };
 
 export default function CMSDevContent() {
@@ -126,22 +86,20 @@ export default function CMSDevContent() {
               transition={{ duration: 0.5 }}
             >
               <div className="inline-flex items-center justify-center px-4 py-1 mb-6 space-x-2 text-sm border rounded-full border-primary/20 bg-primary/5">
-                <Globe className="w-4 h-4 text-primary" />
-                <span className="text-primary">US & Canada CMS Development</span>
+                <Sparkles className="w-4 h-4 text-primary" />
+                <span className="text-primary">Branding</span>
               </div>
               <h1 className="mb-6 text-4xl font-bold md:text-5xl lg:text-6xl">
-                Powerful Content
-                <span className="block text-primary">Management</span>
+                Build a Brand That
+                <span className="block text-primary">Resonates</span>
               </h1>
               <p className="mb-8 text-xl text-muted-foreground">
-                We build custom content management systems that empower your team to create, 
-                manage, and optimize content efficiently. With AI-powered tools and processes, 
-                we deliver CMS solutions that streamline your content workflow.
+                From visual identity to messaging, we craft memorable, high-impact brands that connect and convert.
               </p>
               <div className="flex flex-wrap justify-center gap-4">
                 <Button size="lg" className="h-12 px-8" asChild>
                   <Link href="/contact">
-                    Start Your Project
+                    Start Your Brand
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Link>
                 </Button>
@@ -163,10 +121,9 @@ export default function CMSDevContent() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl font-bold mb-4">Our CMS Development Services</h2>
+            <h2 className="text-3xl font-bold mb-4">Our Branding Services</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              From custom CMS development to seamless integrations, we provide comprehensive 
-              content management solutions.
+              From visual identity to activation, we deliver brand systems built to perform.
             </p>
           </motion.div>
 
@@ -183,9 +140,9 @@ export default function CMSDevContent() {
                 <Card className="h-full transition-all duration-300 hover:shadow-xl">
                   <CardContent className="p-6">
                     <div className={`p-4 mb-6 w-fit rounded-xl bg-gradient-to-br ${
-                      service.title.includes("Custom") ? serviceColors.custom :
-                      service.title.includes("Integration") ? serviceColors.integration :
-                      serviceColors.migration
+                      service.title.includes("Identity") ? serviceColors.visual :
+                      service.title.includes("Messaging") ? serviceColors.messaging :
+                      serviceColors.activation
                     } group-hover:scale-110 transition-transform`}>
                       <service.icon className="w-8 h-8 text-white" />
                     </div>

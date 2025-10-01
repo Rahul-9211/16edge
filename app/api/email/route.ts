@@ -1,11 +1,11 @@
 import { Resend } from 'resend';
 import { NextResponse } from 'next/server';
 
-// Initialize Resend with API key
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Initialize Resend with API key (optional at build time)
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 export async function POST(req: Request) {
-  if (!process.env.RESEND_API_KEY) {
+  if (!resend || !process.env.RESEND_API_KEY) {
     return NextResponse.json(
       { error: 'Resend API key not configured' },
       { status: 500 }
@@ -46,7 +46,7 @@ export async function POST(req: Request) {
             <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); overflow: hidden;">
               <!-- Header -->
               <div style="background: linear-gradient(to right, #2563eb, #3b82f6); padding: 30px; text-align: center;">
-                <h1 style="color: #ffffff; margin: 0; font-size: 24px;">New Lead from HackRest</h1>
+                <h1 style="color: #ffffff; margin: 0; font-size: 24px;">New Lead from 16edge</h1>
                 <p style="color: #e5e7eb; margin: 10px 0 0 0; font-size: 16px;">Contact Form Submission</p>
               </div>
 
@@ -111,7 +111,7 @@ export async function POST(req: Request) {
               <!-- Footer -->
               <div style="background-color: #f1f5f9; padding: 20px; text-align: center; border-top: 1px solid #e2e8f0;">
                 <p style="color: #64748b; margin: 0; font-size: 14px;">
-                  This is an automated email from HackRest Contact Form
+                  This is an automated email from 16edge Contact Form
                 </p>
               </div>
             </div>
@@ -121,8 +121,8 @@ export async function POST(req: Request) {
     `;
 
     const data = await resend.emails.send({
-      from: 'HackRest Lead <lead@hackrest.com>',
-      to: ['info@hackrest.com'],
+      from: '16edge Lead <lead@16edge.com>',
+      to: ['info@16edge.com'],
       subject: `New Lead: ${service} Project - ${name}`,
       html: emailHtml,
     });

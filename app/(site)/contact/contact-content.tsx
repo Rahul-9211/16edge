@@ -6,11 +6,10 @@ import {
   Phone, 
   MessageSquare, 
   Send,
-  Building2,
-  Globe,
   User,
-  Link as LinkIcon
+  ArrowRight
 } from "lucide-react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -24,19 +23,14 @@ import {
 } from "@/components/ui/select";
 
 const services = [
-  { value: "web-dev", label: "Web Development" },
-  { value: "mobile-dev", label: "Mobile Development" },
-  { value: "ui-ux", label: "UI/UX Design" },
-  { value: "seo", label: "SEO Services" },
-  { value: "other", label: "Other" },
+  { value: "performance-marketing", label: "Performance Marketing" },
+  { value: "seo", label: "SEO" },
+  { value: "social-media", label: "Social Media Marketing" },
+  { value: "web-development", label: "Website Development" },
+  { value: "branding", label: "Branding" },
+  { value: "consulting", label: "Strategy & Consulting" },
 ];
 
-const budgets = [
-  { value: "5k-10k", label: "$5,000 - $10,000" },
-  { value: "10k-25k", label: "$10,000 - $25,000" },
-  { value: "25k-50k", label: "$25,000 - $50,000" },
-  { value: "50k+", label: "$50,000+" },
-];
 
 export default function ContactContent() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -48,11 +42,7 @@ export default function ContactContent() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    phone: "",
-    company: "",
-    website: "",
     service: "",
-    budget: "",
     message: "",
   });
 
@@ -85,11 +75,7 @@ export default function ContactContent() {
       setFormData({
         name: "",
         email: "",
-        phone: "",
-        company: "",
-        website: "",
         service: "",
-        budget: "",
         message: "",
       });
     } catch (error) {
@@ -116,12 +102,10 @@ export default function ContactContent() {
               transition={{ duration: 0.5 }}
             >
               <h1 className="mb-6 text-4xl font-bold md:text-5xl lg:text-6xl">
-                Let's Build Something
-                <span className="block text-primary">Amazing Together</span>
+                The competition isn&apos;t waiting—neither should you.
               </h1>
               <p className="mb-8 text-xl text-muted-foreground">
-                Ready to transform your digital presence? Get in touch with us today 
-                and let's discuss how we can help you achieve your goals.
+                Let&apos;s drive growth together. Whether you&apos;re looking to scale your brand, maximize ad performance, or dominate your market, 16edge delivers high-impact marketing solutions tailored to your goals.
               </p>
             </motion.div>
           </div>
@@ -143,7 +127,7 @@ export default function ContactContent() {
                     <div>
                       <h3 className="font-medium">Email Us</h3>
                       <p className="text-sm text-muted-foreground">
-                        info@hackrest.com
+                        info@16edge.com
                       </p>
                     </div>
                   </div>
@@ -158,8 +142,8 @@ export default function ContactContent() {
                     </div>
                     <div>
                       <h3 className="font-medium">Call Us</h3>
-                      <a href="tel:+918512821898" className="text-sm text-muted-foreground">
-                        +91 8512821898
+                      <a href="tel:+1-xxx-xxx-xxxx" className="text-sm text-muted-foreground">
+                        +1 (xxx) xxx-xxxx
                       </a>
                     </div>
                   </div>
@@ -174,7 +158,7 @@ export default function ContactContent() {
                     </div>
                     <div>
                       <h3 className="font-medium">Live Chat</h3>
-                      <a href="https://wa.me/918512821898" className="text-sm text-muted-foreground">
+                      <a href="mailto:info@16edge.com" className="text-sm text-muted-foreground">
                         Available 24/7 for support
                       </a>
                     </div>
@@ -231,100 +215,37 @@ export default function ContactContent() {
                           />
                         </div>
                       </div>
-
-                      <div className="space-y-2">
-                        <label className="text-sm font-medium">Phone Number</label>
-                        <div className="relative">
-                          <Phone className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                          <Input
-                            type="tel"
-                            placeholder="+1 (555) 123-4567"
-                            className="pl-9"
-                            value={formData.phone}
-                            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          />
-                        </div>
-                      </div>
-
-                      <div className="space-y-2">
-                        <label className="text-sm font-medium">Company Name</label>
-                        <div className="relative">
-                          <Building2 className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                          <Input
-                            placeholder="Your Company"
-                            className="pl-9"
-                            value={formData.company}
-                            onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                          />
-                        </div>
-                      </div>
-
-                      <div className="space-y-2">
-                        <label className="text-sm font-medium">Website</label>
-                        <div className="relative">
-                          <LinkIcon className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                          <Input
-                            type="url"
-                            placeholder="https://example.com"
-                            className="pl-9"
-                            value={formData.website}
-                            onChange={(e) => setFormData({ ...formData, website: e.target.value })}
-                          />
-                        </div>
-                      </div>
-
-                      <div className="space-y-2">
-                        <label className="text-sm font-medium">
-                          Service Interested In <span className="text-red-500">*</span>
-                        </label>
-                        <Select
-                          value={formData.service}
-                          onValueChange={(value) => setFormData({ ...formData, service: value })}
-                          required
-                        >
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select a service" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {services.map((service) => (
-                              <SelectItem key={service.value} value={service.value}>
-                                {service.label}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
-
-                      <div className="space-y-2">
-                        <label className="text-sm font-medium">
-                          Budget Range <span className="text-red-500">*</span>
-                        </label>
-                        <Select
-                          value={formData.budget}
-                          onValueChange={(value) => setFormData({ ...formData, budget: value })}
-                          required
-                        >
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select budget range" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {budgets.map((range) => (
-                              <SelectItem key={range.value} value={range.value}>
-                                {range.label}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
                     </div>
 
                     <div className="space-y-2">
                       <label className="text-sm font-medium">
-                        Project Details <span className="text-red-500">*</span>
+                        Service Interested In <span className="text-red-500">*</span>
+                      </label>
+                      <Select
+                        value={formData.service}
+                        onValueChange={(value) => setFormData({ ...formData, service: value })}
+                        required
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select a service" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {services.map((service) => (
+                            <SelectItem key={service.value} value={service.value}>
+                              {service.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium">
+                        Tell us about your project <span className="text-red-500">*</span>
                       </label>
                       <Textarea
-                        placeholder="Tell us about your project..."
-                        className="min-h-[150px]"
+                        placeholder="What are you looking to achieve? Any specific goals or challenges?"
+                        className="min-h-[120px]"
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                         required
@@ -346,6 +267,172 @@ export default function ContactContent() {
               </Card>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* For Advertisers Section */}
+      {/* <section className="py-20 bg-muted/50">
+        <div className="container px-4 mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl font-bold mb-4">For Advertisers</h2>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              Ready to take your brand to the next level? 16edge crafts data-driven, performance-focused marketing strategies that transform visibility into measurable business growth.
+            </p>
+            <p className="text-muted-foreground mt-4">
+              From performance marketing and SEO to social media growth and conversion optimization, our expertise ensures every marketing dollar delivers maximum impact.
+            </p>
+          </motion.div>
+
+          <div className="max-w-2xl mx-auto">
+            <Card>
+              <CardContent className="p-8">
+                <h3 className="text-xl font-semibold mb-6">Advertiser Contact Form</h3>
+                <form className="space-y-6">
+                  <div className="grid gap-6 md:grid-cols-2">
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium">Name *</label>
+                      <Input placeholder="Your full name" required />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium">Company Name *</label>
+                      <Input placeholder="Your company name" required />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium">Email *</label>
+                      <Input type="email" placeholder="your@email.com" required />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium">Phone *</label>
+                      <Input type="tel" placeholder="+1 (xxx) xxx-xxxx" required />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Advertising Budget *</label>
+                    <Select>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select budget range" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="5k-10k">$5,000 - $10,000</SelectItem>
+                        <SelectItem value="10k-25k">$10,000 - $25,000</SelectItem>
+                        <SelectItem value="25k-50k">$25,000 - $50,000</SelectItem>
+                        <SelectItem value="50k+">$50,000+</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Message *</label>
+                    <Textarea 
+                      placeholder="Tell us about your advertising goals and challenges..." 
+                      className="min-h-[120px]"
+                      required 
+                    />
+                  </div>
+                  <Button type="submit" className="w-full">
+                    Let's Drive Growth Together
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section> */}
+
+      {/* For Publishers Section */}
+      {/* <section className="py-20">
+        <div className="container px-4 mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl font-bold mb-4">For Publishers</h2>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              Monetize your traffic with optimized ad placements, revenue-maximizing strategies, and exclusive brand partnerships designed to boost earnings.
+            </p>
+          </motion.div>
+
+          <div className="max-w-2xl mx-auto">
+            <Card>
+              <CardContent className="p-8">
+                <h3 className="text-xl font-semibold mb-6">Publisher Contact Form</h3>
+                <form className="space-y-6">
+                  <div className="grid gap-6 md:grid-cols-2">
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium">Name *</label>
+                      <Input placeholder="Your full name" required />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium">Website/App Name *</label>
+                      <Input placeholder="Your website or app name" required />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium">Email *</label>
+                      <Input type="email" placeholder="your@email.com" required />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium">Phone *</label>
+                      <Input type="tel" placeholder="+1 (xxx) xxx-xxxx" required />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Traffic Volume *</label>
+                    <Select>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select traffic volume" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="1k-10k">1,000 - 10,000 monthly visitors</SelectItem>
+                        <SelectItem value="10k-50k">10,000 - 50,000 monthly visitors</SelectItem>
+                        <SelectItem value="50k-100k">50,000 - 100,000 monthly visitors</SelectItem>
+                        <SelectItem value="100k+">100,000+ monthly visitors</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Message *</label>
+                    <Textarea 
+                      placeholder="Tell us about your website/app and monetization goals..." 
+                      className="min-h-[120px]"
+                      required 
+                    />
+                  </div>
+                  <Button type="submit" className="w-full">
+                    Partner with 16edge
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section> */}
+
+      {/* Final CTA */}
+      <section className="py-20 bg-gradient-to-br from-maroon-600/10 via-transparent to-burgundy-700/10">
+        <div className="container px-4 mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center max-w-3xl mx-auto"
+          >
+            <h2 className="text-3xl font-bold mb-4">Let&apos;s Start Your Project Today</h2>
+            <p className="text-lg text-muted-foreground mb-8">
+              Ready to drive growth and dominate your market? Contact us now to get started with your custom marketing strategy.
+            </p>
+            <Button size="lg" asChild>
+              <Link href="#contact">
+                Contact Us Now
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Link>
+            </Button>
+          </motion.div>
         </div>
       </section>
     </div>
