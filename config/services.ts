@@ -6,7 +6,7 @@ export const services = [
     title: "Performance Marketing",
     description: "Maximize ROI with laser-focused, data-driven campaigns that ensure every ad dollar delivers results.",
     link: "/services/performance-marketing",
-    color: "from-maroon-600 to-maroon-800",
+    color: "from-primary to-primary/80",
     features: [
       "Data-Driven Campaigns",
       "ROI Optimization",
@@ -19,7 +19,7 @@ export const services = [
     title: "SEO",
     description: "Dominate search rankings and drive sustained organic growth with expert-led SEO strategies.",
     link: "/services/seo",
-    color: "from-maroon-500 to-maroon-900",
+    color: "from-primary/90 to-primary/70",
     features: [
       "Search Rankings",
       "Organic Growth",
@@ -32,7 +32,7 @@ export const services = [
     title: "Social Media Marketing",
     description: "Transform engagement into brand loyalty and conversions with high-impact content and data-driven social strategies.",
     link: "/services/social-media",
-    color: "from-burgundy-600 to-maroon-700",
+    color: "from-primary/80 to-primary/60",
     features: [
       "High-Impact Content",
       "Brand Loyalty",
@@ -45,7 +45,7 @@ export const services = [
     title: "Website Development",
     description: "Build stunning, high-performance websites designed to convert visitors into customers.",
     link: "/services/web-dev",
-    color: "from-maroon-700 to-burgundy-800",
+    color: "from-primary/70 to-primary/50",
     features: [
       "High-Performance",
       "Conversion-Focused",
@@ -58,7 +58,7 @@ export const services = [
     title: "Branding",
     description: "Create a powerful brand identity that stands out and leaves a lasting impression.",
     link: "/services/cms-dev",
-    color: "from-maroon-800 to-burgundy-700",
+    color: "from-primary/80 to-primary/60",
     features: [
       "Brand Identity",
       "Visual Design",
@@ -71,7 +71,7 @@ export const services = [
     title: "Strategy & Consulting",
     description: "Develop customized growth strategies that align with your business objectives.",
     link: "/services/consulting",
-    color: "from-burgundy-500 to-maroon-600",
+    color: "from-primary/70 to-primary/50",
     features: [
       "Customized Strategies",
       "Business Alignment",

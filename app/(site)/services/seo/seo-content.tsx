@@ -141,7 +141,7 @@ const serviceColors = {
   onpage: "from-purple-500 to-pink-500",
   offpage: "from-green-500 to-emerald-500",
   analytics: "from-indigo-500 to-blue-500",
-  ai: "from-orange-500 to-amber-500",
+  ai: "from-primary to-primary/80",
   benefits: "from-rose-500 to-pink-500"
 };
 

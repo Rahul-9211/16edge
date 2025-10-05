@@ -14,33 +14,33 @@ import Link from "next/link";
 const features = [
   {
     icon: Target,
-    title: "End-to-End Growth Solutions",
-    description: "From brand awareness to acquisition, every stage of the marketing funnel is optimized for sustainable growth.",
-    color: "from-maroon-600 to-maroon-800",
+    title: "Data-Driven",
+    description: "We rely on actionable data and analytics to continuously optimize campaigns and maximize performance.",
+    color: "from-orange-500 to-orange-600",
   },
   {
     icon: TrendingUp,
-    title: "ROI-Driven Execution",
-    description: "Marketing without results is just noise. Every campaign is designed to maximize return on investment and measurable impact.",
-    color: "from-maroon-500 to-maroon-900",
+    title: "Committed Partnership",
+    description: "We work closely with your team, providing transparent communication and shared dedication to your goals.",
+    color: "from-orange-500 to-orange-600",
   },
   {
     icon: Zap,
-    title: "Precision Targeting for Maximum Efficiency",
-    description: "Hyper-focused strategies ensure the right message reaches the right audience at the right time, driving higher engagement and conversions.",
-    color: "from-burgundy-600 to-maroon-700",
+    title: "Result Focused",
+    description: "We deliver strategies designed to drive measurable business growth and long-term success.",
+    color: "from-orange-500 to-orange-600",
   },
   {
     icon: Brain,
-    title: "AI-Powered Insights & Innovation",
-    description: "Leveraging cutting-edge AI and data analytics to refine campaigns, predict trends, and accelerate performance.",
-    color: "from-maroon-700 to-burgundy-800",
+    title: "Efficient & Targeted",
+    description: "We deliver strategies designed to drive measurable business growth and long-term success.",
+    color: "from-orange-500 to-orange-600",
   },
 ];
 
 export default function WhyChooseUsSection() {
   return (
-    <section className="py-32 bg-muted/50">
+    <section className="py-32 bg-white">
       <div className="container px-4 mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -48,12 +48,15 @@ export default function WhyChooseUsSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl font-bold sm:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-maroon-600 via-maroon-800 to-burgundy-700 mb-6">
+          <h2 className="text-3xl font-bold sm:text-5xl text-gray-900 mb-4">
             Why Choose 16edge?
           </h2>
+          <p className="text-xl text-gray-600">
+            Not just an agency, your growth partner
+          </p>
         </motion.div>
 
-        <div className="grid gap-8 md:grid-cols-2">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           {features.map((feature, index) => (
             <motion.div
               key={feature.title}
@@ -61,24 +64,13 @@ export default function WhyChooseUsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
+              className="text-center relative"
             >
-              <Card className="h-full group hover:shadow-lg transition-shadow">
-                <CardContent className="p-8">
-                  <div className="flex items-start gap-6">
-                    <div className={`p-4 rounded-xl bg-gradient-to-br ${feature.color} group-hover:scale-110 transition-transform flex-shrink-0`}>
-                      <feature.icon className="w-8 h-8 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors">
-                        {feature.title}
-                      </h3>
-                      <p className="text-muted-foreground leading-relaxed">
-                        {feature.description}
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+              <h3 className="mb-4 text-xl font-bold text-primary">{feature.title}</h3>
+              <p className="text-gray-700 leading-relaxed">{feature.description}</p>
+              {index < features.length - 1 && (
+                <div className="hidden lg:block absolute top-1/2 right-0 w-px h-16 bg-gray-300 transform -translate-y-1/2" />
+              )}
             </motion.div>
           ))}
         </div>
@@ -87,11 +79,11 @@ export default function WhyChooseUsSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mt-12"
+          className="text-center mt-16"
         >
-          <Button size="lg" asChild>
-            <Link href="/services">
-              Explore Our Services
+          <Button size="lg" className="bg-primary hover:bg-primary/90 text-white" asChild>
+            <Link href="/contact">
+              Experience How
               <ArrowRight className="w-4 h-4 ml-2" />
             </Link>
           </Button>

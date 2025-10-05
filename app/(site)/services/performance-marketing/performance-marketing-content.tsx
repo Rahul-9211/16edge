@@ -15,7 +15,7 @@ const offerings = [
       "Offer, audience, and creative testing",
       "Budget allocation modeling",
     ],
-    color: "from-maroon-600 to-maroon-800",
+    color: "from-primary to-primary/80",
   },
   {
     icon: BarChart3,
@@ -26,7 +26,7 @@ const offerings = [
       "Creative iteration at speed",
       "Landing page CRO and experimentation",
     ],
-    color: "from-maroon-500 to-maroon-900",
+    color: "from-primary/80 to-primary",
   },
   {
     icon: LineChart,
@@ -37,7 +37,7 @@ const offerings = [
       "Custom KPI dashboards",
       "Weekly optimization cycles",
     ],
-    color: "from-burgundy-600 to-maroon-700",
+    color: "from-primary/90 to-primary/70",
   },
 ];
 

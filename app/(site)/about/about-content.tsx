@@ -1,171 +1,51 @@
 "use client";
 import { motion } from "framer-motion";
-import { 
-  Users, 
-  Target, 
-  Award, 
-  Lightbulb,
-  Code2,
-  Heart,
-  Globe,
-  Shield,
-  CheckCircle,
-  ArrowRight,
-  Brain
-} from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-
-const values = [
-  {
-    icon: Lightbulb,
-    title: "Innovation",
-    description: "We constantly push boundaries and explore new technologies to deliver cutting-edge solutions."
-  },
-  {
-    icon: Target,
-    title: "Excellence",
-    description: "We strive for perfection in every project, ensuring the highest quality standards."
-  },
-  {
-    icon: Heart,
-    title: "Passion",
-    description: "We love what we do and bring enthusiasm to every project we undertake."
-  },
-  {
-    icon: Users,
-    title: "Collaboration",
-    description: "We work closely with our clients as partners, not just service providers."
-  }
-];
-
-const team = [
-  {
-    name: "Rahul Rawat",
-    role: "Founder & Lead Developer",
-    description: "Full-stack developer with 8+ years of experience in modern web technologies.",
-    expertise: ["React", "Node.js", "MongoDB", "AWS"]
-  },
-  {
-    name: "Tanuj Rajput",
-    role: "Senior Developer",
-    description: "Specialist in e-commerce solutions and custom web applications.",
-    expertise: ["Shopify", "WordPress", "PHP", "JavaScript"]
-  },
-  {
-    name: "Yugant",
-    role: "UI/UX Designer",
-    description: "Creative designer focused on user experience and modern design principles.",
-    expertise: ["Figma", "Adobe Creative Suite", "UI/UX", "Prototyping"]
-  }
-];
-
-const achievements = [
-  {
-    number: "100+",
-    label: "Happy Clients",
-    description: "Satisfied customers worldwide"
-  },
-  {
-    number: "150+",
-    label: "Projects Completed",
-    description: "Successfully delivered solutions"
-  },
-  {
-    number: "8+",
-    label: "Years Experience",
-    description: "Industry expertise and knowledge"
-  },
-  {
-    number: "24/7",
-    label: "Support",
-    description: "Round-the-clock assistance"
-  }
-];
 
 export default function AboutContent() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden bg-gradient-to-br from-primary/5 via-transparent to-primary/5">
-        <div className="absolute inset-0 bg-grid-black/[0.02] dark:bg-grid-white/[0.02]" />
+      <section className="relative py-20 overflow-hidden bg-primary">
+        <div className="absolute inset-0 bg-grid-white/[0.02]" />
         <div className="container relative px-4 mx-auto">
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="max-w-3xl mx-auto text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <h1 className="mb-6 text-4xl font-bold md:text-5xl lg:text-6xl">
-                16edge: The Competitive Edge Your Brand Needs
+              <h1 className="mb-6 text-4xl font-bold md:text-5xl lg:text-6xl text-white">
+                Our Story
               </h1>
-              <p className="mb-8 text-xl text-muted-foreground">
-                Success in the digital world requires more than marketing—it demands a strategic advantage.
-              </p>
-              <p className="mb-8 text-lg text-muted-foreground">
-                At 16edge, data-driven strategies enhance visibility, accelerate growth, and deliver measurable results, ensuring your brand stays ahead of the competition.
-              </p>
-              <p className="mb-8 text-lg text-muted-foreground">
-                By specializing in Awareness, Engagement, Retargeting, and Acquisition (AERA), we ensure every marketing effort drives maximum impact.
-              </p>
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* Our Story Section */}
-      <section className="py-20">
+      <section className="py-20 bg-white">
         <div className="container px-4 mx-auto">
           <div className="max-w-4xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center mb-16"
-            >
-              <h2 className="text-3xl font-bold mb-6">Our Approach</h2>
-            </motion.div>
-
-            <div className="grid gap-8 md:grid-cols-2">
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="space-y-6"
-              >
-                <h3 className="text-2xl font-semibold">Personalized Growth Strategies</h3>
-                <p className="text-muted-foreground">
-                  No one-size-fits-all solutions—every strategy is tailored to your brand&apos;s unique goals and challenges.
-                </p>
-                <div className="flex items-center gap-2 text-primary">
-                  <Target className="w-5 h-5" />
-                  <span className="font-medium">Customized Approach</span>
-                </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="space-y-6"
-              >
-                <h3 className="text-2xl font-semibold">Data-Driven Decisions</h3>
-                <p className="text-muted-foreground">
-                  We don&apos;t guess—we analyze, optimize, and execute with precision, ensuring every campaign is performance-focused.
-                </p>
-                <div className="flex items-center gap-2 text-primary">
-                  <Brain className="w-5 h-5" />
-                  <span className="font-medium">Precision Execution</span>
-                </div>
-              </motion.div>
+            <div className="prose prose-lg max-w-none">
+              <p className="text-lg text-gray-700 leading-relaxed">
+                At 16edge, we believe marketing should do more than just create noise—it should deliver measurable growth and lasting impact. Founded with the goal of giving brands a true competitive edge.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                From the beginning, our focus has been clear: harness data, technology, and creativity to craft strategies that drive real business outcomes. We combine deep industry expertise with a passion for innovation, constantly pushing boundaries to keep our clients ahead in a rapidly evolving market.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                Our story is one of growth, precision, and partnership. We don't just work for you—we work with you, tailoring every solution to your unique goals and challenges. Together, we transform opportunities into results, building brands that stand out and thrive.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Values Section */}
-      <section className="py-20 bg-muted/50">
+      {/* Our Approach Section */}
+      <section className="py-20 bg-gray-50">
         <div className="container px-4 mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -173,39 +53,58 @@ export default function AboutContent() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl font-bold mb-4">Our Values</h2>
-            <p className="text-lg text-muted-foreground">
-              The principles that guide everything we do
-            </p>
+            <h2 className="text-3xl font-bold sm:text-5xl text-gray-900 mb-4">
+              Our Approach
+            </h2>
           </motion.div>
 
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-            {values.map((value, index) => (
-              <motion.div
-                key={value.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <Card className="h-full text-center group hover:shadow-lg transition-shadow">
-                  <CardContent className="p-6">
-                    <div className="mx-auto mb-4 w-16 h-16 rounded-xl bg-gradient-to-br from-maroon-600 to-maroon-800 flex items-center justify-center group-hover:scale-110 transition-transform">
-                      <value.icon className="w-8 h-8 text-white" />
-                    </div>
-                    <h3 className="text-xl font-semibold mb-2">{value.title}</h3>
-                    <p className="text-muted-foreground">{value.description}</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
+          <div className="max-w-6xl mx-auto">
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {[
+                {
+                  title: "Personalized Growth Strategies",
+                  description: "No one-size-fits-all solutions—every strategy is tailored to your brand's unique goals and challenges."
+                },
+                {
+                  title: "Data-Driven Decisions",
+                  description: "We don't guess—we analyze, optimize, and execute with precision, ensuring every campaign is performance-focused."
+                },
+                {
+                  title: "Integrated Multichannel Execution",
+                  description: "We create seamless experiences across all customer touchpoints to maximize reach and engagement."
+                },
+                {
+                  title: "Continuous Optimization",
+                  description: "Our work doesn't stop at launch. We constantly monitor performance and refine strategies to deliver sustained growth."
+                },
+                {
+                  title: "Collaborative Partnership",
+                  description: "We believe in transparent communication and close collaboration, making you a part of the process at every step."
+                },
+                {
+                  title: "Innovation-Focused",
+                  description: "By embracing the latest tools and trends, we keep your brand ahead of the curve and ahead of the competition."
+                }
+              ].map((item, index) => (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="bg-white p-6 rounded-lg shadow-sm"
+                >
+                  <h3 className="text-xl font-semibold mb-3 text-gray-900">{item.title}</h3>
+                  <p className="text-gray-600 leading-relaxed">{item.description}</p>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-    
-      {/* Achievements Section */}
-      <section className="py-20 bg-muted/50">
+      {/* Performance Stats */}
+      <section className="py-20 bg-primary">
         <div className="container px-4 mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -213,138 +112,98 @@ export default function AboutContent() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl font-bold mb-4">Our Achievements</h2>
-            <p className="text-lg text-muted-foreground">
-              Numbers that speak for our commitment to excellence
-            </p>
+            <h2 className="text-3xl font-bold sm:text-5xl text-white mb-4">
+              Driving Performance Through Data
+            </h2>
           </motion.div>
 
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-            {achievements.map((achievement, index) => (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+            {[
+              { value: "4.7x", label: "Average ROAS" },
+              { value: "98%", label: "Client Retention Rate" },
+              { value: "1B+", label: "Impressions Monthly" },
+              { value: "300M+", label: "Conversions Driven" }
+            ].map((stat, index) => (
               <motion.div
-                key={achievement.label}
+                key={stat.label}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="text-center"
+                className="text-center text-white"
               >
-                <div className="mb-4">
-                  <h3 className="text-4xl font-bold bg-gradient-to-r from-maroon-600 via-maroon-800 to-burgundy-700 bg-clip-text text-transparent">
-                    {achievement.number}
-                  </h3>
-                  <h4 className="text-xl font-semibold">{achievement.label}</h4>
-                  <p className="text-muted-foreground">{achievement.description}</p>
-                </div>
+                <div className="text-4xl font-bold mb-2">{stat.value}</div>
+                <div className="text-sm opacity-90">{stat.label}</div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Why Choose Us Section */}
-      <section className="py-20">
+      {/* Why Choose Us */}
+      <section className="py-20 bg-white">
         <div className="container px-4 mx-auto">
-          <div className="max-w-4xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center mb-16"
-            >
-              <h2 className="text-3xl font-bold mb-4">Why Choose 16edge?</h2>
-              <p className="text-lg text-muted-foreground">
-                Here&apos;s what sets us apart from the competition
-              </p>
-            </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl font-bold sm:text-5xl text-gray-900 mb-4">
+              Why Choose 16edge?
+            </h2>
+            <p className="text-xl text-gray-600">
+              Here's what sets us apart from the competition
+            </p>
+          </motion.div>
 
-            <div className="grid gap-6 md:grid-cols-2">
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="space-y-6"
-              >
-                <div className="flex items-start gap-4">
-                  <CheckCircle className="w-6 h-6 text-primary mt-1 flex-shrink-0" />
-                  <div>
-                    <h3 className="text-lg font-semibold mb-2">Expert Team</h3>
-                    <p className="text-muted-foreground">
-                      Our team consists of experienced developers, designers, and strategists 
-                      with deep expertise in modern technologies.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <CheckCircle className="w-6 h-6 text-primary mt-1 flex-shrink-0" />
-                  <div>
-                    <h3 className="text-lg font-semibold mb-2">Custom Solutions</h3>
-                    <p className="text-muted-foreground">
-                      We don&apos;t believe in one-size-fits-all. Every project is tailored to 
-                      meet your specific needs and goals.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <CheckCircle className="w-6 h-6 text-primary mt-1 flex-shrink-0" />
-                  <div>
-                    <h3 className="text-lg font-semibold mb-2">Ongoing Support</h3>
-                    <p className="text-muted-foreground">
-                      Our relationship doesn&apos;t end at launch. We provide continuous support 
-                      and maintenance for all our projects.
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="space-y-6"
-              >
-                <div className="flex items-start gap-4">
-                  <CheckCircle className="w-6 h-6 text-primary mt-1 flex-shrink-0" />
-                  <div>
-                    <h3 className="text-lg font-semibold mb-2">Modern Technology</h3>
-                    <p className="text-muted-foreground">
-                      We use the latest technologies and best practices to ensure your 
-                      solution is future-proof and scalable.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <CheckCircle className="w-6 h-6 text-primary mt-1 flex-shrink-0" />
-                  <div>
-                    <h3 className="text-lg font-semibold mb-2">Transparent Process</h3>
-                    <p className="text-muted-foreground">
-                      We keep you informed throughout the entire development process with 
-                      regular updates and clear communication.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <CheckCircle className="w-6 h-6 text-primary mt-1 flex-shrink-0" />
-                  <div>
-                    <h3 className="text-lg font-semibold mb-2">Proven Track Record</h3>
-                    <p className="text-muted-foreground">
-                      With 100+ successful projects and satisfied clients, we have a 
-                      proven track record of delivering excellence.
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
+          <div className="max-w-6xl mx-auto">
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {[
+                {
+                  title: "Expert Team",
+                  description: "Our team consists of experienced developers, designers, and strategists with deep expertise in modern technologies."
+                },
+                {
+                  title: "Custom Solutions",
+                  description: "We don't believe in one-size-fits-all. Every project is tailored to meet your specific needs and goals."
+                },
+                {
+                  title: "Ongoing Support",
+                  description: "Our relationship doesn't end at launch. We provide continuous support and maintenance for all our projects."
+                },
+                {
+                  title: "Modern Technology",
+                  description: "We use the latest technologies and best practices to ensure your solution is future-proof and scalable."
+                },
+                {
+                  title: "Transparent Process",
+                  description: "We keep you informed throughout the entire development process with regular updates and clear communication."
+                },
+                {
+                  title: "Proven Track Record",
+                  description: "With 100+ successful projects and satisfied clients, we have a proven track record of delivering excellence."
+                }
+              ].map((item, index) => (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="bg-gray-50 p-6 rounded-lg"
+                >
+                  <h3 className="text-xl font-semibold mb-3 text-gray-900">{item.title}</h3>
+                  <p className="text-gray-600 leading-relaxed">{item.description}</p>
+                </motion.div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-maroon-600/10 via-transparent to-burgundy-700/10">
+      <section className="py-20 bg-gray-900">
         <div className="container px-4 mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -352,21 +211,16 @@ export default function AboutContent() {
             viewport={{ once: true }}
             className="text-center max-w-3xl mx-auto"
           >
-            <h2 className="text-3xl font-bold mb-4">Ready to Work With Us?</h2>
-            <p className="text-lg text-muted-foreground mb-8">
-              Let&apos;s discuss your project and see how we can help bring your vision to life.
+            <h2 className="text-3xl font-bold mb-4 text-white">Ready to Grow?</h2>
+            <p className="text-lg text-gray-300 mb-8">
+              Let's start the conversation.
             </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Button size="lg" asChild>
-                <Link href="/contact">
-                  Get Started
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Link>
-              </Button>
-              <Button size="lg" variant="outline" asChild>
-                <Link href="/contact">Schedule a Call</Link>
-              </Button>
-            </div>
+            <Button size="lg" className="bg-primary hover:bg-primary/90 text-white" asChild>
+              <Link href="/contact">
+                Get in Touch
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Link>
+            </Button>
           </motion.div>
         </div>
       </section>

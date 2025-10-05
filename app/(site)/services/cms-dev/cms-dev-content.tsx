@@ -67,7 +67,7 @@ const techStack = undefined as unknown as void;
 const benefits = undefined as unknown as void;
 
 const serviceColors = {
-  visual: "from-orange-500 to-amber-500",
+  visual: "from-primary to-primary/80",
   messaging: "from-purple-500 to-pink-500",
   activation: "from-green-500 to-emerald-500"
 };
