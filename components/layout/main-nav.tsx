@@ -14,8 +14,19 @@ import { motion, AnimatePresence } from "framer-motion";
 export function MainNav() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = React.useState(false);
+  const [isScrolled, setIsScrolled] = React.useState(false);
 
   const toggleMenu = () => setIsOpen(!isOpen);
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      setIsScrolled(scrollTop > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navLinks = [
     { href: "/about", label: "About Us" },
@@ -24,7 +35,12 @@ export function MainNav() {
   ];
 
   return (
-    <div className="border-b sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <div className={cn(
+      "border-b border-gray-200 sticky top-0 z-[60] transition-all duration-300",
+      isScrolled 
+        ? "bg-white/80 backdrop-blur-md supports-[backdrop-filter]:bg-white/60" 
+        : "bg-white"
+    )}>
       <header className="w-full max-w-[1440px] mx-auto">
         <div className="container flex items-center h-20 m-auto pl-2 sm:pl-0">
           {/* Logo Section */}
@@ -40,10 +56,10 @@ export function MainNav() {
                   key={link.href}
                   href={link.href}
                   className={cn(
-                    "transition-colors hover:text-foreground/80 font-medium",
+                    "transition-colors hover:text-black-900 font-semibold",
                     pathname === link.href || pathname?.startsWith(link.href)
-                      ? "text-foreground"
-                      : "text-foreground/60"
+                      ? "text-gray-900"
+                      : "text-gray-600"
                   )}
                 >
                   {link.label}
@@ -58,7 +74,7 @@ export function MainNav() {
             {/* Desktop Actions */}
             <div className="hidden md:flex items-center gap-2">
            
-              <Button asChild>
+              <Button asChild className="bg-primary hover:bg-primary/90 text-white">
                 <Link href="/contact">Contact</Link>
               </Button>
             </div>
@@ -78,12 +94,12 @@ export function MainNav() {
                       isOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }
                     }
                     transition={{ duration: 0.2 }}
-                    className="w-full h-[2px] bg-foreground block mb-[6px] origin-center"
+                      className="w-full h-[2px] bg-gray-900 block mb-[6px] origin-center"
                   />
                   <motion.span
                     animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
                     transition={{ duration: 0.2 }}
-                    className="w-full h-[2px] bg-foreground block mb-[6px]"
+                      className="w-full h-[2px] bg-gray-900 block mb-[6px]"
                   />
                   <motion.span
                     animate={
@@ -102,7 +118,7 @@ export function MainNav() {
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              className="md:hidden border-t bg-background"
+              className="md:hidden border-t bg-white"
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
@@ -120,11 +136,11 @@ export function MainNav() {
                       <Link
                         href={link.href}
                         className={cn(
-                          "transition-colors px-6 py-3 rounded-lg hover:bg-accent block",
+                          "transition-colors px-6 py-3 rounded-lg hover:bg-gray-100 block",
                           pathname === link.href ||
                             pathname?.startsWith(link.href)
-                            ? "text-foreground font-medium bg-accent"
-                            : "text-foreground/60"
+                            ? "text-gray-900 font-medium bg-gray-100"
+                            : "text-gray-600"
                         )}
                         onClick={() => setIsOpen(false)}
                       >
@@ -147,7 +163,7 @@ export function MainNav() {
                   transition={{ delay: 0.3 }}
                   className="px-2"
                 >
-                  <Button asChild className="w-full py-6">
+                  <Button asChild className="w-full py-6 bg-primary hover:bg-primary/90 text-white">
                     <Link href="/contact" onClick={() => setIsOpen(false)}>
                       Contact
                     </Link>

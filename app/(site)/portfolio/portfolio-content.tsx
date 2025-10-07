@@ -9,8 +9,8 @@ import {
   Star,
   ExternalLink
 } from "lucide-react";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
 
 const caseStudies = [
@@ -75,22 +75,19 @@ export default function PortfolioContent() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden bg-gradient-to-br from-primary/5 via-transparent to-primary/5">
-        <div className="absolute inset-0 bg-grid-black/[0.02] dark:bg-grid-white/[0.02]" />
+      <section className="relative py-20 overflow-hidden bg-primary">
+        <div className="absolute inset-0 bg-grid-white/[0.02]" />
         <div className="container relative px-4 mx-auto">
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="max-w-3xl mx-auto text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <h1 className="mb-6 text-4xl font-bold md:text-5xl lg:text-6xl">
-                Real Results.
-                <span className="block bg-gradient-to-r from-maroon-600 via-maroon-800 to-burgundy-700 bg-clip-text text-transparent">
-                  Real Impact.
-                </span>
+              <h1 className="mb-6 text-4xl font-bold md:text-5xl lg:text-6xl text-white">
+                Our Work
               </h1>
-              <p className="mb-8 text-xl text-muted-foreground">
+              <p className="mb-8 text-xl text-white/90">
                 We don't just talk about results—we deliver them. See how we've helped brands scale, grow, and win.
               </p>
             </motion.div>
@@ -99,7 +96,7 @@ export default function PortfolioContent() {
       </section>
 
       {/* Featured Case Studies */}
-      <section className="py-20">
+      <section className="py-20 bg-white">
         <div className="container px-4 mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -107,8 +104,8 @@ export default function PortfolioContent() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl font-bold mb-4">Featured Case Studies</h2>
-            <p className="text-lg text-muted-foreground">
+            <h2 className="text-3xl font-bold sm:text-5xl text-gray-900 mb-4">Featured Case Studies</h2>
+            <p className="text-xl text-gray-600">
               See how our data-driven strategies deliver measurable results
             </p>
           </motion.div>
@@ -121,53 +118,69 @@ export default function PortfolioContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.2 }}
+                className="bg-white p-6 rounded-lg shadow-sm border"
               >
-                <Card className="h-full group hover:shadow-xl transition-shadow">
-                  <div className="relative overflow-hidden rounded-t-lg">
-                    <img 
-                      src={study.image} 
-                      alt={study.title}
-                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                    <div className="absolute top-4 left-4">
-                      <span className="px-3 py-1 text-xs font-medium bg-maroon-600 text-white rounded-full">
-                        {study.category}
-                      </span>
-                    </div>
+                <div className="relative overflow-hidden rounded-lg mb-6">
+                  <img 
+                    src={study.image} 
+                    alt={study.title}
+                    className="w-full h-48 object-cover"
+                  />
+                  <div className="absolute top-4 left-4">
+                    <span className={cn(
+                      "px-3 py-1 text-xs font-medium text-white rounded-full",
+                      index === 0 && "bg-gradient-to-r from-blue-500 to-blue-600",
+                      index === 1 && "bg-gradient-to-r from-green-500 to-green-600"
+                    )}>
+                      {study.category}
+                    </span>
                   </div>
-                  <CardHeader className="pb-4">
-                    <h3 className="text-xl font-semibold group-hover:text-primary transition-colors">
-                      {study.title}
-                    </h3>
-                    <p className="text-muted-foreground">
-                      {study.description}
-                    </p>
-                  </CardHeader>
-                  <CardContent className="pt-0">
-                    <div className="space-y-3 mb-6">
-                      {study.results.map((result, resultIndex) => (
-                        <div key={resultIndex} className="flex items-center gap-2">
-                          <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
-                          <span className="text-sm font-medium">{result}</span>
-                        </div>
-                      ))}
+                </div>
+                
+                <div className="flex items-center gap-3 mb-4">
+                  <div className={cn(
+                    "p-2 rounded-lg",
+                    index === 0 && "bg-gradient-to-br from-blue-500 to-blue-600",
+                    index === 1 && "bg-gradient-to-br from-green-500 to-green-600"
+                  )}>
+                    <TrendingUp className="w-5 h-5 text-white" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-gray-900">
+                    {study.title}
+                  </h3>
+                </div>
+                
+                <p className="text-gray-600 leading-relaxed mb-6">
+                  {study.description}
+                </p>
+                
+                <div className="space-y-3 mb-6">
+                  {study.results.map((result, resultIndex) => (
+                    <div key={resultIndex} className="flex items-center gap-2">
+                      <CheckCircle className={cn(
+                        "w-4 h-4 flex-shrink-0",
+                        index === 0 && "text-blue-500",
+                        index === 1 && "text-green-500"
+                      )} />
+                      <span className="text-sm font-medium text-gray-700">{result}</span>
                     </div>
-                    <Button className="w-full group-hover:bg-primary" asChild>
-                      <Link href="/contact">
-                        Get Similar Results
-                        <ArrowRight className="w-4 h-4 ml-2" />
-                      </Link>
-                    </Button>
-                  </CardContent>
-                </Card>
+                  ))}
+                </div>
+                
+                <Button className="w-full bg-primary hover:bg-primary/90 text-white" asChild>
+                  <Link href="/contact">
+                    Get Similar Results
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Link>
+                </Button>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Who We've Worked With */}
-      <section className="py-20 bg-muted/50">
+      {/* Performance Stats */}
+      <section className="py-20 bg-primary">
         <div className="container px-4 mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -175,8 +188,45 @@ export default function PortfolioContent() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl font-bold mb-4">Who We've Worked With</h2>
-            <p className="text-lg text-muted-foreground">
+            <h2 className="text-3xl font-bold sm:text-5xl text-white mb-4">
+              Proven Results Across Industries
+            </h2>
+          </motion.div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+            {[
+              { value: "150+", label: "Projects Completed" },
+              { value: "98%", label: "Client Satisfaction" },
+              { value: "4.2x", label: "Average ROI" },
+              { value: "50+", label: "Industries Served" }
+            ].map((stat, index) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="text-center text-white"
+              >
+                <div className="text-4xl font-bold mb-2">{stat.value}</div>
+                <div className="text-sm opacity-90">{stat.label}</div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Who We've Worked With */}
+      <section className="py-20 bg-gray-50">
+        <div className="container px-4 mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl font-bold sm:text-5xl text-gray-900 mb-4">Who We've Worked With</h2>
+            <p className="text-xl text-gray-600">
               Trusted by leading brands across industries. Here are some of the companies that rely on 16edge to drive results.
             </p>
           </motion.div>
@@ -191,8 +241,8 @@ export default function PortfolioContent() {
                 transition={{ delay: index * 0.1 }}
                 className="text-center"
               >
-                <div className="h-16 flex items-center justify-center bg-background rounded-lg border group hover:shadow-md transition-shadow">
-                  <span className="text-lg font-semibold text-muted-foreground group-hover:text-foreground transition-colors">
+                <div className="h-16 flex items-center justify-center bg-white rounded-lg border group hover:shadow-md transition-shadow">
+                  <span className="text-lg font-semibold text-gray-600 group-hover:text-gray-900 transition-colors">
                     {logo}
                   </span>
                 </div>
@@ -203,7 +253,7 @@ export default function PortfolioContent() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-20">
+      <section className="py-20 bg-white">
         <div className="container px-4 mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -211,8 +261,8 @@ export default function PortfolioContent() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl font-bold mb-4">What Our Clients Say</h2>
-            <p className="text-lg text-muted-foreground">
+            <h2 className="text-3xl font-bold sm:text-5xl text-gray-900 mb-4">What Our Clients Say</h2>
+            <p className="text-xl text-gray-600">
               Hear from the brands we've helped achieve remarkable growth
             </p>
           </motion.div>
@@ -225,24 +275,33 @@ export default function PortfolioContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
+                className="bg-gray-50 p-6 rounded-lg"
               >
-                <Card className="h-full">
-                  <CardContent className="p-6">
-                    <div className="flex items-center gap-1 mb-4">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                      ))}
-                    </div>
-                    <blockquote className="text-muted-foreground mb-4 italic">
-                      "{testimonial.content}"
-                    </blockquote>
-                    <div className="border-t pt-4">
-                      <div className="font-semibold">{testimonial.name}</div>
-                      <div className="text-sm text-muted-foreground">{testimonial.role}</div>
-                      <div className="text-sm text-primary font-medium">{testimonial.company}</div>
-                    </div>
-                  </CardContent>
-                </Card>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className={cn(
+                    "p-2 rounded-lg",
+                    index === 0 && "bg-gradient-to-br from-purple-500 to-purple-600",
+                    index === 1 && "bg-gradient-to-br from-orange-500 to-orange-600",
+                    index === 2 && "bg-gradient-to-br from-teal-500 to-teal-600"
+                  )}>
+                    <Users className="w-5 h-5 text-white" />
+                  </div>
+                  <div className="flex items-center gap-1">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                    ))}
+                  </div>
+                </div>
+                
+                <blockquote className="text-gray-700 mb-4 italic leading-relaxed">
+                  "{testimonial.content}"
+                </blockquote>
+                
+                <div className="border-t pt-4">
+                  <div className="font-semibold text-gray-900">{testimonial.name}</div>
+                  <div className="text-sm text-gray-600">{testimonial.role}</div>
+                  <div className="text-sm text-primary font-medium">{testimonial.company}</div>
+                </div>
               </motion.div>
             ))}
           </div>
@@ -250,7 +309,7 @@ export default function PortfolioContent() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-maroon-600/10 via-transparent to-burgundy-700/10">
+      <section className="py-20 bg-gray-900">
         <div className="container px-4 mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -258,11 +317,11 @@ export default function PortfolioContent() {
             viewport={{ once: true }}
             className="text-center max-w-3xl mx-auto"
           >
-            <h2 className="text-3xl font-bold mb-4">Want to See What We Can Do for You?</h2>
-            <p className="text-lg text-muted-foreground mb-8">
+            <h2 className="text-3xl font-bold mb-4 text-white">Ready to See Results?</h2>
+            <p className="text-lg text-gray-300 mb-8">
               Let's discuss your goals and create a custom strategy that drives real results for your brand.
             </p>
-            <Button size="lg" asChild>
+            <Button size="lg" className="bg-primary hover:bg-primary/90 text-white" asChild>
               <Link href="/contact">
                 Contact Us Today
                 <ArrowRight className="w-4 h-4 ml-2" />

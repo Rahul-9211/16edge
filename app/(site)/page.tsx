@@ -2,11 +2,13 @@ import { Metadata } from "next";
 import { Suspense } from "react";
 import { Loader } from "@/components/ui/loader";
 import { HeroSection } from "@/components/sections/hero";
-import { ServicesSection } from "@/components/sections/services";
+import { TrustNumbersSection } from "@/components/sections/trust-numbers";
+import { HorizontalServicesSection } from "@/components/sections/horizontal-services";
+import WhyChooseUsSection from "@/components/sections/why-choose-us";
+import { ToolsSection } from "@/components/sections/tools";
 // Dynamically import non-critical sections
 import dynamic from "next/dynamic";
 
-const WhyChooseUsSection = dynamic(() => import("@/components/sections/why-choose-us"), { ssr: false, loading: () => <Loader /> });
 const CTASection = dynamic(() => import("@/components/sections/cta"), { ssr: false, loading: () => <Loader /> });
 
 export const metadata: Metadata = {
@@ -22,14 +24,26 @@ export default function Home() {
         <HeroSection />
       </Suspense>
 
-      {/* Services Section (critical for LCP) */}
+      {/* Trust Numbers Section */}
       <Suspense fallback={<Loader />}>
-        <ServicesSection />
+        <TrustNumbersSection />
+      </Suspense>
+
+      {/* Services Section */}
+      <Suspense fallback={<Loader />}>
+      <div className="container px-4 mx-auto h-[600px] bg-black">
+        {/* <HorizontalServicesSection /> */}
+      </div>
       </Suspense>
 
       {/* Why Choose Us Section */}
       <Suspense fallback={<Loader />}>
         <WhyChooseUsSection />
+      </Suspense>
+
+      {/* Tools Section */}
+      <Suspense fallback={<Loader />}>
+        <ToolsSection />
       </Suspense>
 
       {/* CTA Section */}

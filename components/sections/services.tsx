@@ -11,6 +11,7 @@ import {
   Sparkles
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 const services = [
@@ -69,94 +70,91 @@ const services = [
 
 export function ServicesSection() {
   return (
-    <section className="relative py-32 overflow-hidden">
-      <div className="absolute inset-0 bg-grid-black/[0.02] dark:bg-grid-white/[0.02]" />
+    <section className="relative py-32 overflow-hidden bg-gray-900">
+      <div className="absolute inset-0 bg-grid-white/[0.02]" />
       
       <div className="container relative px-4 mx-auto">
+        <div className="grid gap-12 lg:grid-cols-2 items-center">
+          {/* Left Side - Title and CTA */}
+          <motion.div 
+            className="text-white"
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-4xl font-bold mb-6 leading-tight">
+              Intelligent Marketing Services Tailored For Your Business
+            </h2>
+            <Button size="lg" className="bg-primary text-white hover:bg-primary/90" asChild>
+              <Link href="/services">
+                Explore Our Services
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Link>
+            </Button>
+          </motion.div>
+
+          {/* Right Side - Service Cards */}
+          <div className="space-y-6">
+            {services.slice(0, 3).map((service, index) => (
+              <motion.div
+                key={service.title}
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <Link href={service.link}>
+                  <Card className={`h-full transition-all duration-300 hover:shadow-xl group relative ${
+                    index === 0 
+                      ? 'bg-primary text-white hover:bg-primary/90' 
+                      : 'bg-gray-800 text-white hover:bg-gray-700 border-gray-700'
+                  }`}>
+                    <CardContent className="p-6">
+                      <h3 className="mb-3 text-xl font-semibold group-hover:text-white transition-colors">
+                        {service.title}
+                      </h3>
+                      <p className="text-sm leading-relaxed opacity-90">
+                        {service.description}
+                      </p>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* Additional Services Grid */}
         <motion.div 
-          className="max-w-2xl mx-auto mb-16 text-center"
+          className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={{ delay: 0.4 }}
         >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2 }}
-            className="flex items-center justify-center px-4 py-1 mb-6 space-x-2 text-sm border rounded-full border-primary/20 bg-primary/5 w-fit mx-auto"
-          >
-            <Sparkles className="w-4 h-4 text-primary" />
-            <span className="text-primary">What We Offer</span>
-          </motion.div>
-          
-          <h2 className="text-3xl font-bold sm:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-maroon-600 via-maroon-800 to-burgundy-700">
-            What We Do
-          </h2>
-          <p className="mt-4 text-xl text-muted-foreground">
-          High-performance marketing strategies that drive real business results.
-          </p>
-        </motion.div>
-
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {services.map((service, index) => (
+          {services.slice(3).map((service, index) => (
             <motion.div
               key={service.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
+              transition={{ delay: (index + 3) * 0.1 }}
             >
               <Link href={service.link}>
-                <Card className="h-full transition-all duration-300 hover:shadow-xl hover:scale-[1.02] group relative">
-                  {service.label && (
-                    <div className="absolute -top-3 right-4 z-10">
-                      <div className="relative">
-                        {/* Background blur effect */}
-                        <div className="absolute inset-0 bg-background/80 backdrop-blur-sm rounded-full" />
-                        
-                        {/* Label content */}
-                        <div className={`relative px-4 py-1.5 rounded-full text-xs font-medium border border-primary/20 
-                          bg-primary/5 flex items-center gap-1.5 whitespace-nowrap`}
-                        >
-                          <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-                          <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-                            {service.label}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  )}
+                <Card className="h-full transition-all duration-300 hover:shadow-xl group relative bg-gray-800 text-white hover:bg-gray-700 border-gray-700">
                   <CardContent className="p-6">
-                    <div className={`p-4 mb-6 w-fit rounded-xl bg-gradient-to-br ${service.color} group-hover:scale-110 transition-transform`}>
-                      <service.icon className="w-8 h-8 text-white" />
-                    </div>
-                    
-                    <h3 className="mb-2 text-xl font-semibold group-hover:text-primary transition-colors">
+                    <h3 className="mb-3 text-xl font-semibold group-hover:text-white transition-colors">
                       {service.title}
                     </h3>
-                    <p className="mb-6 text-muted-foreground group-hover:text-muted-foreground/80">
+                    <p className="text-sm leading-relaxed opacity-90">
                       {service.description}
                     </p>
-                    
-                    <ul className="mb-6 space-y-2">
-                      {service.features.map((feature) => (
-                        <li key={feature} className="flex items-center text-sm text-muted-foreground">
-                          <ArrowRight className="w-4 h-4 mr-2 text-primary" />
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-
-                    <div className="flex items-center text-sm text-primary opacity-0 group-hover:opacity-100 transition-opacity">
-                      Learn more
-                      <ArrowRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
-                    </div>
                   </CardContent>
                 </Card>
               </Link>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

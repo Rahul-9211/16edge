@@ -107,7 +107,7 @@ const serviceColors = {
   custom: "from-blue-500 to-cyan-500",
   frontend: "from-purple-500 to-pink-500",
   backend: "from-green-500 to-emerald-500",
-  ai: "from-orange-500 to-amber-500",
+  ai: "from-primary to-primary/80",
   analytics: "from-indigo-500 to-blue-500",
   benefits: "from-rose-500 to-pink-500"
 };

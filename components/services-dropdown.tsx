@@ -40,8 +40,8 @@ export function ServicesDropdown({ isMobile = false }: { isMobile?: boolean }) {
         <button
           onClick={() => setIsOpen(!isOpen)}
           className={cn(
-            "flex items-center justify-between w-full px-2 py-1.5 rounded-md transition-colors hover:bg-accent",
-            isActive ? "text-foreground font-medium bg-accent" : "text-foreground/60"
+            "flex items-center justify-between w-full px-2 py-1.5 rounded-md transition-colors hover:bg-gray-100",
+            isActive ? "text-gray-900 font-medium bg-gray-100" : "text-gray-600"
           )}
         >
           <span>Services</span>
@@ -62,7 +62,7 @@ export function ServicesDropdown({ isMobile = false }: { isMobile?: boolean }) {
               <div className="pl-3 py-2 space-y-1">
                 <Link
                   href="/services"
-                  className="flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-accent/50 transition-colors"
+                  className="flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-gray-100 transition-colors"
                   onClick={() => setIsOpen(false)}
                 >
                   <Sparkles className="w-4 h-4" />
@@ -72,7 +72,7 @@ export function ServicesDropdown({ isMobile = false }: { isMobile?: boolean }) {
                   <Link
                     key={service.title}
                     href={service.link}
-                    className="flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-accent/50 transition-colors"
+                    className="flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-gray-100 transition-colors"
                     onClick={() => setIsOpen(false)}
                   >
                     <service.icon className="w-4 h-4" />
@@ -90,15 +90,15 @@ export function ServicesDropdown({ isMobile = false }: { isMobile?: boolean }) {
   // Desktop version
   return (
     <div 
-      className="relative" 
+      className="relative z-[100]" 
       ref={dropdownRef}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       <button
         className={cn(
-          "flex items-center gap-1 text-sm hover:text-foreground/80 transition-colors group",
-          isActive ? "text-foreground" : "text-foreground/60"
+          "flex items-center gap-1 text-sm hover:text-gray-900 transition-colors group font-semibold",
+          isActive ? "text-gray-900" : "text-gray-600"
         )}
       >
         <span className="relative">
@@ -113,7 +113,7 @@ export function ServicesDropdown({ isMobile = false }: { isMobile?: boolean }) {
       <AnimatePresence>
         {isOpen && (
           <motion.div 
-            className="absolute top-full left-0 mt-1 w-[480px] bg-background backdrop-blur-sm border rounded-xl shadow-lg z-50"
+            className="absolute top-full left-0 mt-2 w-[480px] bg-white border border-gray-200 rounded-xl shadow-xl z-[100]"
             initial={{ opacity: 0, y: -4 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -4 }}
@@ -122,14 +122,14 @@ export function ServicesDropdown({ isMobile = false }: { isMobile?: boolean }) {
             <div className="p-4">
               <Link
                 href="/services"
-                className="flex items-center gap-3 p-3 rounded-lg hover:bg-muted transition-colors group mb-3"
+                className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 transition-colors group mb-3"
               >
                 <div className="p-2 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
                   <Sparkles className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="font-semibold text-base">All Services</div>
-                  <div className="text-sm text-muted-foreground">
+                  <div className="font-semibold text-base text-gray-900">All Services</div>
+                  <div className="text-sm text-gray-600">
                     Explore our complete range of services
                   </div>
                 </div>
@@ -145,19 +145,18 @@ export function ServicesDropdown({ isMobile = false }: { isMobile?: boolean }) {
                   >
                     <Link
                       href={service.link}
-                      className="flex items-center gap-3 p-3 rounded-lg hover:bg-muted transition-colors group"
+                      className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 transition-colors group"
                     >
                       <div className={cn(
-                        "p-2 rounded-lg",
-                        `bg-gradient-to-br ${service.color} group-hover:scale-110 transition-transform`
+                        "p-2 rounded-lg bg-primary group-hover:scale-110 transition-transform"
                       )}>
-                        <service.icon className="w-5 h-5 text-white" />
+                        <service.icon className="w-5 h-5 text-white drop-shadow-sm" />
                       </div>
                       <div>
-                        <div className="font-medium group-hover:text-primary transition-colors">
+                        <div className="font-medium text-gray-900 group-hover:text-primary transition-colors">
                           {service.title}
                         </div>
-                        <div className="text-sm text-muted-foreground line-clamp-1">
+                        <div className="text-sm text-gray-600 line-clamp-1">
                           {service.description}
                         </div>
                       </div>
