@@ -31,9 +31,7 @@ export default function Home() {
 
       {/* Services Section */}
       <Suspense fallback={<Loader />}>
-      <div className="container px-4 mx-auto h-[600px] bg-black">
-        {/* <HorizontalServicesSection /> */}
-      </div>
+        <HorizontalServicesSection />
       </Suspense>
 
       {/* Why Choose Us Section */}
