@@ -39,6 +39,8 @@ function HorizontalScrollSection({
   const scrollLockRef = useRef(false);
   const lastScrollTime = useRef(0);
   const [isScrolling, setIsScrolling] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const mobileContainerRef = useRef<HTMLDivElement>(null);
 
   const updateCardPositions = useCallback((progress: number) => {
     // Smooth progress value between 0 and cards.length - 1
@@ -47,7 +49,63 @@ function HorizontalScrollSection({
     setScrollProgress(clampedProgress);
   }, [cards.length]);
 
+  // Detect mobile screen size
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Mobile touch handlers
+  useEffect(() => {
+    if (!isMobile || !mobileContainerRef.current) return;
+
+    const container = mobileContainerRef.current;
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartX = e.touches[0].clientX;
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      touchEndX = e.touches[0].clientX;
+    };
+
+    const handleTouchEnd = () => {
+      const diff = touchStartX - touchEndX;
+      const threshold = 50;
+
+      if (Math.abs(diff) > threshold) {
+        if (diff > 0 && Math.round(scrollProgress) < cards.length - 1) {
+          // Swipe left - next card
+          const newProgress = Math.min(Math.round(scrollProgress) + 1, cards.length - 1);
+          updateCardPositions(newProgress);
+        } else if (diff < 0 && Math.round(scrollProgress) > 0) {
+          // Swipe right - previous card
+          const newProgress = Math.max(Math.round(scrollProgress) - 1, 0);
+          updateCardPositions(newProgress);
+        }
+      }
+    };
+
+    container.addEventListener('touchstart', handleTouchStart);
+    container.addEventListener('touchmove', handleTouchMove);
+    container.addEventListener('touchend', handleTouchEnd);
+
+    return () => {
+      container.removeEventListener('touchstart', handleTouchStart);
+      container.removeEventListener('touchmove', handleTouchMove);
+      container.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, [isMobile, scrollProgress, cards.length, updateCardPositions]);
+
+  useEffect(() => {
+    if (isMobile) return; // Disable wheel hijacking on mobile
     const handleWheel = (e: WheelEvent) => {
       const container = containerRef.current
       if (!container) return
@@ -137,7 +195,7 @@ function HorizontalScrollSection({
 
     window.addEventListener("wheel", handleWheel, { passive: false })
     return () => window.removeEventListener("wheel", handleWheel)
-  }, [scrollProgress, cards.length, updateCardPositions, isScrolling]);
+  }, [scrollProgress, cards.length, updateCardPositions, isScrolling, isMobile]);
 
   const getCardTransform = (index: number) => {
     const diff = index - scrollProgress;
@@ -176,12 +234,13 @@ function HorizontalScrollSection({
       ref={containerRef}
       className={`relative overflow-hidden bg-[#0a0e27] transition-all duration-700 ease-in-out ${className}`}
       style={{
-        height: isScrolling ? '100vh' : 'min-h-screen',
-        position: isScrolling ? 'fixed' : 'relative',
-        top: isScrolling ? '0' : 'auto',
-        left: isScrolling ? '0' : 'auto',
-        right: isScrolling ? '0' : 'auto',
-        zIndex: isScrolling ? '50' : 'auto'
+        height: !isMobile && isScrolling ? '100vh' : 'auto',
+        minHeight: isMobile ? 'auto' : '100vh',
+        position: !isMobile && isScrolling ? 'fixed' : 'relative',
+        top: !isMobile && isScrolling ? '0' : 'auto',
+        left: !isMobile && isScrolling ? '0' : 'auto',
+        right: !isMobile && isScrolling ? '0' : 'auto',
+        zIndex: !isMobile && isScrolling ? '50' : 'auto'
       }}
     >
       <div className="absolute inset-0 opacity-20">
@@ -193,11 +252,11 @@ function HorizontalScrollSection({
           }}
         />
       </div>
-      <div className="flex h-screen items-center">
+      <div className={`flex ${isMobile ? 'flex-col' : 'h-screen'} items-center ${isMobile ? 'py-12' : ''}`}>
         {/* Left content */}
-        <div className="w-1/2 flex flex-col justify-center px-16 lg:px-20">
+        <div className={`${isMobile ? 'w-full' : 'w-1/2'} flex flex-col justify-center ${isMobile ? 'px-6 mb-8' : 'px-16 lg:px-20'}`}>
           <div className="max-w-lg">
-            <h1 className="text-white text-5xl lg:text-6xl mb-12 leading-tight font-bold">
+            <h1 className={`text-white ${isMobile ? 'text-3xl' : 'text-5xl lg:text-6xl'} ${isMobile ? 'mb-6' : 'mb-12'} leading-tight font-bold`}>
               <span className="block">Platforms</span>
               <span className="block text-orange-500">AI-Engineered.</span>
               <span className="block">Performance-</span>
@@ -223,10 +282,13 @@ function HorizontalScrollSection({
         </div>
 
         {/* Right content - Cards */}
-        <div className="w-1/2 h-screen flex items-center justify-center relative">
+        <div 
+          ref={mobileContainerRef}
+          className={`${isMobile ? 'w-full px-6' : 'w-1/2 h-screen'} flex items-center justify-center relative`}
+        >
           <div 
-            className="relative w-full h-full flex items-center justify-center"
-            style={{ perspective: '1200px', perspectiveOrigin: 'center center' }}
+            className={`relative ${isMobile ? 'w-full' : 'w-full h-full'} flex items-center justify-center`}
+            style={{ perspective: isMobile ? 'none' : '1200px', perspectiveOrigin: 'center center' }}
           >
             {cards.map((card, index) => {
               const IconComponent = card.icon;
@@ -235,16 +297,18 @@ function HorizontalScrollSection({
               return (
                 <div
                   key={card.id}
-                  className={`absolute w-80 h-96 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 ease-out cursor-pointer group border-2 ${
+                  className={`${isMobile ? 'relative w-full max-w-sm mx-auto' : 'absolute w-80'} ${
+                    isMobile ? (isActive ? 'block' : 'hidden') : ''
+                  } ${isMobile ? 'h-auto' : 'h-96'} rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 ease-out cursor-pointer group border-2 ${
                     isActive ? 'ring-4 ring-primary/20' : 'border-gray-200 hover:border-gray-300'
                   }`}
                   style={{
                     backgroundColor: card.backgroundColor,
                     borderColor: isActive ? card.accentColor : undefined,
-                    transform: `${getCardTransform(index)} scale(${getCardScale(index)})`,
-                    opacity: getCardOpacity(index),
-                    transformStyle: 'preserve-3d',
-                    zIndex: cards.length - Math.abs(index - Math.round(scrollProgress))
+                    transform: isMobile ? 'none' : `${getCardTransform(index)} scale(${getCardScale(index)})`,
+                    opacity: isMobile ? 1 : getCardOpacity(index),
+                    transformStyle: isMobile ? 'flat' : 'preserve-3d',
+                    zIndex: isMobile ? 'auto' : cards.length - Math.abs(index - Math.round(scrollProgress))
                   }}
                   onClick={() => window.open(card.link, '_blank')}
                 >
@@ -252,16 +316,16 @@ function HorizontalScrollSection({
                   <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-gray-50/50 to-transparent" />
                   
                   {/* Card content */}
-                  <div className="relative p-6 h-full flex flex-col" style={{ color: card.textColor }}>
+                  <div className={`relative ${isMobile ? 'p-5' : 'p-6'} h-full flex flex-col`} style={{ color: card.textColor }}>
                     {/* Header with icon and title */}
-                    <div className="mb-6">
-                      <div className="flex items-center justify-between mb-4">
+                    <div className={isMobile ? 'mb-4' : 'mb-6'}>
+                      <div className={`flex items-center justify-between ${isMobile ? 'mb-3' : 'mb-4'}`}>
                         <div className="flex items-center space-x-3">
-                          <div className="w-12 h-12 rounded-xl flex items-center justify-center group-hover:scale-110 transition-all duration-300" style={{ backgroundColor: card.accentColor + '20' }}>
-                            <IconComponent className="w-6 h-6" style={{ color: card.accentColor }} />
+                          <div className={`${isMobile ? 'w-10 h-10' : 'w-12 h-12'} rounded-xl flex items-center justify-center group-hover:scale-110 transition-all duration-300`} style={{ backgroundColor: card.accentColor + '20' }}>
+                            <IconComponent className={`${isMobile ? 'w-5 h-5' : 'w-6 h-6'}`} style={{ color: card.accentColor }} />
                           </div>
                           <div>
-                            <h3 className="text-xl font-bold" style={{ color: card.textColor }}>{card.title}</h3>
+                            <h3 className={`${isMobile ? 'text-lg' : 'text-xl'} font-bold`} style={{ color: card.textColor }}>{card.title}</h3>
                             <div className="flex items-center space-x-1 mt-1">
                               <div className="w-2 h-2 rounded-full bg-orange-400"></div>
                               <div className="w-1 h-1 rounded-full bg-white/40"></div>
@@ -269,16 +333,16 @@ function HorizontalScrollSection({
                             </div>
                           </div>
                         </div>
-                        <ArrowRight className="w-5 h-5 opacity-60 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300" />
+                        <ArrowRight className={`${isMobile ? 'w-4 h-4' : 'w-5 h-5'} opacity-60 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300`} />
                       </div>
                       
-                      <p className="text-sm opacity-90 leading-relaxed mb-4">{card.subtitle}</p>
+                      <p className={`${isMobile ? 'text-xs' : 'text-sm'} opacity-90 leading-relaxed ${isMobile ? 'mb-3' : 'mb-4'}`}>{card.subtitle}</p>
                       
                       <div className="flex flex-wrap gap-2">
-                        {card.features.slice(0, 3).map((feature, featureIndex) => (
+                        {card.features.slice(0, isMobile ? 2 : 3).map((feature, featureIndex) => (
                           <span 
                             key={featureIndex}
-                            className="px-3 py-1 text-xs rounded-full font-medium"
+                            className={`${isMobile ? 'px-2 py-0.5 text-[10px]' : 'px-3 py-1 text-xs'} rounded-full font-medium`}
                             style={{ 
                               backgroundColor: card.accentColor + '15',
                               color: card.accentColor,
@@ -293,11 +357,11 @@ function HorizontalScrollSection({
                     
                     {/* Visual element area */}
                     <div className="flex-1 flex items-end justify-center">
-                      <div className="w-full h-32 bg-white/10 rounded-xl backdrop-blur-sm border border-white/20 flex items-center justify-center relative overflow-hidden group-hover:bg-white/15 transition-all duration-300">
+                      <div className={`w-full ${isMobile ? 'h-24' : 'h-32'} bg-white/10 rounded-xl backdrop-blur-sm border border-white/20 flex items-center justify-center relative overflow-hidden group-hover:bg-white/15 transition-all duration-300`}>
                         {/* Service-specific visual elements */}
                         <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="w-20 h-20 rounded-full flex items-center justify-center" style={{ backgroundColor: card.accentColor + '20' }}>
-                            <IconComponent className="w-10 h-10" style={{ color: card.accentColor }} />
+                          <div className={`${isMobile ? 'w-16 h-16' : 'w-20 h-20'} rounded-full flex items-center justify-center`} style={{ backgroundColor: card.accentColor + '20' }}>
+                            <IconComponent className={`${isMobile ? 'w-8 h-8' : 'w-10 h-10'}`} style={{ color: card.accentColor }} />
                           </div>
                         </div>
                         
@@ -307,15 +371,15 @@ function HorizontalScrollSection({
                         
                         {/* Performance indicator */}
                         <div className="absolute bottom-3 right-3 flex items-center space-x-1">
-                          <div className="w-1 h-4 bg-white/40 rounded-full"></div>
-                          <div className="w-1 h-6 rounded-full" style={{ backgroundColor: card.accentColor }}></div>
-                          <div className="w-1 h-3 bg-white/30 rounded-full"></div>
+                          <div className={`w-1 ${isMobile ? 'h-3' : 'h-4'} bg-white/40 rounded-full`}></div>
+                          <div className={`w-1 ${isMobile ? 'h-5' : 'h-6'} rounded-full`} style={{ backgroundColor: card.accentColor }}></div>
+                          <div className={`w-1 ${isMobile ? 'h-2' : 'h-3'} bg-white/30 rounded-full`}></div>
                         </div>
                       </div>
                     </div>
                     
                     {/* Bottom accent */}
-                    <div className="absolute bottom-0 left-6 right-6 h-1 rounded-full" style={{ backgroundColor: card.accentColor + '40' }}></div>
+                    <div className={`absolute bottom-0 ${isMobile ? 'left-5 right-5' : 'left-6 right-6'} h-1 rounded-full`} style={{ backgroundColor: card.accentColor + '40' }}></div>
                   </div>
                 </div>
               );
@@ -325,8 +389,10 @@ function HorizontalScrollSection({
       </div>
       
       {/* Bottom scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/60 text-sm">
-        {Math.round(scrollProgress) < cards.length - 1 ? "Scroll to explore services" : "Scroll to continue"}
+      <div className={`absolute ${isMobile ? 'bottom-4' : 'bottom-8'} left-1/2 -translate-x-1/2 text-white/60 ${isMobile ? 'text-xs' : 'text-sm'} text-center`}>
+        {Math.round(scrollProgress) < cards.length - 1 ? 
+          (isMobile ? "Swipe to explore" : "Scroll to explore services") : 
+          (isMobile ? "Swipe left" : "Scroll to continue")}
       </div>
     </div>
   );
