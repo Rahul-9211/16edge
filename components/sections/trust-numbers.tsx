@@ -36,18 +36,18 @@ export function TrustNumbersSection() {
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto">
               <div className="bg-white border border-primary/30 rounded-lg p-8 text-center hover:border-primary/50 transition-colors">
-                <div className="text-4xl font-bold text-primary mb-2">110+</div>
-                <div className="text-sm font-medium text-gray-700 uppercase tracking-wide">MARKETS</div>
+                <div className="text-4xl font-bold text-primary mb-2">50+</div>
+                <div className="text-sm font-medium text-gray-700 uppercase tracking-wide">Clients Across Industries</div>
               </div>
               
               <div className="bg-white border border-primary/30 rounded-lg p-8 text-center hover:border-primary/50 transition-colors">
-                <div className="text-4xl font-bold text-primary mb-2">27K+</div>
-                <div className="text-sm font-medium text-gray-700 uppercase tracking-wide">PEOPLE</div>
+                <div className="text-4xl font-bold text-primary mb-2">10+</div>
+                <div className="text-sm font-medium text-gray-700 uppercase tracking-wide">Countries Served</div>
               </div>
               
               <div className="bg-white border border-primary/30 rounded-lg p-8 text-center hover:border-primary/50 transition-colors">
-                <div className="text-4xl font-bold text-primary mb-2">150+</div>
-                <div className="text-sm font-medium text-gray-700 uppercase tracking-wide">CITIES</div>
+                <div className="text-4xl font-bold text-primary mb-2">15+</div>
+                <div className="text-sm font-medium text-gray-700 uppercase tracking-wide">Industry Verticals</div>
               </div>
             </div>
           </motion.div>

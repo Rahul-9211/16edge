@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Users, Settings, Headphones, Rocket, Eye, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -37,7 +37,7 @@ export default function AboutContent() {
                 From the beginning, our focus has been clear: harness data, technology, and creativity to craft strategies that drive real business outcomes. We combine deep industry expertise with a passion for innovation, constantly pushing boundaries to keep our clients ahead in a rapidly evolving market.
               </p>
               <p className="text-lg text-gray-700 leading-relaxed">
-                Our story is one of growth, precision, and partnership. We don't just work for you—we work with you, tailoring every solution to your unique goals and challenges. Together, we transform opportunities into results, building brands that stand out and thrive.
+                Our story is one of growth, precision, and partnership. We don&apos;t just work for you—we work with you, tailoring every solution to your unique goals and challenges. Together, we transform opportunities into results, building brands that stand out and thrive.
               </p>
             </div>
           </div>
@@ -153,7 +153,7 @@ export default function AboutContent() {
               Why Choose 16edge?
             </h2>
             <p className="text-xl text-gray-600">
-              Here's what sets us apart from the competition
+              Here&apos;s what sets us apart from the competition
             </p>
           </motion.div>
 
@@ -161,42 +161,54 @@ export default function AboutContent() {
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {[
                 {
+                  icon: Users,
                   title: "Expert Team",
                   description: "Our team consists of experienced developers, designers, and strategists with deep expertise in modern technologies."
                 },
                 {
+                  icon: Settings,
                   title: "Custom Solutions",
                   description: "We don't believe in one-size-fits-all. Every project is tailored to meet your specific needs and goals."
                 },
                 {
+                  icon: Headphones,
                   title: "Ongoing Support",
                   description: "Our relationship doesn't end at launch. We provide continuous support and maintenance for all our projects."
                 },
                 {
+                  icon: Rocket,
                   title: "Modern Technology",
                   description: "We use the latest technologies and best practices to ensure your solution is future-proof and scalable."
                 },
                 {
+                  icon: Eye,
                   title: "Transparent Process",
                   description: "We keep you informed throughout the entire development process with regular updates and clear communication."
                 },
                 {
+                  icon: Trophy,
                   title: "Proven Track Record",
                   description: "With 100+ successful projects and satisfied clients, we have a proven track record of delivering excellence."
                 }
-              ].map((item, index) => (
-                <motion.div
-                  key={item.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="bg-gray-50 p-6 rounded-lg"
-                >
-                  <h3 className="text-xl font-semibold mb-3 text-gray-900">{item.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{item.description}</p>
-                </motion.div>
-              ))}
+              ].map((item, index) => {
+                const IconComponent = item.icon;
+                return (
+                  <motion.div
+                    key={item.title}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    className="bg-gray-50 p-6 rounded-lg hover:shadow-lg transition-shadow duration-300"
+                  >
+                    <div className="mb-4 w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                      <IconComponent className="w-6 h-6 text-primary" />
+                    </div>
+                    <h3 className="text-xl font-semibold mb-3 text-gray-900">{item.title}</h3>
+                    <p className="text-gray-600 leading-relaxed">{item.description}</p>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -213,7 +225,7 @@ export default function AboutContent() {
           >
             <h2 className="text-3xl font-bold mb-4 text-white">Ready to Grow?</h2>
             <p className="text-lg text-gray-300 mb-8">
-              Let's start the conversation.
+              Let&apos;s start the conversation.
             </p>
             <Button size="lg" className="bg-primary hover:bg-primary/90 text-white" asChild>
               <Link href="/contact">

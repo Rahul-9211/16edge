@@ -256,13 +256,16 @@ function HorizontalScrollSection({
         {/* Left content */}
         <div className={`${isMobile ? 'w-full' : 'w-1/2'} flex flex-col justify-center ${isMobile ? 'px-6 mb-8' : 'px-16 lg:px-20'}`}>
           <div className="max-w-lg">
-            <h1 className={`text-white ${isMobile ? 'text-3xl' : 'text-5xl lg:text-6xl'} ${isMobile ? 'mb-6' : 'mb-12'} leading-tight font-bold`}>
-              <span className="block">Platforms</span>
-              <span className="block text-orange-500">AI-Engineered.</span>
-              <span className="block">Performance-</span>
-              <span className="block">Optimized.</span>
-              <span className="block">Brand-Ready.</span>
+            <h1 className={`text-white ${isMobile ? 'text-3xl' : 'text-4xl lg:text-5xl'} ${isMobile ? 'mb-6' : 'mb-8'} leading-tight font-bold`}>
+              Intelligent Marketing Services tailored for your Business
             </h1>
+            
+            <a 
+              href="#services" 
+              className={`inline-flex items-center justify-center ${isMobile ? 'px-6 py-3 text-sm' : 'px-8 py-4 text-base'} bg-orange-500 hover:bg-orange-600 text-white font-medium rounded-lg transition-colors duration-300 mb-8`}
+            >
+              Explore Our Services
+            </a>
             
             {/* Progress indicators */}
             <div className="flex gap-2 pt-4">
@@ -391,8 +394,8 @@ function HorizontalScrollSection({
       {/* Bottom scroll indicator */}
       <div className={`absolute ${isMobile ? 'bottom-4' : 'bottom-8'} left-1/2 -translate-x-1/2 text-white/60 ${isMobile ? 'text-xs' : 'text-sm'} text-center`}>
         {Math.round(scrollProgress) < cards.length - 1 ? 
-          (isMobile ? "Swipe to explore" : "Scroll to explore services") : 
-          (isMobile ? "Swipe left" : "Scroll to continue")}
+          (isMobile ? "Swipe to explore more" : "Scroll to explore more services") : 
+          (isMobile ? "Swipe or scroll down" : "Scroll down to continue")}
       </div>
     </div>
   );
