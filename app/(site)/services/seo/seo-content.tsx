@@ -13,7 +13,8 @@ import {
   Bot,
   Target,
   Settings,
-  LineChart
+  LineChart,
+  TrendingUp
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -23,54 +24,58 @@ const seoServices = [
   {
     icon: FileCode,
     title: "Technical SEO",
-    description: "Strengthen your website's technical foundation",
+    description: "Strengthen your website's technical foundation for better rankings",
     benefits: [
       "AI-driven site structure optimization",
-      "Speed optimization with smart caching",
+      "Core Web Vitals improvement",
       "Mobile-first indexing strategies",
       "Automated XML sitemap generation",
-      "AI-optimized robots.txt configuration",
       "Schema markup implementation",
-    ]
+      "Page speed optimization",
+    ],
+    color: "#e54021",
   },
   {
     icon: Search,
     title: "On-Page SEO",
-    description: "AI-powered page optimization for higher rankings",
+    description: "AI-powered page optimization for maximum visibility",
     benefits: [
-      "Smart keyword optimization with AI",
-      "AI-generated meta tags optimization",
+      "Smart keyword research and optimization",
+      "AI-generated meta tag enhancement",
       "Content optimization with NLP",
       "Internal linking strategies",
       "SEO-friendly URL structuring",
-      "AI-enhanced image optimization",
-    ]
+      "Image and media optimization",
+    ],
+    color: "#e54021",
   },
   {
     icon: Link2,
-    title: "Off-Page SEO & Link Building",
-    description: "Build domain authority with AI-driven strategies",
+    title: "Off-Page SEO",
+    description: "Build domain authority with strategic link building",
     benefits: [
-      "AI-powered link building",
-      "Social signals analysis",
-      "Local SEO optimization",
+      "AI-powered link building campaigns",
+      "Social signals optimization",
+      "Local SEO enhancement",
       "Strategic guest posting",
-      "AI-driven brand mentions tracking",
-      "Online PR campaigns",
-    ]
+      "Brand mentions tracking",
+      "Online reputation management",
+    ],
+    color: "#e54021",
   },
   {
     icon: BarChart3,
-    title: "SEO Analytics & Tracking",
+    title: "SEO Analytics",
     description: "Data-driven insights with AI-powered analysis",
     benefits: [
-      "Real-time rank tracking with AI",
-      "Traffic analysis & behavior tracking",
-      "AI-powered conversion tracking",
-      "Competitor analysis with AI insights",
-      "ROI measurement & tracking",
-      "Detailed monthly reporting",
-    ]
+      "Real-time rank tracking",
+      "Traffic analysis & behavior insights",
+      "Conversion tracking",
+      "Competitor analysis with AI",
+      "ROI measurement",
+      "Detailed performance reporting",
+    ],
+    color: "#e54021",
   }
 ];
 
@@ -78,38 +83,22 @@ const seoProcess = [
   {
     icon: Search,
     title: "Audit & Analysis",
-    description: "AI-driven website audit to identify SEO gaps",
-    features: [
-      "Comprehensive site analysis",
-      "Competitor benchmarking",
-    ]
+    description: "Comprehensive AI-driven website audit to identify opportunities",
   },
   {
     icon: Target,
     title: "Strategy Development",
-    description: "Custom AI-powered SEO strategy for your goals",
-    features: [
-      "Targeted keyword strategy",
-      "Content planning",
-    ]
+    description: "Custom SEO roadmap aligned with your business goals",
   },
   {
     icon: Settings,
     title: "Implementation",
-    description: "Execute AI-driven optimizations effectively",
-    features: [
-      "Technical improvements",
-      "Content optimization",
-    ]
+    description: "Execute optimizations across technical and content layers",
   },
   {
     icon: LineChart,
-    title: "Monitoring & Optimization",
-    description: "Real-time tracking with AI-powered insights",
-    features: [
-      "Performance tracking",
-      "Continuous refinement",
-    ]
+    title: "Monitor & Optimize",
+    description: "Continuous tracking and refinement for sustained growth",
   }
 ];
 
@@ -117,67 +106,83 @@ const aiFeatures = [
   {
     icon: Brain,
     title: "AI-Powered Analysis",
-    description: "10x faster SEO analysis and optimization"
+    description: "10x faster SEO audits with machine learning insights"
   },
   {
     icon: Bot,
     title: "Smart Automation",
-    description: "Automated optimization and tracking"
+    description: "Automated optimization and continuous monitoring"
   },
   {
     icon: Zap,
     title: "Real-Time Insights",
-    description: "Instant SEO performance analytics"
+    description: "Instant performance analytics and recommendations"
   },
   {
-    icon: Globe,
-    title: "Global Optimization",
-    description: "AI-driven international SEO"
+    icon: TrendingUp,
+    title: "Predictive Analytics",
+    description: "Forecast trends and stay ahead of algorithm updates"
   }
 ];
 
-const serviceColors = {
-  technical: "from-blue-500 to-cyan-500",
-  onpage: "from-purple-500 to-pink-500",
-  offpage: "from-green-500 to-emerald-500",
-  analytics: "from-indigo-500 to-blue-500",
-  ai: "from-primary to-primary/80",
-  benefits: "from-rose-500 to-pink-500"
-};
+const results = [
+  {
+    metric: "300%+",
+    description: "Average organic traffic increase"
+  },
+  {
+    metric: "10x",
+    description: "Faster optimization with AI"
+  },
+  {
+    metric: "85%+",
+    description: "Keywords ranking on page 1"
+  },
+  {
+    metric: "24/7",
+    description: "Automated monitoring & alerts"
+  }
+];
 
 export default function SEOContent() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden bg-gradient-to-br from-green-500/5 via-transparent to-emerald-500/5">
-        <div className="absolute inset-0 bg-grid-black/[0.02] dark:bg-grid-white/[0.02]" />
+      <section className="relative py-20 lg:py-32 overflow-hidden bg-primary">
+        <div className="absolute inset-0 bg-grid-white/[0.02]" />
+        
         <div className="container relative px-4 mx-auto">
-          <div className="max-w-3xl mx-auto text-center">
+          <div className="max-w-4xl mx-auto text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.6 }}
             >
-              <div className="inline-flex items-center justify-center px-4 py-1 mb-6 space-x-2 text-sm border rounded-full border-primary/20 bg-primary/5">
-                <Search className="w-4 h-4 text-primary" />
-                <span className="text-primary">AI-Powered SEO</span>
+              <div className="inline-flex items-center justify-center px-4 py-2 mb-6 space-x-2 text-sm border border-yellow-400 rounded-full bg-white/10 backdrop-blur-sm">
+                <Search className="w-4 h-4 text-yellow-400" />
+                <span className="text-yellow-400 font-medium">AI-Powered SEO</span>
               </div>
-              <h1 className="mb-6 text-4xl font-bold md:text-5xl lg:text-6xl">
-                Boost Your Online
-                <span className="block text-primary">Visibility</span>
+              
+              <h1 className="mb-6 text-4xl font-bold md:text-5xl lg:text-6xl text-white leading-tight">
+                Dominate Search Rankings
+                <span className="block mt-2 text-yellow-400">
+                  Drive Organic Growth
+                </span>
               </h1>
-              <p className="mb-8 text-xl text-muted-foreground">
-                Increase organic traffic, improve search engine rankings, and dominate your industry 
-                with our cutting-edge, AI-driven SEO strategies.
+              
+              <p className="mb-10 text-lg md:text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
+                Leverage AI-powered SEO strategies to skyrocket your search rankings, increase organic traffic, 
+                and dominate your industry with data-driven optimization.
               </p>
+              
               <div className="flex flex-wrap justify-center gap-4">
-                <Button size="lg" className="h-12 px-8" asChild>
+                <Button size="lg" className="h-12 px-8 bg-white text-primary hover:bg-white/90" asChild>
                   <Link href="/contact">
-                    Get a Free SEO Audit
+                    Get Free SEO Audit
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Link>
                 </Button>
-                <Button size="lg" variant="outline" className="h-12 px-8" asChild>
+                <Button size="lg" variant="outline" className="h-12 px-8 border-yellow-400 text-white hover:bg-white/10" asChild>
                   <Link href="#services">Explore Services</Link>
                 </Button>
               </div>
@@ -186,37 +191,63 @@ export default function SEOContent() {
         </div>
       </section>
 
+      {/* Results Stats */}
+      <section className="py-12 bg-white">
+        <div className="container px-4 mx-auto">
+          <div className="grid gap-6 md:grid-cols-4 max-w-5xl mx-auto">
+            {results.map((result, index) => (
+              <motion.div
+                key={result.metric}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="text-center"
+              >
+                <div className="text-3xl lg:text-4xl font-bold text-primary mb-2">
+                  {result.metric}
+                </div>
+                <div className="text-sm text-gray-600">
+                  {result.description}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* AI Features Section */}
-      <section className="py-20 bg-secondary/10">
+      <section className="py-16 lg:py-24 bg-gray-50">
         <div className="container px-4 mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl font-bold mb-4">Why Choose AI-Enhanced SEO?</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Traditional SEO methods are slow and outdated. Our AI-powered solutions work 10x faster.
+            <h2 className="text-3xl lg:text-4xl font-bold mb-4 text-gray-900">Why AI-Enhanced SEO?</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Traditional SEO is slow. Our AI-powered approach delivers results 10x faster
             </p>
           </motion.div>
 
-          <div className="grid gap-8 md:grid-cols-4">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto">
             {aiFeatures.map((feature, index) => (
               <motion.div
                 key={feature.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
               >
-                <Card className="h-full">
+                <Card className="h-full hover:shadow-lg transition-shadow duration-300 bg-white border-primary/20">
                   <CardContent className="p-6 text-center">
-                    <div className={`p-4 mb-6 w-fit rounded-xl bg-gradient-to-br mx-auto flex items-center justify-center ${serviceColors.ai} group-hover:scale-110 transition-transform`}>
-                      <feature.icon className="w-8 h-8 text-white" />
+                    <div className="mx-auto mb-4 w-14 h-14 rounded-xl bg-primary flex items-center justify-center">
+                      <feature.icon className="w-7 h-7 text-white" />
                     </div>
-                    <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-                    <p className="text-sm text-muted-foreground">{feature.description}</p>
+                    <h3 className="text-lg font-semibold mb-2 text-gray-900">{feature.title}</h3>
+                    <p className="text-sm text-gray-600 leading-relaxed">{feature.description}</p>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -226,7 +257,7 @@ export default function SEOContent() {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-20">
+      <section id="services" className="py-16 lg:py-24 bg-white">
         <div className="container px-4 mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -234,13 +265,13 @@ export default function SEOContent() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl font-bold mb-4">Comprehensive SEO Services</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Full-spectrum SEO solutions designed to enhance your digital presence
+            <h2 className="text-3xl lg:text-4xl font-bold mb-4 text-gray-900">Comprehensive SEO Services</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Full-spectrum SEO solutions to enhance your digital presence
             </p>
           </motion.div>
 
-          <div className="grid gap-8 md:grid-cols-2">
+          <div className="grid gap-8 md:grid-cols-2 max-w-6xl mx-auto">
             {seoServices.map((service, index) => (
               <motion.div
                 key={service.title}
@@ -248,23 +279,19 @@ export default function SEOContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
+                className="group"
               >
-                <Card className="h-full transition-all duration-300 hover:shadow-xl">
+                <Card className="h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-1 bg-white border-primary/20">
                   <CardContent className="p-6">
-                    <div className={`p-4 mb-6 w-fit rounded-xl bg-gradient-to-br ${
-                      service.title.includes("Technical") ? serviceColors.technical :
-                      service.title.includes("On-Page") ? serviceColors.onpage :
-                      service.title.includes("Off-Page") ? serviceColors.offpage :
-                      serviceColors.analytics
-                    } group-hover:scale-110 transition-transform`}>
-                      <service.icon className="w-8 h-8 text-white" />
+                    <div className="p-4 mb-6 w-fit rounded-xl group-hover:scale-110 transition-transform duration-300 bg-primary/10">
+                      <service.icon className="w-8 h-8 text-primary" />
                     </div>
-                    <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
-                    <p className="text-muted-foreground mb-6">{service.description}</p>
-                    <ul className="space-y-2">
+                    <h3 className="text-xl font-bold mb-3 text-gray-900">{service.title}</h3>
+                    <p className="text-gray-600 mb-6 leading-relaxed">{service.description}</p>
+                    <ul className="space-y-3">
                       {service.benefits.map((benefit) => (
-                        <li key={benefit} className="flex items-center gap-2 text-sm">
-                          <CheckCircle className="w-4 h-4 text-primary" />
+                        <li key={benefit} className="flex items-start gap-2 text-sm text-gray-700">
+                          <CheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5 text-primary" />
                           <span>{benefit}</span>
                         </li>
                       ))}
@@ -278,7 +305,7 @@ export default function SEOContent() {
       </section>
 
       {/* Process Section */}
-      <section className="py-20 bg-secondary/10">
+      <section className="py-16 lg:py-24 bg-gray-50">
         <div className="container px-4 mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -286,13 +313,13 @@ export default function SEOContent() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl font-bold mb-4">Our AI-Powered SEO Process</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              A data-driven, systematic approach to skyrocket your search engine rankings
+            <h2 className="text-3xl lg:text-4xl font-bold mb-4 text-gray-900">Our SEO Process</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              A systematic, data-driven approach to sustainable search success
             </p>
           </motion.div>
 
-          <div className="grid gap-8 md:grid-cols-4">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto">
             {seoProcess.map((step, index) => (
               <motion.div
                 key={step.title}
@@ -302,32 +329,16 @@ export default function SEOContent() {
                 transition={{ delay: index * 0.1 }}
                 className="relative"
               >
-                {index < seoProcess.length - 1 && (
-                  <div className="hidden md:block absolute top-8 left-full w-full h-[2px] bg-primary/20">
-                    <motion.div
-                      className="h-full bg-primary"
-                      initial={{ width: "0%" }}
-                      whileInView={{ width: "100%" }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 1, delay: index * 0.2 }}
-                    />
-                  </div>
-                )}
-                <Card className="h-full">
+                <Card className="h-full bg-white border-primary/20">
                   <CardContent className="p-6 text-center">
-                    <div className={`p-4 mb-6 w-fit rounded-xl bg-gradient-to-br mx-auto flex items-center justify-center ${serviceColors.benefits} group-hover:scale-110 transition-transform`}>
-                      <step.icon className="w-8 h-8 text-white" />
+                    <div className="mx-auto mb-4 w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center relative">
+                      <step.icon className="w-7 h-7 text-primary" />
+                      <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-primary text-white text-xs font-bold flex items-center justify-center">
+                        {index + 1}
+                      </div>
                     </div>
-                    <h3 className="text-lg font-semibold mb-2">{step.title}</h3>
-                    <p className="text-sm text-muted-foreground mb-4">{step.description}</p>
-                    <ul className="space-y-2 text-sm">
-                      {step.features.map((feature) => (
-                        <li key={feature} className="flex items-center gap-2">
-                          <CheckCircle className="w-4 h-4 text-primary" />
-                          <span>{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
+                    <h3 className="text-lg font-semibold mb-2 text-gray-900">{step.title}</h3>
+                    <p className="text-sm text-gray-600 leading-relaxed">{step.description}</p>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -337,31 +348,29 @@ export default function SEOContent() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20">
-        <div className="container px-4 mx-auto">
-          <Card className="overflow-hidden">
-            <CardContent className="p-12 text-center">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-              >
-                <h2 className="text-3xl font-bold mb-4">Ready to Improve Your Search Rankings?</h2>
-                <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-                  Let's analyze, optimize, and grow your website's organic visibility with 
-                  AI-powered SEO strategies.
-                </p>
-                <Button size="lg" className="h-12 px-8" asChild>
-                  <Link href="/contact">
-                    Get Your Free SEO Audit
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Link>
-                </Button>
-              </motion.div>
-            </CardContent>
-          </Card>
+      <section className="py-16 lg:py-24 bg-primary relative overflow-hidden">
+        <div className="absolute inset-0 bg-grid-white/[0.02]" />
+        
+        <div className="container px-4 mx-auto relative">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center max-w-3xl mx-auto"
+          >
+            <h2 className="text-3xl lg:text-4xl font-bold mb-6 text-white">Ready to Dominate Search Results?</h2>
+            <p className="text-lg text-white/90 mb-8 leading-relaxed">
+              Let&apos;s analyze your current SEO performance and create a custom strategy to boost your organic visibility.
+            </p>
+            <Button size="lg" className="h-12 px-8 bg-white text-primary hover:bg-white/90" asChild>
+              <Link href="/contact">
+                Get Your Free SEO Audit
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Link>
+            </Button>
+          </motion.div>
         </div>
       </section>
     </div>
   );
-} 
+}
