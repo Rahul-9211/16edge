@@ -31,8 +31,10 @@ export default function ContactForm({
     name: "",
     company: "",
     email: "",
+    countryCode: "+1",
     phone: "",
     budget: "",
+    customBudget: "",
     message: "",
   });
 
@@ -40,6 +42,7 @@ export default function ContactForm({
     name: "",
     website: "",
     email: "",
+    countryCode: "+1",
     phone: "",
     traffic: "",
     message: "",
@@ -55,6 +58,7 @@ export default function ContactForm({
         await onSubmit(advertiserForm, 'advertiser');
       } else {
         // Default API submission
+        const finalBudget = advertiserForm.budget === 'custom' ? advertiserForm.customBudget : advertiserForm.budget;
         const response = await fetch('/api/email', {
           method: 'POST',
           headers: {
@@ -62,8 +66,9 @@ export default function ContactForm({
           },
           body: JSON.stringify({
             ...advertiserForm,
+            phone: `${advertiserForm.countryCode} ${advertiserForm.phone}`,
             service: 'advertising',
-            budget: advertiserForm.budget
+            budget: finalBudget
           }),
         });
 
@@ -83,8 +88,10 @@ export default function ContactForm({
         name: "",
         company: "",
         email: "",
+        countryCode: "+1",
         phone: "",
         budget: "",
+        customBudget: "",
         message: "",
       });
     } catch (error) {
@@ -115,6 +122,7 @@ export default function ContactForm({
           },
           body: JSON.stringify({
             ...publisherForm,
+            phone: `${publisherForm.countryCode} ${publisherForm.phone}`,
             service: 'publishing',
             company: publisherForm.website
           }),
@@ -136,6 +144,7 @@ export default function ContactForm({
         name: "",
         website: "",
         email: "",
+        countryCode: "+1",
         phone: "",
         traffic: "",
         message: "",
@@ -242,14 +251,36 @@ export default function ContactForm({
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-medium text-gray-700">Phone *</label>
-                    <Input
-                      type="tel"
-                      placeholder="+1 (xxx) xxx-xxxx"
-                      value={advertiserForm.phone}
-                      onChange={(e) => setAdvertiserForm({ ...advertiserForm, phone: e.target.value })}
-                      required
-                      className="bg-white border-gray-300 text-gray-900 placeholder:text-gray-500"
-                    />
+                    <div className="flex gap-2">
+                      <Select
+                        value={advertiserForm.countryCode}
+                        onValueChange={(value) => setAdvertiserForm({ ...advertiserForm, countryCode: value })}
+                      >
+                        <SelectTrigger className="w-24 bg-white border-gray-300 text-gray-900">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="+1">🇺🇸 +1</SelectItem>
+                          <SelectItem value="+44">🇬🇧 +44</SelectItem>
+                          <SelectItem value="+91">🇮🇳 +91</SelectItem>
+                          <SelectItem value="+86">🇨🇳 +86</SelectItem>
+                          <SelectItem value="+81">🇯🇵 +81</SelectItem>
+                          <SelectItem value="+49">🇩🇪 +49</SelectItem>
+                          <SelectItem value="+33">🇫🇷 +33</SelectItem>
+                          <SelectItem value="+61">🇦🇺 +61</SelectItem>
+                          <SelectItem value="+971">🇦🇪 +971</SelectItem>
+                          <SelectItem value="+65">🇸🇬 +65</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <Input
+                        type="tel"
+                        placeholder="(xxx) xxx-xxxx"
+                        value={advertiserForm.phone}
+                        onChange={(e) => setAdvertiserForm({ ...advertiserForm, phone: e.target.value })}
+                        required
+                        className="flex-1 bg-white border-gray-300 text-gray-900 placeholder:text-gray-500"
+                      />
+                    </div>
                   </div>
                 </div>
 
@@ -257,7 +288,7 @@ export default function ContactForm({
                   <label className="text-sm font-medium text-gray-700">Advertising Budget *</label>
                   <Select
                     value={advertiserForm.budget}
-                    onValueChange={(value) => setAdvertiserForm({ ...advertiserForm, budget: value })}
+                    onValueChange={(value) => setAdvertiserForm({ ...advertiserForm, budget: value, customBudget: value === 'custom' ? advertiserForm.customBudget : '' })}
                     required
                   >
                     <SelectTrigger className="bg-white border-gray-300 text-gray-900">
@@ -268,8 +299,20 @@ export default function ContactForm({
                       <SelectItem value="10k-25k">$10,000 - $25,000</SelectItem>
                       <SelectItem value="25k-50k">$25,000 - $50,000</SelectItem>
                       <SelectItem value="50k+">$50,000+</SelectItem>
+                      <SelectItem value="custom">Custom Budget</SelectItem>
                     </SelectContent>
                   </Select>
+                  
+                  {advertiserForm.budget === 'custom' && (
+                    <Input
+                      type="text"
+                      placeholder="Enter your budget (e.g., $75,000)"
+                      value={advertiserForm.customBudget}
+                      onChange={(e) => setAdvertiserForm({ ...advertiserForm, customBudget: e.target.value })}
+                      required
+                      className="bg-white border-gray-300 text-gray-900 placeholder:text-gray-500 mt-2"
+                    />
+                  )}
                 </div>
 
                 <div className="space-y-2">
@@ -336,14 +379,36 @@ export default function ContactForm({
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-medium text-gray-700">Phone *</label>
-                    <Input
-                      type="tel"
-                      placeholder="+1 (xxx) xxx-xxxx"
-                      value={publisherForm.phone}
-                      onChange={(e) => setPublisherForm({ ...publisherForm, phone: e.target.value })}
-                      required
-                      className="bg-white border-gray-300 text-gray-900 placeholder:text-gray-500"
-                    />
+                    <div className="flex gap-2">
+                      <Select
+                        value={publisherForm.countryCode}
+                        onValueChange={(value) => setPublisherForm({ ...publisherForm, countryCode: value })}
+                      >
+                        <SelectTrigger className="w-24 bg-white border-gray-300 text-gray-900">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="+1">🇺🇸 +1</SelectItem>
+                          <SelectItem value="+44">🇬🇧 +44</SelectItem>
+                          <SelectItem value="+91">🇮🇳 +91</SelectItem>
+                          <SelectItem value="+86">🇨🇳 +86</SelectItem>
+                          <SelectItem value="+81">🇯🇵 +81</SelectItem>
+                          <SelectItem value="+49">🇩🇪 +49</SelectItem>
+                          <SelectItem value="+33">🇫🇷 +33</SelectItem>
+                          <SelectItem value="+61">🇦🇺 +61</SelectItem>
+                          <SelectItem value="+971">🇦🇪 +971</SelectItem>
+                          <SelectItem value="+65">🇸🇬 +65</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <Input
+                        type="tel"
+                        placeholder="(xxx) xxx-xxxx"
+                        value={publisherForm.phone}
+                        onChange={(e) => setPublisherForm({ ...publisherForm, phone: e.target.value })}
+                        required
+                        className="flex-1 bg-white border-gray-300 text-gray-900 placeholder:text-gray-500"
+                      />
+                    </div>
                   </div>
                 </div>
 
