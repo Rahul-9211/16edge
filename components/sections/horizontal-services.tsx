@@ -221,12 +221,20 @@ function HorizontalScrollSection({
 
   const getCardOpacity = (index: number) => {
     const diff = Math.abs(index - scrollProgress);
-    return Math.max(0.4, 1 - diff * 0.2);
+    if (diff === 0) return 1; // Active card fully visible
+    return Math.max(0.3, 1 - diff * 0.4); // Inactive cards more transparent
   };
 
   const getCardScale = (index: number) => {
     const diff = Math.abs(index - scrollProgress);
-    return Math.max(0.9, 1 - diff * 0.05);
+    if (diff === 0) return 1; // Active card at full size
+    return Math.max(0.85, 1 - diff * 0.08); // Inactive cards smaller
+  };
+
+  const getCardBlur = (index: number) => {
+    const diff = Math.abs(index - scrollProgress);
+    if (diff === 0) return 'blur(0px)'; // Active card sharp
+    return `blur(${Math.min(diff * 2, 4)}px)`; // Inactive cards blurred
   };
 
   return (
@@ -302,14 +310,15 @@ function HorizontalScrollSection({
                   key={card.id}
                   className={`${isMobile ? 'relative w-full max-w-sm mx-auto' : 'absolute w-80'} ${
                     isMobile ? (isActive ? 'block' : 'hidden') : ''
-                  } ${isMobile ? 'h-auto' : 'h-96'} rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 ease-out cursor-pointer group border-2 ${
-                    isActive ? 'ring-4 ring-primary/20' : 'border-gray-200 hover:border-gray-300'
+                  } ${isMobile ? 'h-auto' : 'h-96'} rounded-2xl transition-all duration-500 ease-out cursor-pointer group border-2 ${
+                    isActive ? 'ring-4 ring-orange-500/40 shadow-2xl' : 'border-gray-200/50 hover:border-gray-300 shadow-lg'
                   }`}
                   style={{
                     backgroundColor: card.backgroundColor,
                     borderColor: isActive ? card.accentColor : undefined,
                     transform: isMobile ? 'none' : `${getCardTransform(index)} scale(${getCardScale(index)})`,
                     opacity: isMobile ? 1 : getCardOpacity(index),
+                    filter: isMobile ? 'none' : getCardBlur(index),
                     transformStyle: isMobile ? 'flat' : 'preserve-3d',
                     zIndex: isMobile ? 'auto' : cards.length - Math.abs(index - Math.round(scrollProgress))
                   }}

@@ -182,7 +182,7 @@ export default function SEOContent() {
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Link>
                 </Button>
-                <Button size="lg" variant="outline" className="h-12 px-8 border-yellow-400 text-white hover:bg-white/10" asChild>
+                <Button size="lg" variant="outline" className="h-12 px-8 border-yellow-400 text-white bg-transparent hover:bg-white/10" asChild>
                   <Link href="#services">Explore Services</Link>
                 </Button>
               </div>
@@ -241,7 +241,7 @@ export default function SEOContent() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, duration: 0.5 }}
               >
-                <Card className="h-full hover:shadow-lg transition-shadow duration-300 bg-white border-primary/20">
+                <Card className="h-full hover:shadow-lg transition-shadow duration-300 bg-white dark:bg-white border-primary/20">
                   <CardContent className="p-6 text-center">
                     <div className="mx-auto mb-4 w-14 h-14 rounded-xl bg-primary flex items-center justify-center">
                       <feature.icon className="w-7 h-7 text-white" />
@@ -281,7 +281,7 @@ export default function SEOContent() {
                 transition={{ delay: index * 0.1 }}
                 className="group"
               >
-                <Card className="h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-1 bg-white border-primary/20">
+                <Card className="h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-1 bg-white dark:bg-white border-primary/20">
                   <CardContent className="p-6">
                     <div className="p-4 mb-6 w-fit rounded-xl group-hover:scale-110 transition-transform duration-300 bg-primary/10">
                       <service.icon className="w-8 h-8 text-primary" />
@@ -329,7 +329,7 @@ export default function SEOContent() {
                 transition={{ delay: index * 0.1 }}
                 className="relative"
               >
-                <Card className="h-full bg-white border-primary/20">
+                <Card className="h-full bg-white dark:bg-white border-primary/20">
                   <CardContent className="p-6 text-center">
                     <div className="mx-auto mb-4 w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center relative">
                       <step.icon className="w-7 h-7 text-primary" />
