@@ -19,7 +19,7 @@ export function Logo({ className, iconOnly }: LogoProps) {
       </div> */}
       {!iconOnly && (
         <span className="font-bold text-xl bg-gradient-to-r from-maroon-600 via-maroon-800 to-burgundy-700 bg-clip-text text-transparent">
-          <Image src="/edge.svg" alt="Logo" width={130} height={100} />
+          <Image src="/edge.svg" alt="Logo" width={200} height={130} />
         </span>
       )}
       
